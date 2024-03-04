@@ -98,7 +98,7 @@
 
         <div class="display-container">
           <div class="sub-title">Super Star</div>
-          <ul id="name-list"></ul>
+          <ul id="card-list"></ul>
         </div>
       </div>
     </div>
@@ -118,38 +118,72 @@
         document.getElementById("quantity").value = value;
       }
 
-      function searchNames() {
-        var mateName = document.getElementById("mate-name").value;
+      function createCard(username, picUrl, accountId) {
+            const cardList = document.getElementById('card-list');
 
-        // Define request body
-        const requestBody = {
-          mateName: mateName,
-        };
+            // Create card element
+            const card = document.createElement('div');
+            card.classList.add('card');
+            card.dataset.accountId = accountId; // Set accountId as a custom data attribute
 
-        // Define request options
-        const requestOptions = {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "x-token":
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNTFkMzM5MGItYzc4Mi00YjA4LWIzY2UtYTI4MzFlOGE2MTc0Iiwicm9sZSI6ImN1c3RvbWVyIn0.8NN3bt7VgFxydyRvhvEAmtyUaZw1ZPKlRN2oCPD6Bhg",
-          },
-          // body: JSON.stringify(requestBody)
-        };
+            // Create image element
+            const img = document.createElement('img');
+            img.src = picUrl;
+            img.alt = 'Profile Image';
 
-        fetch("http://127.0.0.1:8000/chat/chat-room", requestOptions)
-          .then((response) => response.json())
-          .then((data) => {
-            const nameList = document.getElementById("name-list");
-            nameList.innerHTML = ""; // Clear previous results
-            data.data.forEach((item) => {
-              const li = document.createElement("li");
-              li.textContent = item.account_detail.username; // Extract 'username' from each account_detail object
-              nameList.appendChild(li);
+            // Create card detail element
+            const cardDetail = document.createElement('div');
+            cardDetail.classList.add('card-detail');
+
+            // Create card detail name element
+            const cardDetailName = document.createElement('div');
+            cardDetailName.classList.add('card-detail-name');
+            cardDetailName.textContent = username;
+
+            // Append elements to card
+            cardDetail.appendChild(cardDetailName);
+            card.appendChild(img);
+            card.appendChild(cardDetail);
+
+            // Add event listener to card
+            card.addEventListener('click', () => {
+                const accountId = card.dataset.accountId;
+                console.log('Clicked card with accountId:', accountId);
+                // Perform GET request with accountId
             });
-          })
-          .catch((error) => console.error("Error fetching names:", error));
-      }
+
+            // Append card to card list
+            cardList.appendChild(card);
+        }
+
+
+        function getMates() {
+            // Clear previous values
+            const cardList = document.getElementById('card-list');
+            cardList.innerHTML = '';
+
+            // Define request options
+            const requestOptions = {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNGJiNWViZjktMTU0Ni00ODlhLWI3MWUtMDJmZmRkN2Q2YTYwIiwicm9sZSI6Im1hdGUifQ.D7cDoTUOYcX51rAWASjMINhvX1yCOzgBVVfEnyQ0lIQ'
+                },
+                // body: JSON.stringify(requestBody)
+            };
+
+            fetch('http://127.0.0.1:8000/api/controller/get-mates', requestOptions)
+                .then(response => response.json())
+                .then(data => {
+                    data.data.forEach(item => {
+                        const username = item.account_detail.username;
+                        const picUrl = item.account_detail.pic_url;
+                        const accountId = item.account_detail.id;
+                        createCard(username, picUrl, accountId);
+                    });
+                })
+                .catch(error => console.error('Error fetching data:', error));
+        }
     </script>
   </body>
 </html>
