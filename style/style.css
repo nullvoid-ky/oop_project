@@ -1,0 +1,138 @@
+* {
+    padding: 0px;
+    margin: 0px;
+    /* font-family: monospace; */
+
+    font-family: "Roboto Mono", monospace;
+    font-size: 12px;
+}
+
+
+.container {
+    width: 100vw;
+    height: 100%;
+    background-color: antiquewhite;
+}
+
+.title {
+    font-size: 42px;
+    font-weight: 900;
+}
+
+.sub-title {
+    font-size: 16px;
+}
+.logo{
+    width: 60px;
+}
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    position: fixed;
+    z-index: 4;
+    height: 72px;
+    width: 100vw;
+    background-color: azure;
+    border-radius: 0 0 8px 8px;
+}
+
+.nav-title {
+    margin-left: 10%;
+    margin-right: 50%;
+}
+
+.nav-items {
+    display: flex;
+    justify-content: space-between;
+
+    width: 30%;
+    height: 100%;
+    margin-right: 10%;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 300vh;
+    width: 100vw;
+
+}
+
+.nav-items button {
+    color: black;
+    border: 0;
+    height: 100%;
+    padding: 16px;
+}
+.nav-items button:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+    border: 0;
+}
+
+.nav-items button ~ .nav-items button:hover  {
+    color: rgba(0, 0, 0, 0.2);
+    border: 1px solid red;
+}
+.a-content {
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    /* flex-direction: row; */
+
+    margin-top: 150px;
+    height: 320px;
+    width: calc(100vw - 200px);
+}
+
+.a-side {
+    position: relative;
+    width: 60%;
+    border: 2px solid black;
+    padding-top: 10px;
+    padding-left: 10px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    box-sizing: border-box;
+}
+
+.b-side {
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid red;
+    box-sizing: border-box;
+}
+
+.search{
+    margin-top: 80px;
+    background-color: rgb(66, 221, 39);
+    height: 100px;
+    padding-right: 10px;
+    width: calc(100vw - 200px);
+    display: flex;
+    flex-direction: column;
+}
+
+.sub-search {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: row;
+    height: 54px;
+}
+
+
+.display-container{
+    background-color: rgb(246, 244, 124);
+    height: 10%;
+    padding-right: 10px;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}

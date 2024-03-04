@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../style/style.css" />
+    <link rel="shortcut icon" href="http://sstatic.net/so/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <!-- <div class="navbar">
+        <div class="nav-title">
+          <img src="" alt="Logo.png" />
+        </div>
+        <div class="nav-items">
+          <div>Home</div>
+          <div>Book Mate</div>
+          <div>Chat</div>
+          <div>Post</div>
+          <div>Portfolio</div>
+        </div>
+      </div> -->
+      <nav>
+        <div class="nav-title">
+          <img class="logo" src="../img/logo.svg" alt="../img/logo.svg" />
+        </div>
+        <div class="nav-items">
+          <button>Home</button>
+          <button>Mates</button>
+          <button>Chat</button>
+          <button>Post</button>
+          <button>Portfolio</button>
+        </div>
+      </nav>
+
+      <div class="content">
+        <div class="a-content">
+          <div class="a-side">
+            <div class="title">พบปะเพื่อนใหม่ได้ที่ Rent A Mate</div>
+            <div class="sub-title">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi,
+              odio illo accusamus dolores placeat perferendis quis obcaecati
+              eveniet accusantium voluptatibus veritatis deleniti. Fugiat sed
+              nesciunt quaerat laborum harum adipisci quo!
+            </div>
+            <a href=""><button>Book Mate</button></a>
+          </div>
+          <div class="b-side">
+            <img src="../img/pic1.svg" alt="Profile-Pic" />
+          </div>
+        </div>
+
+        <div class="search">
+          <div class="sub-title">ค้นหาเพื่อนใหม่</div>
+          <div class="sub-search">
+            <input
+              type="text"
+              id="mate-name"
+              name="textbox"
+              placeholder="ค้นหาโดยชื่อ"
+            />
+            <input
+              type="text"
+              id="mate-location"
+              name="textbox"
+              placeholder="ค้นหาโดยสถานที่"
+            />
+            <label>
+              <input type="checkbox" name="gender" value="male" />
+              Male
+            </label>
+            <label>
+              <input type="checkbox" name="gender" value="female" />
+              Female
+            </label>
+            <input
+              type="number"
+              id="quantity"
+              name="quantity"
+              min="0"
+              value="0"
+            />
+            <button onclick="increaseValue()">▲</button>
+            <button onclick="decreaseValue()">▼</button>
+            <button onclick="searchNames()">Search</button>
+          </div>
+        </div>
+
+        <div class="display-container">
+          <div class="sub-title">Super Star</div>
+          <ul id="name-list"></ul>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function increaseValue() {
+        var value = parseInt(document.getElementById("quantity").value, 10);
+        value = isNaN(value) ? 0 : value;
+        value++;
+        document.getElementById("quantity").value = value;
+      }
+
+      function decreaseValue() {
+        var value = parseInt(document.getElementById("quantity").value, 10);
+        value = isNaN(value) ? 0 : value;
+        value = value <= 0 ? 0 : value - 1;
+        document.getElementById("quantity").value = value;
+      }
+
+      function searchNames() {
+        var mateName = document.getElementById("mate-name").value;
+
+        // Define request body
+        const requestBody = {
+          mateName: mateName,
+        };
+
+        // Define request options
+        const requestOptions = {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "x-token":
+              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNTFkMzM5MGItYzc4Mi00YjA4LWIzY2UtYTI4MzFlOGE2MTc0Iiwicm9sZSI6ImN1c3RvbWVyIn0.8NN3bt7VgFxydyRvhvEAmtyUaZw1ZPKlRN2oCPD6Bhg",
+          },
+          // body: JSON.stringify(requestBody)
+        };
+
+        fetch("http://127.0.0.1:8000/chat/chat-room", requestOptions)
+          .then((response) => response.json())
+          .then((data) => {
+            const nameList = document.getElementById("name-list");
+            nameList.innerHTML = ""; // Clear previous results
+            data.data.forEach((item) => {
+              const li = document.createElement("li");
+              li.textContent = item.account_detail.username; // Extract 'username' from each account_detail object
+              nameList.appendChild(li);
+            });
+          })
+          .catch((error) => console.error("Error fetching names:", error));
+      }
+    </script>
+  </body>
+</html>
