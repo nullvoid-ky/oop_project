@@ -15,6 +15,7 @@
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap"
       rel="stylesheet"
     />
+    <script src="../script/script.js"></script>
   </head>
   <body>
     <div class="container">
@@ -53,7 +54,7 @@
               eveniet accusantium voluptatibus veritatis deleniti. Fugiat sed
               nesciunt quaerat laborum harum adipisci quo!
             </div>
-            <a href=""><button>Book Mate</button></a>
+            <button class="matn-btn">Book Mate</button>
           </div>
           <div class="b-side">
             <img src="../img/pic1.svg" alt="Profile-Pic" />
@@ -98,58 +99,9 @@
 
         <div class="display-container">
           <div class="sub-title">Super Star</div>
-          <ul id="name-list"></ul>
+          <ul id="card-list"></ul>
         </div>
       </div>
     </div>
-
-    <script>
-      function increaseValue() {
-        var value = parseInt(document.getElementById("quantity").value, 10);
-        value = isNaN(value) ? 0 : value;
-        value++;
-        document.getElementById("quantity").value = value;
-      }
-
-      function decreaseValue() {
-        var value = parseInt(document.getElementById("quantity").value, 10);
-        value = isNaN(value) ? 0 : value;
-        value = value <= 0 ? 0 : value - 1;
-        document.getElementById("quantity").value = value;
-      }
-
-      function searchNames() {
-        var mateName = document.getElementById("mate-name").value;
-
-        // Define request body
-        const requestBody = {
-          mateName: mateName,
-        };
-
-        // Define request options
-        const requestOptions = {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "x-token":
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNTFkMzM5MGItYzc4Mi00YjA4LWIzY2UtYTI4MzFlOGE2MTc0Iiwicm9sZSI6ImN1c3RvbWVyIn0.8NN3bt7VgFxydyRvhvEAmtyUaZw1ZPKlRN2oCPD6Bhg",
-          },
-          // body: JSON.stringify(requestBody)
-        };
-
-        fetch("http://127.0.0.1:8000/chat/chat-room", requestOptions)
-          .then((response) => response.json())
-          .then((data) => {
-            const nameList = document.getElementById("name-list");
-            nameList.innerHTML = ""; // Clear previous results
-            data.data.forEach((item) => {
-              const li = document.createElement("li");
-              li.textContent = item.account_detail.username; // Extract 'username' from each account_detail object
-              nameList.appendChild(li);
-            });
-          })
-          .catch((error) => console.error("Error fetching names:", error));
-      }
-    </script>
   </body>
 </html>

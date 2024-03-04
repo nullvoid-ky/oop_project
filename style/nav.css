@@ -1,0 +1,33 @@
+
+.logo{
+    margin-left: 10%;
+    width: 60px;
+}
+
+nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    position: fixed;
+    z-index: 4;
+    height: 72px;
+    width: 100%;
+    background-color: white;
+    border-radius: 0 0 8px 8px;
+}
+
+.nav-items {
+    margin-right: 10%;
+}
+
+.nav-items *{
+    font-size: 18px;
+    padding: 27px 32px;
+    background-color: transparent;
+    border: 0;
+}
+
+.nav-items *:hover{
+    background-color: rgba(0, 0, 0, 0.1);
+}
