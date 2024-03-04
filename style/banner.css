@@ -1,0 +1,47 @@
+
+.banner{
+    display: flex;
+    flex-direction: row;
+}
+
+.banner-content{
+    flex: 3;
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+}
+
+.banner-content *{
+    margin-top: 24px;
+
+}
+
+.banner-content :nth-child(n+3){
+    margin-top: 42px;
+}
+
+.banner-img{
+    flex: 2;
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.banner-img img{
+    width: 320px;
+    height: 320px;
+}
+.banner button{
+
+    display: flex;
+    align-items: center;
+    border: 0px transparent;
+    border-radius: 8px;
+    width: 240px;
+    height: 52px;
+    padding: 0;
+
+    background-color: #DE89A1;
+    color: white;
+    justify-content: center;
+    align-self: center;
+}

@@ -1,0 +1,87 @@
+
+.search{
+    display: flex;
+    flex-direction: column;
+}
+
+.sub-search {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: row;
+    height: 54px;
+}
+
+.input-text{
+    border: 0px transparent;
+    height: 52px;
+    width: 22%;
+}
+.input-age{
+    display: flex;
+    align-items: center;
+    border: 0px transparent;
+    width: 20%;
+
+    background-color: white;
+}
+
+.input-num{
+    display: flex;
+    align-items: center;
+    border: 0px transparent;
+    width: 40px;
+    background-color: transparent;
+    outline: none;
+    border: none;
+}
+
+.input-gender{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: 0px transparent;
+    width: 16%;
+    background-color: white;
+}
+
+.input-gender label{
+    width: 40%;
+    display: flex;
+    flex-direction: row;
+}
+
+.input-gender label :first-child{
+    margin-right: 8px;
+}
+/* 
+.check-box{
+    border: 1px solid #DE89A1;
+} */
+
+
+
+.search-container{
+    display: flex;
+    justify-content: space-between;
+}
+
+.search-template{
+    border-radius: 8px;
+    border: 0px transparent;
+
+    color: gray;
+    padding-left: 16px;
+}
+.input-search{
+    display: flex;
+    align-items: center;
+    border: 0px transparent;
+    width: 8%;
+    padding: 0;
+
+    background-color: #DE89A1;
+    color: white;
+    justify-content: center;
+
+    box-shadow: 10px;
+}

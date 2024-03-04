@@ -1,0 +1,23 @@
+@import url(banner.css);
+@import url(search.css);
+
+.content-container{
+    display: flex;
+    flex-direction: column;
+
+    margin-top: calc(72px + 80px);
+    width: calc(100vw - 200px);
+}
+
+.content{
+    margin-top: 64px;
+}
+
+.row-container{
+    display: flex;
+    flex-direction: row;
+}
+.column-container{
+    display: flex;
+    flex-direction: column;
+}
