@@ -92,7 +92,7 @@
             />
             <button onclick="increaseValue()">▲</button>
             <button onclick="decreaseValue()">▼</button>
-            <button onclick="searchNames()">Search</button>
+            <button onclick="getMates()">Search</button>
           </div>
         </div>
 
@@ -140,7 +140,12 @@
             cardDetailName.classList.add('card-detail-name');
             cardDetailName.textContent = username;
 
+            const cardDetailLocation = document.createElement('div');
+            cardDetailLocation.classList.add('card-detail-location');
+            cardDetailLocation.textContent = "Bangkok";
+
             // Append elements to card
+            cardDetail.appendChild(cardDetailLocation);
             cardDetail.appendChild(cardDetailName);
             card.appendChild(img);
             card.appendChild(cardDetail);
@@ -167,7 +172,7 @@
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'x-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNGJiNWViZjktMTU0Ni00ODlhLWI3MWUtMDJmZmRkN2Q2YTYwIiwicm9sZSI6Im1hdGUifQ.D7cDoTUOYcX51rAWASjMINhvX1yCOzgBVVfEnyQ0lIQ'
+                    'x-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZTY4ODk2NTctNTllNy00MTAzLWI2ODktYjgzY2VjYTQyZmNhIiwicm9sZSI6ImN1c3RvbWVyIn0.x9dMd5J29oHtsSTGOe-AZHRQaO3ginLs0V9e3HKf_kI'
                 },
                 // body: JSON.stringify(requestBody)
             };
