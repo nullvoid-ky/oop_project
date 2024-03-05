@@ -136,7 +136,10 @@ function createChatRoom(username, picUrl, accountId, timestamp, text) {
         // Set current chat room ID
         currentChatRoomId = accountId;
 
-        getChatHistory(currentChatRoomId);
+        // getChatHistory(currentChatRoomId);
+        setInterval(() => {
+            getChatHistory(currentChatRoomId);
+        }, 1000);
     });
 
     // Append card to card list
@@ -280,7 +283,7 @@ window.onload = function () {
     getChatRooms()
 }
 
-let my_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYThhN2IyYWQtZDIwNi00ZGRhLWIzZGItZGI2YjJhZDNmMDkyIiwicm9sZSI6ImN1c3RvbWVyIn0.Mij38Pwt9xdAY9DJ8J8Gfe2Fi7_DrPTK-s4lseP4rE4';
+let my_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMzZlNDEwMWQtYTAxZC00NzAyLWI5MTYtMDlmMTllMWQwMTgyIiwicm9sZSI6Im1hdGUifQ.GUki6-lC2XKjKgT3VsvNvtyT7z7SbajAL8trkNEye1Q';
 
 // Add event listener to send button
 let currentChatRoomId = null;
