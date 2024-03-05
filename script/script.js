@@ -103,13 +103,8 @@ function createMessageList(username, message_id, text, timestamp, is_edit) {
 
     // Create card element
     const card = document.createElement("div")
-    card.classList.add("chat-room")
+    card.classList.add("message-box")
     card.dataset.accountId = accountId // Set accountId as a custom data attribute
-
-    // Create image element
-    const img = document.createElement("img")
-    img.src = picUrl
-    img.alt = "Profile Image"
 
     // Create card detail element
     const cardDetail = document.createElement("div")
