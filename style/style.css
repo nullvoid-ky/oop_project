@@ -1,186 +1,68 @@
+@import url(nav.css);
+@import url(content.css);
+@import url(card.css);
 * {
     padding: 0px;
     margin: 0px;
-    /* font-family: monospace; */
     font-family: "Roboto Mono", monospace;
-    font-size: 12px;
+}
+html{
+    background: linear-gradient(0deg, rgba(255,255,255,1) 20%, rgba(255,250,229,1) 95%);
+    background-repeat: no-repeat;
 }
 body{
-    background-color: antiquewhite;
-}
-.container {
-    width: 100vw;
-    height: 100%;
+    display: flex;
+    justify-content: center;
+    height: 200vh;
 }
 
-.title {
+.main{
+    display: flex;
+    flex-direction: column;
+
+    margin-top: calc(72px + 80px);
+    background-color: red;
+    width: calc(100vw - 200px);
+}
+
+span{
     font-size: 42px;
     font-weight: 900;
 }
+.colored-text{
+    color: #9888c6;
+}
+h2{
+    font-weight: 100;
+}
 
-.sub-title {
-    font-size: 16px;
-}
-.logo{
-    width: 60px;
-}
-nav {
+.pink-btn{
     display: flex;
-    justify-content: space-between;
     align-items: center;
-
-    position: fixed;
-    z-index: 4;
-    height: 72px;
-    width: 100vw;
-    background-color: azure;
-    border-radius: 0 0 8px 8px;
-}
-
-.nav-title {
-    margin-left: 10%;
-    margin-right: 50%;
-}
-
-.nav-items {
-    display: flex;
-    justify-content: space-between;
-
-    width: 30%;
-    height: 100%;
-    margin-right: 10%;
-}
-
-.content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 300vh;
-    width: 100vw;
-
-}
-
-.nav-items button {
-    color: black;
-    border: 0;
-    height: 100%;
-    padding: 16px;
-}
-.nav-items button:hover {
-    background-color: rgba(0, 0, 0, 0.2);
-    border: 0;
-}
-
-.nav-items button ~ .nav-items button:hover  {
-    color: rgba(0, 0, 0, 0.2);
-    border: 1px solid red;
-}
-.a-content {
-    display: flex;
-    justify-content: center;
-    /* align-items: center; */
-    /* flex-direction: row; */
-
-    margin-top: 150px;
-    height: 320px;
-    width: calc(100vw - 200px);
-}
-
-.a-side {
-    position: relative;
-    width: 60%;
-    border: 2px solid black;
-    padding-top: 10px;
-    padding-left: 10px;
-
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    box-sizing: border-box;
-}
-
-.b-side {
-    width: 40%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 2px solid red;
-    box-sizing: border-box;
-}
-
-.b-side img{
-    width: 320px;
-}
-.search{
-    margin-top: 80px;
-    background-color: rgb(66, 221, 39);
-    height: 100px;
-    padding-right: 10px;
-    width: calc(100vw - 200px);
-    display: flex;
-    flex-direction: column;
-}
-
-.sub-search {
-    margin-top: 16px;
-    display: flex;
-    flex-direction: row;
-    height: 54px;
-}
-
-
-.display-container{
-    background-color: rgb(246, 244, 124);
-    height: 10%;
-    padding-right: 10px;
-    width: 100vw;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-
-.main-btn{
     border-radius: 8px;
-    background-color: #de89a1;
+    border: 0px transparent;
+    padding: 0;
+    background-color: #DE89A1;
+    color: white;
+    justify-content: center;
 }
 
 
-.card {
-    width: 100px;
-    height: 150px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    /* overflow: hidden; */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+.pink-btn:hover{
+    background-color: #d76686;
+    cursor: pointer;
 }
 
-.card img {
+footer{
     display: flex;
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-}
-
-.card-detail {
-    display: flex;
-    flex-direction: column;
+    width: calc(100vw - 96px);
+    background-color: #9888c6;
+    position: absolute;
+    left: 0;
+    bottom: -200vh;
+    color: white;
     text-align: center;
-    padding: 3px;
-    background-color: #f0f0f0;
-}
-
-.card-detail-location {
-    background-color: #e7b9de;
-    font-weight: bold;
-    padding: 8px;
-}
-
-#card-list {
-    display: grid;
-    grid-template-columns: auto auto auto auto;
-    gap: 10px;
-    padding: 20px;
+    height: 240px;
+    border-radius: 16px 16px 0 0 ;
+    padding: 48px
 }
