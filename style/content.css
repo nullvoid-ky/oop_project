@@ -4,12 +4,14 @@
 .content-container{
     display: flex;
     flex-direction: column;
+    align-items: center;
 
     margin-top: calc(72px + 80px);
-    width: calc(100vw - 200px);
+    /* width: calc(100vw - 200px); */
 }
 
 .content{
+    width: calc(100vw - 200px);
     margin-top: 64px;
 }
 
