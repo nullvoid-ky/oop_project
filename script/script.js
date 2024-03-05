@@ -83,3 +83,6 @@ function getMates() {
         })
         .catch((error) => console.error("Error fetching data:", error))
 }
+window.onload = function () {
+    getMates()
+}
