@@ -31,6 +31,9 @@ nav{
     border: 0;
 }
 
-.nav-items *:hover{
+a{
+    width: 50%;
+}
+.nav-items a:hover{
     background-color: rgba(0, 0, 0, 0.1);
 }
