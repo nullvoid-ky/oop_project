@@ -1,0 +1,9 @@
+.chat-room-list{
+    flex: 2;
+    background-color: antiquewhite;
+}
+
+.message-list{
+    flex: 6;
+    background-color: aqua;
+}

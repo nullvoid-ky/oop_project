@@ -13,7 +13,6 @@ html{
 body{
     display: flex;
     justify-content: center;
-    height: 200vh;
 }
 
 .main{
@@ -21,7 +20,6 @@ body{
     flex-direction: column;
 
     margin-top: calc(72px + 80px);
-    background-color: red;
     width: calc(100vw - 200px);
 }
 
