@@ -225,3 +225,6 @@ function getChatHistory() {
         .catch((error) => console.error("Error fetching data:", error))
 }
 
+window.onload = function () {
+    getMates()
+}
