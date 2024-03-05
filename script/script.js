@@ -55,49 +55,6 @@ function createCard(username, picUrl, accountId) {
     cardList.appendChild(card)
 }
 
-function createChatRoom(username, picUrl, accountId, timestamp, text) {
-    const cardList = document.getElementById("chat-room-list")
-
-    // Create card element
-    const card = document.createElement("div")
-    card.classList.add("chat-room")
-    card.dataset.accountId = accountId // Set accountId as a custom data attribute
-
-    // Create image element
-    const img = document.createElement("img")
-    img.src = picUrl
-    img.alt = "Profile Image"
-
-    // Create card detail element
-    const cardDetail = document.createElement("div")
-    cardDetail.classList.add("chat-detail")
-
-    // Create card detail name element
-    const cardDetailName = document.createElement("div")
-    cardDetailName.classList.add("chat-username")
-    cardDetailName.textContent = username
-
-    const cardDetailLocation = document.createElement("div")
-    cardDetailLocation.classList.add("chat-timestamp")
-    cardDetailLocation.textContent = timestamp
-
-    // Append elements to card
-    cardDetail.appendChild(cardDetailLocation)
-    cardDetail.appendChild(cardDetailName)
-    card.appendChild(img)
-    card.appendChild(cardDetail)
-
-    // Add event listener to card
-    card.addEventListener("click", () => {
-        const accountId = card.dataset.accountId
-        console.log("Clicked card with accountId:", accountId)
-        // Perform GET request with accountId
-    })
-
-    // Append card to card list
-    cardList.appendChild(card)
-}
-
 function createMessageList(username, message_id, text, timestamp, is_edit) {
     const cardList = document.getElementById("message-list")
 
@@ -165,6 +122,77 @@ function getMates() {
         .catch((error) => console.error("Error fetching data:", error))
 }
 
+function createChatRoom(username, picUrl, accountId, timestamp, text) {
+    const cardList = document.getElementById("chat-room-list");
+
+    // Create card element
+    const card = document.createElement("div");
+    card.classList.add("chat-room");
+    card.dataset.accountId = accountId; // Set accountId as a custom data attribute
+
+    // Create image element
+    const img = document.createElement("img");
+    img.src = picUrl;
+    img.alt = "Profile Image";
+
+    // Create card detail element
+    const cardDetail = document.createElement("div");
+    cardDetail.classList.add("chat-detail");
+
+    // Create card detail name element
+    const cardDetailName = document.createElement("div");
+    cardDetailName.classList.add("chat-username");
+    cardDetailName.textContent = username;
+
+    // Create card detail timestamp element
+    const cardDetailTimestamp = document.createElement("div");
+    cardDetailTimestamp.classList.add("chat-timestamp");
+    
+    // Set timestamp text content or "No record" if empty
+    if (timestamp === "") {
+        cardDetailTimestamp.textContent = "DD/MM/YY -";
+    } else {
+        cardDetailTimestamp.textContent = timestamp;
+    }
+
+    // Append elements to card
+    cardDetail.appendChild(cardDetailName);
+    cardDetail.appendChild(cardDetailTimestamp);
+    
+    card.appendChild(img);
+    card.appendChild(cardDetail); // Append card detail to card
+
+    // Add event listener to card
+    card.addEventListener("click", () => {
+        const accountId = card.dataset.accountId;
+        console.log("Clicked card with accountId:", accountId);
+        
+        // Clear previous messages
+        const messageList = document.getElementById("message-list");
+        messageList.innerHTML = "";
+        
+        // Set current chat room ID
+        currentChatRoomId = accountId;
+    });
+
+    // Append card to card list
+    cardList.appendChild(card);
+}
+
+function sendMessage() {
+    const messageInput = document.getElementById("message-input");
+    const messageText = messageInput.value;
+    if (messageText.trim() !== "") {
+        // Send message using the messageText and currentChatRoomId
+        console.log("Sending message:", messageText, "to chat room:", currentChatRoomId);
+        // Clear message input after sending
+        messageInput.value = "";
+    }
+}
+
+// Add event listener to send button
+let currentChatRoomId = null;
+
 function getChatRooms() {
     // Clear previous values
     const cardList = document.getElementById("chat-room-list")
@@ -176,7 +204,7 @@ function getChatRooms() {
         headers: {
             "Content-Type": "application/json",
             "x-token":
-                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNTNhNTU4NDItNjdhYy00ODZiLThmOWEtY2EzNDJjNWVlMmYxIiwicm9sZSI6ImN1c3RvbWVyIn0.Id8GhEXMRxNr9KaHD_z18YZz7GvfAMUfJBVbnjJ5I3U",
+                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYTY3NjBhMWQtYzU5YS00NWQ2LTlkMmMtZWEzNDMxOTkwMDUwIiwicm9sZSI6ImN1c3RvbWVyIn0.MhHO0zEh2JEVJWqMZuEuRgIT8Sbm5MQh7i-dyUcebQs",
         },
     }
 
@@ -186,9 +214,10 @@ function getChatRooms() {
             data.data.forEach((item) => {
                 const username = item.account_detail.username
                 const picUrl = item.account_detail.pic_url
+                const accountId = item.account_detail.id
                 const timestamp = item.latest_timestamp
                 const text = item.latest_text
-                createChatRoom(username, picUrl, timestamp, text)
+                createChatRoom(username, picUrl, accountId, timestamp, text)
             })
         })
         .catch((error) => console.error("Error fetching data:", error))
@@ -226,5 +255,5 @@ function getChatHistory() {
 }
 
 window.onload = function () {
-    getMates()
+    getChatRooms()
 }
