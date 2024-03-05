@@ -16,6 +16,17 @@
     height: 52px;
     width: 22%;
 }
+
+
+.input-text::placeholder{
+    color: #bababa;
+}
+
+.input-text:focus::placeholder{
+    color: transparent;
+}
+
+
 .input-age{
     display: flex;
     align-items: center;
@@ -53,12 +64,6 @@
 .input-gender label :first-child{
     margin-right: 8px;
 }
-/* 
-.check-box{
-    border: 1px solid #DE89A1;
-} */
-
-
 
 .search-container{
     display: flex;
@@ -68,20 +73,14 @@
 .search-template{
     border-radius: 8px;
     border: 0px transparent;
-
-    color: gray;
     padding-left: 16px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.1);
 }
+
+.search-template:focus{
+    outline: none;
+}
+
 .input-search{
-    display: flex;
-    align-items: center;
-    border: 0px transparent;
     width: 8%;
-    padding: 0;
-
-    background-color: #DE89A1;
-    color: white;
-    justify-content: center;
-
-    box-shadow: 10px;
 }
