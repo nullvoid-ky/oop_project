@@ -55,44 +55,6 @@ function createCard(username, picUrl, accountId) {
     cardList.appendChild(card)
 }
 
-function createMessageList(username, message_id, text, timestamp, is_edit) {
-    const cardList = document.getElementById("message-list")
-
-    // Create card element
-    const card = document.createElement("div")
-    card.classList.add("message-box")
-    card.dataset.accountId = accountId // Set accountId as a custom data attribute
-
-    // Create card detail element
-    const cardDetail = document.createElement("div")
-    cardDetail.classList.add("chat-detail")
-
-    // Create card detail name element
-    const cardDetailName = document.createElement("div")
-    cardDetailName.classList.add("chat-username")
-    cardDetailName.textContent = username
-
-    const cardDetailLocation = document.createElement("div")
-    cardDetailLocation.classList.add("chat-timestamp")
-    cardDetailLocation.textContent = timestamp
-
-    // Append elements to card
-    cardDetail.appendChild(cardDetailLocation)
-    cardDetail.appendChild(cardDetailName)
-    card.appendChild(img)
-    card.appendChild(cardDetail)
-
-    // Add event listener to card
-    card.addEventListener("click", () => {
-        const accountId = card.dataset.accountId
-        console.log("Clicked card with accountId:", accountId)
-        // Perform GET request with accountId
-    })
-
-    // Append card to card list
-    cardList.appendChild(card)
-}
-
 function getMates() {
     // Clear previous values
     const cardList = document.getElementById("card-list")
@@ -104,7 +66,7 @@ function getMates() {
         headers: {
             "Content-Type": "application/json",
             "x-token":
-                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNTNhNTU4NDItNjdhYy00ODZiLThmOWEtY2EzNDJjNWVlMmYxIiwicm9sZSI6ImN1c3RvbWVyIn0.Id8GhEXMRxNr9KaHD_z18YZz7GvfAMUfJBVbnjJ5I3U",
+                my_token,
         },
         // body: JSON.stringify(requestBody)
     }
@@ -173,6 +135,8 @@ function createChatRoom(username, picUrl, accountId, timestamp, text) {
         
         // Set current chat room ID
         currentChatRoomId = accountId;
+
+        getChatHistory(currentChatRoomId);
     });
 
     // Append card to card list
@@ -183,15 +147,36 @@ function sendMessage() {
     const messageInput = document.getElementById("message-input");
     const messageText = messageInput.value;
     if (messageText.trim() !== "") {
-        // Send message using the messageText and currentChatRoomId
-        console.log("Sending message:", messageText, "to chat room:", currentChatRoomId);
+        const receiverId = currentChatRoomId; // Assuming currentChatRoomId is set elsewhere
+        
+        const requestOptions = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "x-token": my_token
+            },
+            body: JSON.stringify({
+                receiver_id: receiverId,
+                text: messageText,
+            }),
+        };
+
+        fetch("http://127.0.0.1:8000/api/chat/talk", requestOptions)
+            .then((response) => response.json())
+            .then((data) => {
+                console.log("Message sent successfully:", data);
+                getChatHistory(currentChatRoomId);
+                // Optionally, you can handle the response here
+            })
+            .catch((error) => console.error("Error sending message:", error));
+        
         // Clear message input after sending
         messageInput.value = "";
     }
 }
 
-// Add event listener to send button
-let currentChatRoomId = null;
+
+
 
 function getChatRooms() {
     // Clear previous values
@@ -204,7 +189,7 @@ function getChatRooms() {
         headers: {
             "Content-Type": "application/json",
             "x-token":
-                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYTY3NjBhMWQtYzU5YS00NWQ2LTlkMmMtZWEzNDMxOTkwMDUwIiwicm9sZSI6ImN1c3RvbWVyIn0.MhHO0zEh2JEVJWqMZuEuRgIT8Sbm5MQh7i-dyUcebQs",
+                my_token,
         },
     }
 
@@ -224,7 +209,38 @@ function getChatRooms() {
 }
 
 
-function getChatHistory() {
+
+function createMessageList(username, message_id, text, timestamp, is_edit) {
+    const cardList = document.getElementById("message-list")
+
+    // Create card element
+    const card = document.createElement("div")
+    card.classList.add("message-box")
+    card.dataset.accountId = message_id // Set accountId as a custom data attribute
+
+    // Create card detail name element
+    const cardDetailTimestamp = document.createElement("div")
+    cardDetailTimestamp.classList.add("message-timestamp")
+    cardDetailTimestamp.textContent = timestamp
+
+    const cardDetailSender = document.createElement("div")
+    cardDetailSender.classList.add("message-sender")
+    cardDetailSender.textContent = username
+
+    const cardDetailText = document.createElement("div")
+    cardDetailText.classList.add("message-text")
+    cardDetailText.textContent = text
+
+    card.appendChild(cardDetailTimestamp)
+    card.appendChild(cardDetailSender)
+    card.appendChild(cardDetailText)
+
+    // Append card to card list
+    cardList.appendChild(card)
+}
+
+
+function getChatHistory(chatRoomId) {
     // Clear previous values
     const cardList = document.getElementById("message-list")
     cardList.innerHTML = ""
@@ -235,21 +251,27 @@ function getChatHistory() {
         headers: {
             "Content-Type": "application/json",
             "x-token":
-                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNTNhNTU4NDItNjdhYy00ODZiLThmOWEtY2EzNDJjNWVlMmYxIiwicm9sZSI6ImN1c3RvbWVyIn0.Id8GhEXMRxNr9KaHD_z18YZz7GvfAMUfJBVbnjJ5I3U",
+                my_token,
         },
     }
 
-    fetch("http://127.0.0.1:8000/api/chat/chat-room", requestOptions)
+    fetch("http://127.0.0.1:8000/api/chat/chat-history/"+chatRoomId, requestOptions)
         .then((response) => response.json())
         .then((data) => {
-            data.data.forEach((item) => {
-                const username = item.sender_username
-                const message_id = item.message_id
-                const text = item.text
-                const timestamp = item.timestamp
-                const is_edit = item.is_edit
-                createMessageList(username, message_id, text, timestamp, is_edit)
-            })
+            if (data == "No History") {
+                // Handle the case when there is no history
+                console.log("No chat history available");
+            } else {
+                console.log(data)
+                data.forEach((item) => {
+                    const username = item.sender_username;
+                    const message_id = item.message_id;
+                    const text = item.text;
+                    const timestamp = item.timestamp;
+                    const is_edit = item.is_edit;
+                    createMessageList(username, message_id, text, timestamp, is_edit);
+                });
+            }
         })
         .catch((error) => console.error("Error fetching data:", error))
 }
@@ -257,3 +279,8 @@ function getChatHistory() {
 window.onload = function () {
     getChatRooms()
 }
+
+let my_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYThhN2IyYWQtZDIwNi00ZGRhLWIzZGItZGI2YjJhZDNmMDkyIiwicm9sZSI6ImN1c3RvbWVyIn0.Mij38Pwt9xdAY9DJ8J8Gfe2Fi7_DrPTK-s4lseP4rE4';
+
+// Add event listener to send button
+let currentChatRoomId = null;
