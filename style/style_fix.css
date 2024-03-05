@@ -1,0 +1,52 @@
+@import url(nav.css);
+@import url(content.css);
+* {
+    padding: 0px;
+    margin: 0px;
+    font-family: "Roboto Mono", monospace;
+}
+
+body{
+    display: flex;
+    justify-content: center;
+    height: 300vh;
+    background: linear-gradient(0deg, rgba(255,255,255,1) 20%, rgba(255,250,229,1) 95%);
+    background-repeat: no-repeat;
+}
+
+.main{
+    display: flex;
+    flex-direction: column;
+
+    margin-top: calc(72px + 80px);
+    background-color: red;
+    width: calc(100vw - 200px);
+}
+
+span{
+    font-size: 42px;
+    font-weight: 900;
+}
+span:only-child{
+    color: #9888c6;
+}
+h2{
+    font-weight: 100;
+}
+
+.pink-btn{
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+    border: 0px transparent;
+    padding: 0;
+    background-color: #DE89A1;
+    color: white;
+    justify-content: center;
+}
+
+
+.pink-btn:hover{
+    background-color: #d76686;
+    cursor: pointer;
+}

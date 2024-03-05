@@ -1,0 +1,36 @@
+
+.logo{
+    margin-left: 10%;
+    width: 60px;
+}
+
+nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    position: fixed;
+    z-index: 4;
+    height: 54px;
+    width: 100%;
+    background-color: white;
+    border-radius: 0 0 12px 12px;
+
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.1);
+    
+}
+
+.nav-items {
+    margin-right: 10%;
+}
+
+.nav-items *{
+    font-size: 18px;
+    padding: 17px 32px;
+    background-color: transparent;
+    border: 0;
+}
+
+.nav-items *:hover{
+    background-color: rgba(0, 0, 0, 0.1);
+}

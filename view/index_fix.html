@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="../style/style_fix.css" />
+        <script src="../script/script.js"></script>
+        <title>Document</title>
+    </head>
+    <body>
+        <nav>
+            <img class="logo" src="../img/logo.svg" alt="../img/logo.svg" />
+            <div class="nav-items">
+                <button>Home</button>
+                <button>Mates</button>
+                <button>Chat</button>
+                <button>Post</button>
+                <button>Profile</button>
+            </div>
+        </nav>
+        <div class="content-container">
+            <div class="banner">
+                <div class="banner-content">
+                    <span> พบปะเพื่อนใหม่ได้ที่ <span>Rent A Mate</span> </span>
+
+                    <h2>
+                        หาเพื่อนใหม่ได้ง่ายกว่าเดิม จะใกล้หรือไกล
+                        ก็เชื่อมต่อกับทุกคนได้ทุกที่
+                        แล้วมาเปิดประสบการณ์พบเจอเพื่อนใหม่ ๆ ในสถานที่ใหม่ ๆ
+                    </h2>
+                    <button class="pink-btn search-template">Rent Mate</button>
+                </div>
+
+                <div class="banner-img">
+                    <img src="../img/pic1.svg" alt="" />
+                </div>
+            </div>
+
+            <div class="content search">
+                <h3 class="topic">ค้นหาเพื่อนใหม่</h3>
+                <div class="row-container search-container">
+                    <input
+                        class="input-text search-template"
+                        type="text"
+                        id="mate-name"
+                        name="textbox"
+                        placeholder="ค้นหาโดยชื่อ"
+                    />
+                    <input
+                        class="input-text search-template"
+                        type="text"
+                        id="mate-location"
+                        name="textbox"
+                        placeholder="ค้นหาโดยสถานที่"
+                    />
+                    <div class="input-gender search-template">
+                        <label>
+                            <input type="checkbox" name="gender" value="male" />
+                            <h5>Male</h5>
+                        </label>
+                        <label>
+                            <input
+                                type="checkbox"
+                                name="gender"
+                                value="female"
+                            />
+                            <p>Female</p>
+                        </label>
+                    </div>
+                    <div class="input-age search-template">
+                        <p>อายุ</p>
+                        <input
+                            class="input-num"
+                            type="number"
+                            id="quantity"
+                            name="quantity"
+                            min="18"
+                            max="150"
+                            value="18"
+                        />
+                    </div>
+                    <button
+                        class="pink-btn input-search search-template"
+                        onclick="searchNames()"
+                    >
+                        Search
+                    </button>
+                </div>
+            </div>
+            <div class="content top-mate">
+                <h3 class="topic">Top Mates</h3>
+                <div class="row-container">
+                    <ul id="card-list"></ul>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
