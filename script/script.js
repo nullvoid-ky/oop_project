@@ -71,7 +71,7 @@ function getMates() {
         // body: JSON.stringify(requestBody)
     }
 
-    fetch("http://127.0.0.1:8000/api/controller/get-mates", requestOptions)
+    fetch("http://10.66.8.57:8000/api/controller/get-mates", requestOptions)
         .then((response) => response.json())
         .then((data) => {
             data.data.forEach((item) => {
@@ -161,7 +161,7 @@ function sendMessage() {
             }),
         };
 
-        fetch("http://127.0.0.1:8000/api/chat/talk", requestOptions)
+        fetch("http://10.66.8.57:8000/api/chat/talk", requestOptions)
             .then((response) => response.json())
             .then((data) => {
                 console.log("Message sent successfully:", data);
@@ -193,7 +193,7 @@ function getChatRooms() {
         },
     }
 
-    fetch("http://127.0.0.1:8000/api/chat/chat-room", requestOptions)
+    fetch("http://10.66.8.57:8000/api/chat/chat-room", requestOptions)
         .then((response) => response.json())
         .then((data) => {
             data.data.forEach((item) => {
@@ -255,7 +255,7 @@ function getChatHistory(chatRoomId) {
         },
     }
 
-    fetch("http://127.0.0.1:8000/api/chat/chat-history/"+chatRoomId, requestOptions)
+    fetch("http://10.66.8.57:8000/api/chat/chat-history/"+chatRoomId, requestOptions)
         .then((response) => response.json())
         .then((data) => {
             if (data == "No History") {
