@@ -13,41 +13,46 @@ function decreaseValue() {
 }
 
 function createCard(username, picUrl, accountId) {
-    const cardList = document.getElementById("card-list")
+    const cardList = document.getElementById('card-list');
 
     // Create card element
-    const card = document.createElement("div")
-    card.classList.add("card")
-    card.dataset.accountId = accountId // Set accountId as a custom data attribute
+    const card = document.createElement('div');
+    card.classList.add('card');
+    card.dataset.accountId = accountId; // Set accountId as a custom data attribute
 
     // Create image element
-    const img = document.createElement("img")
-    img.src = picUrl
-    img.alt = "Profile Image"
+    const img = document.createElement('img');
+    img.src = picUrl;
+    img.alt = 'Profile Image';
 
     // Create card detail element
-    const cardDetail = document.createElement("div")
-    cardDetail.classList.add("card-detail")
+    const cardDetail = document.createElement('div');
+    cardDetail.classList.add('card-detail');
 
     // Create card detail name element
-    const cardDetailName = document.createElement("div")
-    cardDetailName.classList.add("card-detail-name")
-    cardDetailName.textContent = username
+    const cardDetailName = document.createElement('div');
+    cardDetailName.classList.add('card-detail-name');
+    cardDetailName.textContent = username;
+
+    const cardDetailLocation = document.createElement('div');
+    cardDetailLocation.classList.add('card-detail-location');
+    cardDetailLocation.textContent = "Bangkok";
 
     // Append elements to card
-    cardDetail.appendChild(cardDetailName)
-    card.appendChild(img)
-    card.appendChild(cardDetail)
+    cardDetail.appendChild(cardDetailLocation);
+    cardDetail.appendChild(cardDetailName);
+    card.appendChild(img);
+    card.appendChild(cardDetail);
 
     // Add event listener to card
-    card.addEventListener("click", () => {
-        const accountId = card.dataset.accountId
-        console.log("Clicked card with accountId:", accountId)
+    card.addEventListener('click', () => {
+        const accountId = card.dataset.accountId;
+        console.log('Clicked card with accountId:', accountId);
         // Perform GET request with accountId
-    })
+    });
 
     // Append card to card list
-    cardList.appendChild(card)
+    cardList.appendChild(card);
 }
 
 function getMates() {
@@ -61,7 +66,7 @@ function getMates() {
         headers: {
             "Content-Type": "application/json",
             "x-token":
-                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNGJiNWViZjktMTU0Ni00ODlhLWI3MWUtMDJmZmRkN2Q2YTYwIiwicm9sZSI6Im1hdGUifQ.D7cDoTUOYcX51rAWASjMINhvX1yCOzgBVVfEnyQ0lIQ",
+                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZTIzZmUyZGMtYmU3MC00ZWEyLWEwNjItMGYwZTQyMjVlNDVkIiwicm9sZSI6ImN1c3RvbWVyIn0.z4rJAVOlhnERe4VIiZiqDElmi7ofeArSVkAL6XkMSdA",
         },
         // body: JSON.stringify(requestBody)
     }
