@@ -10,6 +10,8 @@ nav{
     align-items: center;
 
     position: fixed;
+    left: 0;
+    top: 0;
     z-index: 4;
     height: 54px;
     width: 100%;
