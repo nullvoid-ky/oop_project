@@ -6,7 +6,6 @@ let url = 'http://127.0.0.1:8000'
 
 registerBtn.addEventListener("click", () => {
     container.classList.add("active");
-    register();
 })
 
 loginBtn.addEventListener("click", () => {
@@ -50,15 +49,30 @@ function handleFormSubmission(event) {
     // Convert data to JSON string
     const jsonData = JSON.stringify(data);
 
+    console.log(jsonData);
+
+    const username = document.getElementById("create-username").value;
+    const password = document.getElementById("create-password").value;
+    const password_re = document.getElementById("create-password-re").value;
+    const radioButtons = document.querySelectorAll('input[name="account-type"]');
+    let role = "mate"
+    radioButtons.forEach((radioButton) => {
+        if (radioButton.checked) {
+            role = radioButton.value;
+        }
+    });
+
+    // console.log(username, password, role);
+
     const requestOptions = {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            username: data.username,
-            password: data.password,
-            role: data.role
+            username: username,
+            password: password,
+            role: role
         }),
     };
 

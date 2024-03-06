@@ -9,7 +9,7 @@
     <body>
         <div class="container" id="container">
             <div class="form-container sign-up">
-                <form>
+                <form id="registrationForm" onsubmit="handleFormSubmission(event)">
                     <h1>Create Account</h1>
                     <input type="text" id="create-username" placeholder="Username" />
                     <input type="password" id="create-password" placeholder="Password" />
@@ -19,14 +19,14 @@
                         <input
                             type="radio"
                             name="account-type"
-                            value="Renter"
+                            value="customer"
                             checked
                         />
                         Renter<br />
                         <input
                             type="radio"
                             name="account-type"
-                            value="Mate"
+                            value="mate"
                         />
                         Mate<br />
                     </div>
