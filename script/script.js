@@ -65,8 +65,7 @@ function getMates() {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
-            "x-token":
-                my_token,
+            "x-token": my_token,
         },
         // body: JSON.stringify(requestBody)
     }
@@ -85,56 +84,56 @@ function getMates() {
 }
 
 function createChatRoom(username, picUrl, accountId, timestamp, text) {
-    const cardList = document.getElementById("chat-room-list");
+    const cardList = document.getElementById("chat-room-list")
 
     // Create card element
-    const card = document.createElement("div");
-    card.classList.add("chat-room");
-    card.dataset.accountId = accountId; // Set accountId as a custom data attribute
+    const card = document.createElement("div")
+    card.classList.add("chat-room")
+    card.dataset.accountId = accountId // Set accountId as a custom data attribute
 
     // Create image element
-    const img = document.createElement("img");
-    img.src = picUrl;
-    img.alt = "Profile Image";
+    const img = document.createElement("img")
+    img.src = picUrl
+    img.alt = "Profile Image"
 
     // Create card detail element
-    const cardDetail = document.createElement("div");
-    cardDetail.classList.add("chat-detail");
+    const cardDetail = document.createElement("div")
+    cardDetail.classList.add("chat-detail")
 
     // Create card detail name element
-    const cardDetailName = document.createElement("div");
-    cardDetailName.classList.add("chat-username");
-    cardDetailName.textContent = username;
+    const cardDetailName = document.createElement("div")
+    cardDetailName.classList.add("chat-username")
+    cardDetailName.textContent = username
 
     // Create card detail timestamp element
-    const cardDetailTimestamp = document.createElement("div");
-    cardDetailTimestamp.classList.add("chat-timestamp");
-    
+    const cardDetailTimestamp = document.createElement("div")
+    cardDetailTimestamp.classList.add("chat-timestamp")
+
     // Set timestamp text content or "No record" if empty
     if (timestamp === "") {
-        cardDetailTimestamp.textContent = "DD/MM/YY -";
+        cardDetailTimestamp.textContent = "DD/MM/YY -"
     } else {
-        cardDetailTimestamp.textContent = timestamp;
+        cardDetailTimestamp.textContent = timestamp
     }
 
     // Append elements to card
-    cardDetail.appendChild(cardDetailName);
-    cardDetail.appendChild(cardDetailTimestamp);
-    
-    card.appendChild(img);
-    card.appendChild(cardDetail); // Append card detail to card
+    cardDetail.appendChild(cardDetailName)
+    cardDetail.appendChild(cardDetailTimestamp)
+
+    card.appendChild(img)
+    card.appendChild(cardDetail) // Append card detail to card
 
     // Add event listener to card
     card.addEventListener("click", () => {
-        const accountId = card.dataset.accountId;
-        console.log("Clicked card with accountId:", accountId);
-        
+        const accountId = card.dataset.accountId
+        console.log("Clicked card with accountId:", accountId)
+
         // Clear previous messages
-        const messageList = document.getElementById("message-list");
-        messageList.innerHTML = "";
-        
+        const messageList = document.getElementById("message-list")
+        messageList.innerHTML = ""
+
         // Set current chat room ID
-        currentChatRoomId = accountId;
+        currentChatRoomId = accountId
 
         // getChatHistory(currentChatRoomId);
         setInterval(() => {
@@ -143,38 +142,38 @@ function createChatRoom(username, picUrl, accountId, timestamp, text) {
     });
 
     // Append card to card list
-    cardList.appendChild(card);
+    cardList.appendChild(card)
 }
 
 function sendMessage() {
-    const messageInput = document.getElementById("message-input");
-    const messageText = messageInput.value;
+    const messageInput = document.getElementById("message-input")
+    const messageText = messageInput.value
     if (messageText.trim() !== "") {
-        const receiverId = currentChatRoomId; // Assuming currentChatRoomId is set elsewhere
-        
+        const receiverId = currentChatRoomId // Assuming currentChatRoomId is set elsewhere
+
         const requestOptions = {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "x-token": my_token
+                "x-token": my_token,
             },
             body: JSON.stringify({
                 receiver_id: receiverId,
                 text: messageText,
             }),
-        };
+        }
 
         fetch(url+"/api/chat/talk", requestOptions)
             .then((response) => response.json())
             .then((data) => {
-                console.log("Message sent successfully:", data);
-                getChatHistory(currentChatRoomId);
+                console.log("Message sent successfully:", data)
+                getChatHistory(currentChatRoomId)
                 // Optionally, you can handle the response here
             })
-            .catch((error) => console.error("Error sending message:", error));
-        
+            .catch((error) => console.error("Error sending message:", error))
+
         // Clear message input after sending
-        messageInput.value = "";
+        messageInput.value = ""
     }
 }
 
@@ -211,8 +210,6 @@ export function getChatRooms(token) {
         .catch((error) => console.error("Error fetching data:", error))
 }
 
-
-
 function createMessageList(username, message_id, text, timestamp, is_edit) {
     const cardList = document.getElementById("message-list")
 
@@ -242,7 +239,6 @@ function createMessageList(username, message_id, text, timestamp, is_edit) {
     cardList.appendChild(card)
 }
 
-
 function getChatHistory(chatRoomId) {
     // Clear previous values
     const cardList = document.getElementById("message-list")
@@ -253,8 +249,7 @@ function getChatHistory(chatRoomId) {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
-            "x-token":
-                my_token,
+            "x-token": my_token,
         },
     }
 
@@ -263,22 +258,35 @@ function getChatHistory(chatRoomId) {
         .then((data) => {
             if (data == "No History") {
                 // Handle the case when there is no history
-                console.log("No chat history available");
+                console.log("No chat history available")
             } else {
                 console.log(data)
                 data.forEach((item) => {
-                    const username = item.sender_username;
-                    const message_id = item.message_id;
-                    const text = item.text;
-                    const timestamp = item.timestamp;
-                    const is_edit = item.is_edit;
-                    createMessageList(username, message_id, text, timestamp, is_edit);
-                });
+                    const username = item.sender_username
+                    const message_id = item.message_id
+                    const text = item.text
+                    const timestamp = item.timestamp
+                    const is_edit = item.is_edit
+                    createMessageList(
+                        username,
+                        message_id,
+                        text,
+                        timestamp,
+                        is_edit
+                    )
+                })
             }
         })
         .catch((error) => console.error("Error fetching data:", error))
 }
 
+window.onload = function () {
+    getChatRooms()
+}
+function registerPage(buttonId) {
+    var encodedButtonId = encodeURIComponent(buttonId);
+    window.location.href = 'login.html?buttonId=' + encodedButtonId;
+}
 
 let my_token = '';
 let url = 'http://127.0.0.1:8000';
