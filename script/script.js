@@ -111,7 +111,7 @@ function createChatRoom(username, picUrl, accountId, timestamp, text) {
 
     // Set timestamp text content or "No record" if empty
     if (timestamp === "") {
-        cardDetailTimestamp.textContent = "DD/MM/YY -"
+        cardDetailTimestamp.textContent = "มาเริ่มคุยกันเลย -"
     } else {
         cardDetailTimestamp.textContent = timestamp
     }
