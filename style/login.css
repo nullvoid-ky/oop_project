@@ -6,7 +6,7 @@
 
 body{
     background-color: #c9d6ff;
-    background: linear-gradient(180deg, rgba(255,255,255,1) 40%, rgba(255,250,229,1) 95%);
+    background: linear-gradient(0deg, rgba(255,255,255,1) 20%, rgba(255,250,229,1) 95%);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -16,6 +16,12 @@ body{
 
 h1{
     margin-bottom: 24px;
+}
+
+.return-home{
+    position: fixed;
+    top: 0px;
+    left: 0px;
 }
 
 .container{

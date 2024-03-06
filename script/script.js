@@ -278,7 +278,7 @@ window.onload = function () {
 }
 function registerPage(buttonId) {
     var encodedButtonId = encodeURIComponent(buttonId);
-    window.location.href = 'login.html?buttonId=' + encodedButtonId;
+    window.location.href = 'login.html?page=' + encodedButtonId;
 }
 
 let my_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNzMyYWEyOTQtODA4OC00OTlkLWExNWEtOGM4NDMyMzk5Njc1Iiwicm9sZSI6ImN1c3RvbWVyIn0.4tlNJNtLJd-4W3PzlzA_Qo9J4c7YzIxFNL7H01jR1OA';

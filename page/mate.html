@@ -5,41 +5,30 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="../style/style.css" />
         <script src="../script/script.js"></script>
+        <script src="../script/mate.js"></script>
         <title>Document</title>
     </head>
     <body>
         <nav>
             <img class="logo" src="../img/logo.svg" alt="../img/logo.svg" />
             <div class="nav-items">
-                <button>Home</button>
-                <button>Mates</button>
+                <a href="index.html"><button>Home</button></a>
+                <a href="mate.html"><button>Mates</button></a>
                 <a href="chat.html"><button>Chat</button></a>
-                <button>Post</button>
-                <button>Profile</button>
+                <a href="post.html"><button>Post</button></a>
+                <div class="nav-items center" id="user-account">
+                    <!-- <h1>kanyok</h1> -->
+                    <a class="login"  onclick="registerPage('login')""><button>Login</button></a>
+                    <a class="login"  onclick="registerPage('register')"><button>Register</button></a>
+                </div>
             </div>
         </nav>
-        <div class="booking-header-content" style="display: flex; width: 1312px; justify-content: space-around; margin-top: 20px"   >
-            <h1>รายการที่จองไว้</h1>
-            <div class="search-box" style="display: flex; justify-content: space-around;">
-                <input
-                    class="input-text search-template"
-                    type="text"
-                    id="mate-name"
-                    name="textbox"
-                    placeholder="ค้นหารายการ"
-                    style="width: 488px; margin-right: 10px;"
-                />
-                <button class="pink-btn input-search search-template" onclick="getMates()" style="width: 140px;">
-                    Search
-                </button>
-            </div>
-        </div>
-        <div class="">
+        <div class="column-container">
+            <div class="content-container">
+                <div class="mate-header">
+                    <h3>Mates</h3>
+                </div>
 
-        </div>
-        <!-- <div class="content-container">
-        </div> -->
-<!-- 
                 <div class="content search">
                     <h3 class="topic">ค้นหาเพื่อนใหม่</h3>
                     <div class="row-container search-container">
@@ -95,11 +84,12 @@
                         </button>
                     </div>
                 </div>
+
                 <div class="content top-mate">
-                    <h3 class="topic">Top Mates</h3>
                     <ul id="card-list"></ul>
                 </div>
             </div>
+
             <footer>
                 <span>Assiztech</span>
                 <div class="member">
@@ -116,7 +106,7 @@
                         66010473 นายปวิช รุ่งฐานอุดม
                     </ul>
                 </div>
-            </footer> -->
-        <!-- </div>  -->
+            </footer>
+        </div>
     </body>
 </html>
