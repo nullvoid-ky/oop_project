@@ -34,7 +34,7 @@ function register() {
     console.log(username, password, role);
 }
 
-function handleFormSubmission(event) {
+function handleFormSubmissionRegister(event) {
     event.preventDefault(); // Prevent the default form submission
 
     const form = event.target; // Get the form element
@@ -105,15 +105,57 @@ function handleFormSubmission(event) {
         }, 100);
     })
     .catch((error) => {
-        // Handle error
         console.error("Error sending message:", error.message);
-        // You can display error messages or perform other actions here
     });
+}
 
+function handleFormSubmissionLogin(event) {
+    event.preventDefault(); // Prevent the default form submission
 
-    // // Redirect to another page after a short delay to ensure the cookie is set
-    // setTimeout(function() {
-    //     window.location.href = '../view/index.html'; // Redirect to success page
-    // }, 5000);
+    const username = document.getElementById("login-username").value;
+    const password = document.getElementById("login-password").value;
+
+    const requestOptions = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            username: username,
+            password: password,
+        }),
+    };
+
+    fetch(url + "/api/auth/login", requestOptions)
+    .then((response) => {
+        console.log(response.status);
+        if (response.status === 200) {
+            return response.json(); // If status is 201, parse response JSON
+        } else if (response.status === 400) {
+            throw new Error("Account already exists"); // If status is 400, throw error
+        } else {
+            throw new Error("Account already exists"); // For other statuses, throw unexpected error
+        }
+    })
+    .then((data) => {
+        // Handle success response
+        console.log("Message sent successfully:", data);
+
+        // Save data to cookie
+        const cookieData = {
+            token: data.data.token,
+            id: data.data.id,
+            username: data.data.username,
+            pic_url: data.data.pic_url
+        };
+        document.cookie = `userData=${JSON.stringify(cookieData)}; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/`;
+
+        setTimeout(function() {
+            window.location.href = '../view/index.html'; // Redirect to success page
+        }, 100);
+    })
+    .catch((error) => {
+        console.error("Error sending message:", error.message);
+    });
 }
 
