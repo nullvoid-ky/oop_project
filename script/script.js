@@ -279,9 +279,14 @@ function getChatHistory(chatRoomId) {
 window.onload = function () {
     getChatRooms()
 }
+function registerPage(buttonId) {
+    var encodedButtonId = encodeURIComponent(buttonId);
+    window.location.href = 'login.html?buttonId=' + encodedButtonId;
+}
 
 let my_token =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiOWEyZTI1MDMtNWFkOS00ZDIwLWJmZjAtM2VmMGIzZjNjODE2Iiwicm9sZSI6Im1hdGUifQ.pQu2lo0RF4GN3Ubr3cZQMMvkXJHRtgZSFXmoS2X0rp0"
 
 // Add event listener to send button
 let currentChatRoomId = null
+
