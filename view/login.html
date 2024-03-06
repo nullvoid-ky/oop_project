@@ -19,15 +19,30 @@
                     <input type="password" placeholder="Password" />
                     <input type="password" placeholder="Re-Password" />
                     <p>กรุณาใส่พาสเวิร์ดที่มี 8 ตัวอักษรขึ้นไปนะคะ</p>
-                    <button>Sign Up</button>
+                    <div class="checkbox-container">
+                        <input
+                            type="radio"
+                            name="account-type"
+                            value="Renter"
+                            checked
+                        />
+                        Renter<br />
+                        <input
+                            type="radio"
+                            name="account-type"
+                            value="Customer"
+                        />
+                        Mate<br />
+                    </div>
+                    <button>Create Account</button>
                 </form>
             </div>
             <div class="form-container sign-in">
                 <form>
-                    <h1>Sign In</h1>
+                    <h1>Login</h1>
                     <input type="text" placeholder="Username" />
                     <input type="password" placeholder="Password" />
-                    <button>Sign in</button>
+                    <button>Login</button>
                 </form>
             </div>
             <div class="toggle-container">
@@ -35,12 +50,14 @@
                     <div class="toggle-panel toggle-left">
                         <h1>นายท่านกลับมาหาพวกเราใช่ไหม</h1>
                         <p>หากมีข้อมูลในระบบแล้วสามารถ ล็อคอินได้ทันที</p>
-                        <button class="hidden" id="login">Sign In</button>
+                        <button class="hidden" id="login">Login</button>
                     </div>
                     <div class="toggle-panel toggle-right">
                         <h1>สวัสดี, นายท่าน!</h1>
                         <p>ผู้ใช้ใหม่ กรุณาสร้างรหัสใหม่เพื่อใช้บริการ</p>
-                        <button class="hidden" id="register">Sign Up</button>
+                        <button class="hidden" id="register">
+                            Create Account
+                        </button>
                     </div>
                 </div>
             </div>
