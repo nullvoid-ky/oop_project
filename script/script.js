@@ -1,17 +1,3 @@
-function increaseValue() {
-    var value = parseInt(document.getElementById("quantity").value, 10)
-    value = isNaN(value) ? 0 : value
-    value++
-    document.getElementById("quantity").value = value
-}
-
-function decreaseValue() {
-    var value = parseInt(document.getElementById("quantity").value, 10)
-    value = isNaN(value) ? 0 : value
-    value = value <= 0 ? 0 : value - 1
-    document.getElementById("quantity").value = value
-}
-
 function createCard(username, picUrl, accountId) {
     const cardList = document.getElementById("card-list")
 
@@ -284,5 +270,37 @@ function registerPage(buttonId) {
 let my_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNzMyYWEyOTQtODA4OC00OTlkLWExNWEtOGM4NDMyMzk5Njc1Iiwicm9sZSI6ImN1c3RvbWVyIn0.4tlNJNtLJd-4W3PzlzA_Qo9J4c7YzIxFNL7H01jR1OA';
 let url = 'http://127.0.0.1:8000'
 // Add event listener to send button
-let currentChatRoomId = null
 
+
+function getCookie(cookieName) {
+    const name = cookieName + "=";
+    const decodedCookie = decodeURIComponent(document.cookie);
+    console.log(decodedCookie);
+    const cookieArray = decodedCookie.split(';');
+    for(let i = 0; i <cookieArray.length; i++) {
+        let cookie = cookieArray[i];
+        while (cookie.charAt(0) === ' ') {
+            cookie = cookie.substring(1);
+        }
+        if (cookie.indexOf(name) === 0) {
+            return cookie.substring(name.length, cookie.length);
+        }
+    }
+    return "";
+}
+
+// Usage example
+const registrationData = getCookie('userData');
+console.log(registrationData); // Log the value retrieved from the cookie
+if (registrationData !== '') {
+    const data = JSON.parse(registrationData);
+    console.log(data);
+    my_token = data.token;
+    // Do something with the registration data
+} else {
+    console.log('Registration data not found in cookie.');
+}
+
+window.onload = function () {
+    getMates();
+}
