@@ -78,11 +78,11 @@ function registerPage(buttonId) {
 }
 
 let my_token = '';
-let url = 'http://127.0.0.1:8000';
+const url = 'http://127.0.0.1:8000';
 // Add event listener to send button
 
 
-function getCookie(cookieName) {
+export function getCookie(cookieName) {
     const name = cookieName + "=";
     const decodedCookie = decodeURIComponent(document.cookie);
     console.log(decodedCookie);
@@ -114,3 +114,5 @@ if (registrationData !== '') {
 window.onload = function () {
     getMates();
 }
+
+export default url;
