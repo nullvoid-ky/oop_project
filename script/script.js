@@ -71,7 +71,7 @@ function getMates() {
         // body: JSON.stringify(requestBody)
     }
 
-    fetch("http://10.66.8.57:8000/api/controller/get-mates", requestOptions)
+    fetch(url+"/api/controller/get-mates", requestOptions)
         .then((response) => response.json())
         .then((data) => {
             data.data.forEach((item) => {
@@ -164,7 +164,7 @@ function sendMessage() {
             }),
         };
 
-        fetch("http://10.66.8.57:8000/api/chat/talk", requestOptions)
+        fetch(url+"/api/chat/talk", requestOptions)
             .then((response) => response.json())
             .then((data) => {
                 console.log("Message sent successfully:", data);
@@ -181,7 +181,7 @@ function sendMessage() {
 
 
 
-function getChatRooms() {
+export function getChatRooms(token) {
     // Clear previous values
     const cardList = document.getElementById("chat-room-list")
     cardList.innerHTML = ""
@@ -192,11 +192,11 @@ function getChatRooms() {
         headers: {
             "Content-Type": "application/json",
             "x-token":
-                my_token,
+                token,
         },
     }
 
-    fetch("http://10.66.8.57:8000/api/chat/chat-room", requestOptions)
+    fetch(url+"/api/chat/chat-room", requestOptions)
         .then((response) => response.json())
         .then((data) => {
             data.data.forEach((item) => {
@@ -258,7 +258,7 @@ function getChatHistory(chatRoomId) {
         },
     }
 
-    fetch("http://10.66.8.57:8000/api/chat/chat-history/"+chatRoomId, requestOptions)
+    fetch(url+"/api/chat/chat-history/"+chatRoomId, requestOptions)
         .then((response) => response.json())
         .then((data) => {
             if (data == "No History") {
@@ -279,11 +279,42 @@ function getChatHistory(chatRoomId) {
         .catch((error) => console.error("Error fetching data:", error))
 }
 
-window.onload = function () {
-    getChatRooms()
-}
 
-let my_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMzZlNDEwMWQtYTAxZC00NzAyLWI5MTYtMDlmMTllMWQwMTgyIiwicm9sZSI6Im1hdGUifQ.GUki6-lC2XKjKgT3VsvNvtyT7z7SbajAL8trkNEye1Q';
-
+let my_token = '';
+let url = 'http://127.0.0.1:8000';
 // Add event listener to send button
 let currentChatRoomId = null;
+
+export function getCookie(cookieName) {
+    const name = cookieName + "=";
+    const decodedCookie = decodeURIComponent(document.cookie);
+    console.log(decodedCookie);
+    const cookieArray = decodedCookie.split(';');
+    for(let i = 0; i <cookieArray.length; i++) {
+        let cookie = cookieArray[i];
+        while (cookie.charAt(0) === ' ') {
+            cookie = cookie.substring(1);
+        }
+        if (cookie.indexOf(name) === 0) {
+            return cookie.substring(name.length, cookie.length);
+        }
+    }
+    return "";
+}
+
+// Usage example
+const registrationData = getCookie('userData');
+console.log(registrationData); // Log the value retrieved from the cookie
+if (registrationData !== '') {
+    const data = JSON.parse(registrationData);
+    console.log(data);
+    my_token = data.token;
+    // Do something with the registration data
+} else {
+    console.log('Registration data not found in cookie.');
+}
+
+window.onload = function () {
+    getMates();
+    // getChatRooms(my_token);
+}
