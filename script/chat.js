@@ -31,6 +31,8 @@ if (registrationData !== '') {
 }
 
 window.onload = function () {
+    const cardList = document.getElementById("message-list");
+    cardList.innerHTML = "";
     getChatRooms(my_token);
 }
 
