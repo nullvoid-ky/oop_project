@@ -37,20 +37,6 @@ function register() {
 function handleFormSubmissionRegister(event) {
     event.preventDefault(); // Prevent the default form submission
 
-    const form = event.target; // Get the form element
-
-    // Your form submission handling code goes here
-    const formData = new FormData(form);
-    const data = {};
-    formData.forEach((value, key) => {
-        data[key] = value;
-    });
-
-    // Convert data to JSON string
-    const jsonData = JSON.stringify(data);
-
-    console.log(jsonData);
-
     const username = document.getElementById("create-username").value;
     const password = document.getElementById("create-password").value;
     const password_re = document.getElementById("create-password-re").value;
@@ -61,6 +47,18 @@ function handleFormSubmissionRegister(event) {
             role = radioButton.value;
         }
     });
+
+    // Check if passwords match
+    if (password !== password_re) {
+        alert("Passwords do not match. Please try again.");
+        return; // Exit the function early if passwords don't match
+    }
+    
+    // Check if password length is at least 8 characters
+    if (password.length < 8) {
+        alert("Password must be at least 8 characters long.");
+        return; // Exit the function early if password length is insufficient
+    }
 
     // console.log(username, password, role);
 
@@ -84,6 +82,7 @@ function handleFormSubmissionRegister(event) {
         } else if (response.status === 400) {
             throw new Error("Account already exists"); // If status is 400, throw error
         } else {
+            alert("Account already exists.");
             throw new Error("Account already exists"); // For other statuses, throw unexpected error
         }
     })
@@ -132,14 +131,20 @@ function handleFormSubmissionLogin(event) {
         if (response.status === 200) {
             return response.json(); // If status is 201, parse response JSON
         } else if (response.status === 400) {
-            throw new Error("Account already exists"); // If status is 400, throw error
+            alert("Worng username or password");
+            throw new Error("Worng username or password"); // If status is 400, throw error
         } else {
-            throw new Error("Account already exists"); // For other statuses, throw unexpected error
+            throw new Error("Invalid credentials"); // For other statuses, throw unexpected error
         }
     })
     .then((data) => {
+        console.log("Login sent successfully:", data);
+        if (data.status_code === 401) {
+            alert("Worng username or password");
+            throw new Error("Worng username or password"); // If status is 400, throw error
+        }
         // Handle success response
-        console.log("Message sent successfully:", data);
+        
 
         // Save data to cookie
         const cookieData = {
