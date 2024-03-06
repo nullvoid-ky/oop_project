@@ -70,7 +70,7 @@ function getMates() {
         // body: JSON.stringify(requestBody)
     }
 
-    fetch("http://10.66.8.57:8000/api/controller/get-mates", requestOptions)
+    fetch(url + "/api/controller/get-mates", requestOptions)
         .then((response) => response.json())
         .then((data) => {
             data.data.forEach((item) => {
@@ -160,7 +160,7 @@ function sendMessage() {
             }),
         }
 
-        fetch("http://10.66.8.57:8000/api/chat/talk", requestOptions)
+        fetch(url + "/api/chat/talk", requestOptions)
             .then((response) => response.json())
             .then((data) => {
                 console.log("Message sent successfully:", data)
@@ -188,7 +188,7 @@ function getChatRooms() {
         },
     }
 
-    fetch("http://10.66.8.57:8000/api/chat/chat-room", requestOptions)
+    fetch(url + "/api/chat/chat-room", requestOptions)
         .then((response) => response.json())
         .then((data) => {
             data.data.forEach((item) => {
@@ -246,10 +246,7 @@ function getChatHistory(chatRoomId) {
         },
     }
 
-    fetch(
-        "http://10.66.8.57:8000/api/chat/chat-history/" + chatRoomId,
-        requestOptions
-    )
+    fetch(url + "/api/chat/chat-history/"+chatRoomId, requestOptions)
         .then((response) => response.json())
         .then((data) => {
             if (data == "No History") {
@@ -284,9 +281,8 @@ function registerPage(buttonId) {
     window.location.href = 'login.html?buttonId=' + encodedButtonId;
 }
 
-let my_token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiOWEyZTI1MDMtNWFkOS00ZDIwLWJmZjAtM2VmMGIzZjNjODE2Iiwicm9sZSI6Im1hdGUifQ.pQu2lo0RF4GN3Ubr3cZQMMvkXJHRtgZSFXmoS2X0rp0"
-
+let my_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNzMyYWEyOTQtODA4OC00OTlkLWExNWEtOGM4NDMyMzk5Njc1Iiwicm9sZSI6ImN1c3RvbWVyIn0.4tlNJNtLJd-4W3PzlzA_Qo9J4c7YzIxFNL7H01jR1OA';
+let url = 'http://127.0.0.1:8000'
 // Add event listener to send button
 let currentChatRoomId = null
 
