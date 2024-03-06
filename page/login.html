@@ -8,14 +8,16 @@
     </head>
     <body>
         <div class="container" id="container">
-            <a class="return-home" href="index.html">&lt;</a>
+            <a class="return-home" href="index.html">
+                <img src="../img/return.svg" alt="<" />
+            </a>
             <div class="form-container sign-up">
                 <form>
                     <h1>Create Account</h1>
                     <input type="text" placeholder="Username" />
-                    <input type="password" placeholder="Password" />
+                    <input id="pwd" type="password" placeholder="Password" />
                     <input type="password" placeholder="Re-Password" />
-                    <p>กรุณาใส่พาสเวิร์ดที่มี 8 ตัวอักษรขึ้นไปนะคะ</p>
+                    <p id="warning">กรุณาใส่พาสเวิร์ดที่มี 8 ตัวอักษรขึ้นไปนะคะ</p>
                     <div class="checkbox-container">
                         <input
                             type="radio"
