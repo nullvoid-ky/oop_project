@@ -134,6 +134,20 @@ h1{
     animation: move 1s;
 }
 
+.checkbox-container{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+
+    text-align: center;
+    align-items: center;
+}
+
+.checkbox-container > input{
+    width: 25%;
+}
+
+
 @keyframes move{
     0%, 49.99%{
         opacity: 0;
