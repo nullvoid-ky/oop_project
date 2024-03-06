@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="../style/style.css" />
         <link rel="stylesheet" href="../style/chat.css" />
-        <script src="../script/script.js"></script>
+        
         <title>Document</title>
     </head>
     <body>
@@ -16,144 +16,16 @@
                 <a href="mate.html"><button>Mates</button></a>
                 <a href="chat.html"><button>Chat</button></a>
                 <a href="post.html"><button>Post</button></a>
-                <a href="profile.html"><button>Profile</button></a>
+                <div class="nav-items center" id="user-account">
+                    <!-- <h1>kanyok</h1> -->
+                    <a class="login"  onclick="registerPage('login')""><button>Login</button></a>
+                    <a class="login"  onclick="registerPage('register')"><button>Register</button></a>
+                </div>
             </div>
         </nav>
         <div class="center">
             <div class="row-container" style="margin-top: 128px; width: 80%;">
                 <div id="chat-room-list" class="chat-room-list column-container">
-                    <div class="chat-room" id="chat-room">
-                        <img src="" alt="pic">
-                        <div class="chat-detail">
-                            <div id="chat-username" class="chat-username">
-                                Kanyokdebateyourdense
-                            </div>
-                            <div id="chat-timestamp" class="chat-timestamp">
-                                Wed 13th July 2024
-                            </div>
-                        </div>
-                    </div>
-                    <div class="chat-room" id="chat-room">
-                        <img src="" alt="pic">
-                        <div class="chat-detail">
-                            <div id="chat-username" class="chat-username">
-                                Kanyokdebateyourdense
-                            </div>
-                            <div id="chat-timestamp" class="chat-timestamp">
-                                Wed 13th July 2024
-                            </div>
-                        </div>
-                    </div>
-                    <div class="chat-room" id="chat-room">
-                        <img src="" alt="pic">
-                        <div class="chat-detail">
-                            <div id="chat-username" class="chat-username">
-                                Kanyokdebateyourdense
-                            </div>
-                            <div id="chat-timestamp" class="chat-timestamp">
-                                Wed 13th July 2024
-                            </div>
-                        </div>
-                    </div>
-                    <div class="chat-room" id="chat-room">
-                        <img src="" alt="pic">
-                        <div class="chat-detail">
-                            <div id="chat-username" class="chat-username">
-                                Kanyokdebateyourdense
-                            </div>
-                            <div id="chat-timestamp" class="chat-timestamp">
-                                Wed 13th July 2024
-                            </div>
-                        </div>
-                    </div>
-                    <div class="chat-room" id="chat-room">
-                        <img src="" alt="pic">
-                        <div class="chat-detail">
-                            <div id="chat-username" class="chat-username">
-                                Kanyokdebateyourdense
-                            </div>
-                            <div id="chat-timestamp" class="chat-timestamp">
-                                Wed 13th July 2024
-                            </div>
-                        </div>
-                    </div>
-                    <div class="chat-room" id="chat-room">
-                        <img src="" alt="pic">
-                        <div class="chat-detail">
-                            <div id="chat-username" class="chat-username">
-                                Kanyokdebateyourdense
-                            </div>
-                            <div id="chat-timestamp" class="chat-timestamp">
-                                Wed 13th July 2024
-                            </div>
-                        </div>
-                    </div>
-                    <div class="chat-room" id="chat-room">
-                        <img src="" alt="pic">
-                        <div class="chat-detail">
-                            <div id="chat-username" class="chat-username">
-                                Kanyokdebateyourdense
-                            </div>
-                            <div id="chat-timestamp" class="chat-timestamp">
-                                Wed 13th July 2024
-                            </div>
-                        </div>
-                    </div>
-                    <div class="chat-room" id="chat-room">
-                        <img src="" alt="pic">
-                        <div class="chat-detail">
-                            <div id="chat-username" class="chat-username">
-                                Kanyokdebateyourdense
-                            </div>
-                            <div id="chat-timestamp" class="chat-timestamp">
-                                Wed 13th July 2024
-                            </div>
-                        </div>
-                    </div>
-                    <div class="chat-room" id="chat-room">
-                        <img src="" alt="pic">
-                        <div class="chat-detail">
-                            <div id="chat-username" class="chat-username">
-                                Kanyokdebateyourdense
-                            </div>
-                            <div id="chat-timestamp" class="chat-timestamp">
-                                Wed 13th July 2024
-                            </div>
-                        </div>
-                    </div>
-                    <div class="chat-room" id="chat-room">
-                        <img src="" alt="pic">
-                        <div class="chat-detail">
-                            <div id="chat-username" class="chat-username">
-                                Kanyokdebateyourdense
-                            </div>
-                            <div id="chat-timestamp" class="chat-timestamp">
-                                Wed 13th July 2024
-                            </div>
-                        </div>
-                    </div>
-                    <div class="chat-room" id="chat-room">
-                        <img src="" alt="pic">
-                        <div class="chat-detail">
-                            <div id="chat-username" class="chat-username">
-                                Kanyokdebateyourdense
-                            </div>
-                            <div id="chat-timestamp" class="chat-timestamp">
-                                Wed 13th July 2024
-                            </div>
-                        </div>
-                    </div>
-                    <div class="chat-room" id="chat-room">
-                        <img src="" alt="pic">
-                        <div class="chat-detail">
-                            <div id="chat-username" class="chat-username">
-                                Kanyokdebateyourdense
-                            </div>
-                            <div id="chat-timestamp" class="chat-timestamp">
-                                Wed 13th July 2024
-                            </div>
-                        </div>
-                    </div>
                     <div class="chat-room" id="chat-room">
                         <img src="" alt="pic">
                         <div class="chat-detail">
@@ -200,5 +72,6 @@
         </div>
 
         </div>
+        <script src="../script/chat.js"></script>
     </body>
 </html>

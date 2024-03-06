@@ -23,19 +23,48 @@ nav{
 }
 
 .nav-items {
+    display: flex;
+    flex-direction: row;
     margin-right: 10%;
+    
 }
 
-.nav-items *{
+.nav-items a button{
+    border: none;
+    background-color: transparent;
+}
+
+.nav-items a{
+    width: 50%;
     font-size: 18px;
     padding: 17px 32px;
     background-color: transparent;
     border: 0;
 }
 
-a{
-    width: 50%;
+.nav-items div{
+    margin-left: 100px;
+    text-align: center;
+    background-color: transparent;
+    border: 0;
 }
+
+.login {
+    width: 60%;
+    background-color: rgba(255, 0, 0, 0.2);
+    border: 0;
+}
+
+.user{
+    text-decoration:none;
+    font-style: normal;
+    color: black;
+}
+
 .nav-items a:hover{
     background-color: rgba(0, 0, 0, 0.1);
+}
+
+.sub-items{
+    background-color: yellow;
 }
