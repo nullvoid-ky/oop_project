@@ -93,15 +93,27 @@ function handleFormSubmissionRegister(event) {
         // Save data to cookie
         const cookieData = {
             token: data.data.token,
-            id: data.data.id,
-            username: data.data.username,
-            pic_url: data.data.pic_url
         };
         document.cookie = `userData=${JSON.stringify(cookieData)}; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/`;
 
-        setTimeout(function() {
-            window.location.href = '../view/index.html'; // Redirect to success page
-        }, 100);
+        // Call verify_role and handle its asynchronous response
+        verify_role(data.data.token)
+            .then(role => {
+                console.log("role :", role);
+                // Use the role value here
+                if(role == 'customer'){
+                    setTimeout(function() {
+                        window.location.href = '../view/index.html'; // Redirect to success page
+                    }, 100);
+                } else {
+                    setTimeout(function() {
+                        window.location.href = '../view/mate.html'; // Redirect to success page
+                    }, 100);
+                }
+            })
+            .catch(error => {
+                console.error("Error verifying role:", error.message);
+            });
     })
     .catch((error) => {
         console.error("Error sending message:", error.message);
@@ -164,3 +176,33 @@ function handleFormSubmissionLogin(event) {
     });
 }
 
+function verify_role(token) {
+    const requestOptions = {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "x-token": token
+        },
+    };
+
+    // Return the fetch call directly to chain promises
+    return fetch(url + "/api/controller/get-user-profile", requestOptions)
+    .then((response) => {
+        console.log("get-user-profile ", response);
+        if (response.status === 200) {
+            return response.json(); // If status is 200, parse response JSON
+        } else {
+            alert("Verification error");
+            throw new Error("Verification error"); // For other statuses, throw unexpected error
+        }
+    })
+    .then((data) => {
+        // Handle success response
+        console.log("Verification respond:", data);
+        return data.data.role;
+    })
+    .catch((error) => {
+        console.error("Error Verification respond:", error.message);
+        throw error; // Re-throw the error to be caught by the caller
+    });
+}
