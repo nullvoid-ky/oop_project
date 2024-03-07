@@ -33,7 +33,7 @@ if (registrationData !== '') {
 
 window.onload = function () {
     const cardList = document.getElementById("message-list");
-    cardList.innerHTML = "";
+    // cardList.innerHTML = "";
     getChatRooms(my_token);
 }
 
@@ -164,7 +164,7 @@ function sendMessage() {
 function getChatRooms(token) {
     // Clear previous values
     const cardList = document.getElementById("chat-room-list")
-    cardList.innerHTML = ""
+    // cardList.innerHTML = ""
 
     // Define request options
     const requestOptions = {

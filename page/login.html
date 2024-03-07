@@ -8,12 +8,30 @@
     </head>
     <body>
         <div class="container" id="container">
+            <a class="return-home" href="index.html">
+                <img src="../img/return.svg" alt="<" />
+            </a>
             <div class="form-container sign-up">
-                <form id="registrationForm" onsubmit="handleFormSubmissionRegister(event)">
+                <form
+                    id="registrationForm"
+                    onsubmit="handleFormSubmissionRegister(event)"
+                >
                     <h1>Create Account</h1>
-                    <input type="text" id="create-username" placeholder="Username" />
-                    <input type="password" id="create-password" placeholder="Password" />
-                    <input type="password" id="create-password-re" placeholder="Re-Password" />
+                    <input
+                        type="text"
+                        id="create-username"
+                        placeholder="Username"
+                    />
+                    <input
+                        type="password"
+                        id="create-password"
+                        placeholder="Password"
+                    />
+                    <input
+                        type="password"
+                        id="create-password-re"
+                        placeholder="Re-Password"
+                    />
                     <p>กรุณาใส่พาสเวิร์ดที่มี 8 ตัวอักษรขึ้นไปนะคะ</p>
                     <div class="checkbox-container">
                         <input
@@ -23,21 +41,28 @@
                             checked
                         />
                         Renter<br />
-                        <input
-                            type="radio"
-                            name="account-type"
-                            value="mate"
-                        />
+                        <input type="radio" name="account-type" value="mate" />
                         Mate<br />
                     </div>
                     <button>Create Account</button>
                 </form>
             </div>
-            <div class="form-container sign-in" >
-                <form id="loginForm" onsubmit="handleFormSubmissionLogin(event)">
+            <div class="form-container sign-in">
+                <form
+                    id="loginForm"
+                    onsubmit="handleFormSubmissionLogin(event)"
+                >
                     <h1>Login</h1>
-                    <input type="text" id="login-username" placeholder="Username" />
-                    <input type="password" id="login-password" placeholder="Password" />
+                    <input
+                        type="text"
+                        id="login-username"
+                        placeholder="Username"
+                    />
+                    <input
+                        type="password"
+                        id="login-password"
+                        placeholder="Password"
+                    />
                     <button>Login</button>
                 </form>
             </div>

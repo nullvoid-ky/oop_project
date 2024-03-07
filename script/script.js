@@ -56,7 +56,7 @@ function getMates() {
         // body: JSON.stringify(requestBody)
     }
 
-    fetch(url+"/api/controller/get-mates", requestOptions)
+    fetch(url + "/api/controller/get-mates", requestOptions)
         .then((response) => response.json())
         .then((data) => {
             data.data.forEach((item) => {
@@ -83,7 +83,7 @@ let url = 'http://10.66.4.108:8000'
 // Add event listener to send button
 
 
-function getCookie(cookieName) {
+export function getCookie(cookieName) {
     const name = cookieName + "=";
     const decodedCookie = decodeURIComponent(document.cookie);
     console.log(decodedCookie);
@@ -115,3 +115,5 @@ if (registrationData !== '') {
 window.onload = function () {
     getMates();
 }
+
+export default url;
