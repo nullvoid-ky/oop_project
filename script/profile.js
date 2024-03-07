@@ -30,13 +30,13 @@ if (registrationData !== '') {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    const editUsernameBtn = document.getElementById('editUsernameBtn');
+    const editDisplayNameBtn = document.getElementById('editDisplayNameBtn');
     const editPicUrlBtn = document.getElementById('editPicUrlBtn');
 
-    editUsernameBtn.addEventListener('click', function() {
-        const newUsername = prompt('Enter new username:');
-        if (newUsername !== null && newUsername !== '') {
-            updateUsername({ username: newUsername });
+    editDisplayNameBtn.addEventListener('click', function() {
+        const newDisplayName = prompt('Enter new DisplayName:');
+        if (newDisplayName !== null && newDisplayName !== '') {
+            updateDisplayName({ display_name: newDisplayName });
         }
     });
 
@@ -50,8 +50,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Fetch user profile
     fetchUserProfile();
 
-    function updateUsername(data) {
-        fetch(url+"/api/controller/edit-username", {
+    function updateDisplayName(data) {
+        fetch(url+"/api/controller/edit-displayname", {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -128,7 +128,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function updateProfileUI(profileData) {
         // Update the UI with the fetched profile data
-        document.getElementById('username').textContent = profileData.displayname;
+        document.getElementById('displayName').textContent = profileData.display_name;
         document.getElementById('picUrl').textContent = profileData.pic_url;
         document.querySelector('.profile-pic img').setAttribute('src', profileData.pic_url);
         // document.getElementById('moneyLeft').textContent = profileData.money_left;
