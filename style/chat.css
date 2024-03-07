@@ -45,22 +45,20 @@
 }
 .message-container{
     overflow-x: hidden;
+    /* display: none; */
     height: 70vh;
 }
 
 .chat-room{
-    box-sizing: border-box;
-    padding-left: 16px;
-    margin-bottom: 16px;
-    height: 64px;
     display: flex;
+    padding-left: 16px;
+    height: 64px;
+    padding: 10px 0 10px 16px;
 }
 
-.chat-room:first-child{
-    margin-top: 16px;
-}
 .chat-room:hover{
     background-color: rgba(0, 0, 0, 0.1);
+    cursor: pointer;
 }
 
 .chat-room > img{
