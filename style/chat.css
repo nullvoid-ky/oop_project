@@ -6,16 +6,21 @@
 }
 
 .message-list{
-    flex-direction: column;
+    display: flex;
+    flex-direction:column;
     height: 100%;
     width: 47vw;
     overflow-y: scroll;
-    background-color: aqua;
+    background-color: tomato;
+    justify-content: end;
+
+    
 }
 .message-container{
     overflow-y: scroll;
     height: 70vh;
     background-color: aquamarine;
+
 }
 
 .chat-room{
@@ -25,6 +30,14 @@
 
     display: flex;
 }
+
+.chat-room > img{
+    border-radius: 100%;
+    background-color: aquamarine;
+    width: 64px;
+    height: 64px;
+}
+
 .chat-detail{
     margin-left: 16px;
 }
@@ -39,6 +52,7 @@
     flex-direction: row;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     margin-bottom: 1px;
+
 }
 .message-box *{
     margin-left: 8px;
