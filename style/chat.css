@@ -112,6 +112,9 @@
     margin-left: 24px;
     font-weight: 100;
     color: #8f8f8f;
+    font-size: 10px;
+    align-items: center;
+    display: flex;
 }
 .message-sender{
     margin-left: 12px;
