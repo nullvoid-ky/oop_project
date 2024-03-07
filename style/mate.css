@@ -1,8 +1,0 @@
-.mate-header{
-    display: flex;
-    flex-direction: row;
-    justify-content: left;
-    
-    margin-bottom: 16px;
-    width: 100%;
-}
