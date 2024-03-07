@@ -87,6 +87,7 @@ function connectChatRoomWS(chatRoomId){
         console.log(messageDetail);
 
         createMessageList(messageDetail.sender.display_name, messageDetail.id, messageDetail.text, messageDetail.timestamp, false)
+        getChatRooms(my_token);
     };
     // function sendMessage(event) {
     //     var input = document.getElementById("messageText")
@@ -104,6 +105,8 @@ function createChatRoom(username, picUrl, accountId, timestamp, text, chat_room_
     card.classList.add("chat-room")
     card.dataset.accountId = accountId // Set accountId as a custom data attribute
     card.dataset.chatRoomId = chat_room_id
+    card.dataset.picUrl = picUrl
+    card.dataset.username = username
 
     // Create image element
     const img = document.createElement("img");
@@ -154,6 +157,8 @@ function createChatRoom(username, picUrl, accountId, timestamp, text, chat_room_
 
         // Set current chat room ID
         currentChatRoomId = chatRoomId
+
+        updateMessageHeader(card.dataset.picUrl, card.dataset.username)
 
         // getChatHistory(currentChatRoomId);
         // setInterval(() => {
