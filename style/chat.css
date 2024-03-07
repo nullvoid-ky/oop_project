@@ -59,6 +59,9 @@
 .chat-room:first-child{
     margin-top: 16px;
 }
+.chat-room:hover{
+    background-color: rgba(0, 0, 0, 0.1);
+}
 
 .chat-room > img{
     border-radius: 100%;
@@ -82,7 +85,7 @@
     align-items: center;
 }
 
-.current-pic{
+.message-current-pic{
     display: flex;
     width: 42px;
     height: 42px;
@@ -90,7 +93,7 @@
     border-radius: 100%;
     margin-left: 24px;
 }
-.current-name{
+.message-current-name{
     font-size: 16px;
     padding-left: 14px;
     font-weight: bold;
