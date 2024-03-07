@@ -1,6 +1,7 @@
 let my_token = ''
 let currentChatRoomId = null;
-let url = 'http://127.0.0.1:8000'
+// let url = 'http://127.0.0.1:8000'
+let url = 'http://10.66.4.108:8000'
 
 function getCookie(cookieName) {
     const name = cookieName + "=";
@@ -36,13 +37,39 @@ window.onload = function () {
     getChatRooms(my_token);
 }
 
-function createChatRoom(username, picUrl, accountId, timestamp, text) {
+function connectChatRoomWS(chatRoomId){
+    // var ws = new WebSocket("ws://127.0.0.1:8000/api/chat-room/"+chatRoomId);
+    // ws = new WebSocket("ws://127.0.0.1:8000/api/chat-room/" + chatRoomId, ["x-token", my_token]);
+
+    ws = new WebSocket("ws://127.0.0.1:8000/api/chat-room/" + chatRoomId + "/" + my_token);
+    getChatHistory(currentChatRoomId)
+
+    console.log("Connect WS Chat success");
+    ws.onmessage = function(event) {
+        console.log(event.data)
+
+        const respondJsonString = event.data.replace(/'/g, '"');
+        const messageDetail = JSON.parse(respondJsonString);
+        console.log(messageDetail);
+
+        createMessageList(messageDetail.sender.display_name, messageDetail.id, messageDetail.text, messageDetail.timestamp, false)
+    };
+    // function sendMessage(event) {
+    //     var input = document.getElementById("messageText")
+    //     ws.send(input.value)
+    //     input.value = ''
+    //     event.preventDefault()
+    // }
+}
+
+function createChatRoom(username, picUrl, accountId, timestamp, text, chat_room_id) {
     const cardList = document.getElementById("chat-room-list")
 
     // Create card element
     const card = document.createElement("div")
     card.classList.add("chat-room")
     card.dataset.accountId = accountId // Set accountId as a custom data attribute
+    card.dataset.chatRoomId = chat_room_id
 
     // Create image element
     const img = document.createElement("img")
@@ -78,20 +105,22 @@ function createChatRoom(username, picUrl, accountId, timestamp, text) {
 
     // Add event listener to card
     card.addEventListener("click", () => {
-        const accountId = card.dataset.accountId
-        console.log("Clicked card with accountId:", accountId)
+        const chatRoomId = card.dataset.chatRoomId
+        console.log("Clicked card with chatRoomId:", chatRoomId)
 
         // Clear previous messages
         const messageList = document.getElementById("message-list")
         messageList.innerHTML = ""
 
         // Set current chat room ID
-        currentChatRoomId = accountId
+        currentChatRoomId = chatRoomId
 
         // getChatHistory(currentChatRoomId);
-        setInterval(() => {
-            getChatHistory(currentChatRoomId);
-        }, 1000);
+        // setInterval(() => {
+        //     getChatHistory(currentChatRoomId);
+        // }, 1000);
+
+        connectChatRoomWS(currentChatRoomId);
     });
 
     // Append card to card list
@@ -104,26 +133,28 @@ function sendMessage() {
     if (messageText.trim() !== "") {
         const receiverId = currentChatRoomId // Assuming currentChatRoomId is set elsewhere
 
-        const requestOptions = {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "x-token": my_token,
-            },
-            body: JSON.stringify({
-                receiver_id: receiverId,
-                text: messageText,
-            }),
-        }
+        // const requestOptions = {
+        //     method: "POST",
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //         "x-token": my_token,
+        //     },
+        //     body: JSON.stringify({
+        //         receiver_id: receiverId,
+        //         text: messageText,
+        //     }),
+        // }
 
-        fetch(url+"/api/chat/talk", requestOptions)
-            .then((response) => response.json())
-            .then((data) => {
-                console.log("Message sent successfully:", data)
-                getChatHistory(currentChatRoomId)
-                // Optionally, you can handle the response here
-            })
-            .catch((error) => console.error("Error sending message:", error))
+        // fetch(url+"/api/chat/talk", requestOptions)
+        //     .then((response) => response.json())
+        //     .then((data) => {
+        //         console.log("Message sent successfully:", data)
+        //         getChatHistory(currentChatRoomId)
+        //         // Optionally, you can handle the response here
+        //     })
+        //     .catch((error) => console.error("Error sending message:", error))
+
+        ws.send(messageText)
 
         // Clear message input after sending
         messageInput.value = ""
@@ -154,7 +185,8 @@ function getChatRooms(token) {
                 const accountId = item.account_detail.id
                 const timestamp = item.latest_timestamp
                 const text = item.latest_text
-                createChatRoom(username, picUrl, accountId, timestamp, text)
+                const chat_room_id = item.chat_room_id
+                createChatRoom(username, picUrl, accountId, timestamp, text, chat_room_id)
             })
         })
         .catch((error) => console.error("Error fetching data:", error))
@@ -206,17 +238,19 @@ function getChatHistory(chatRoomId) {
     fetch(url+"/api/chat/chat-history/"+chatRoomId, requestOptions)
         .then((response) => response.json())
         .then((data) => {
+            console.log("Respond of chat-history")
+            console.log(data)
             if (data == "No History") {
                 // Handle the case when there is no history
                 console.log("No chat history available")
             } else {
-                console.log(data)
-                data.forEach((item) => {
-                    const username = item.sender_username
-                    const message_id = item.message_id
+                console.log(data.data)
+                data.data.forEach((item) => {
+                    const username = item.sender.display_name
+                    const message_id = item.id
                     const text = item.text
                     const timestamp = item.timestamp
-                    const is_edit = item.is_edit
+                    const is_edit = false
                     createMessageList(
                         username,
                         message_id,

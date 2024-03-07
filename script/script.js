@@ -78,7 +78,8 @@ function registerPage(buttonId) {
 }
 
 let my_token = '';
-let url = 'http://127.0.0.1:8000';
+// let url = 'http://127.0.0.1:8000';
+let url = 'http://10.66.4.108:8000'
 // Add event listener to send button
 
 
