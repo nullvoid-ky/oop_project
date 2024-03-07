@@ -135,3 +135,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // document.getElementById('moneyLeft').textContent = profileData.money_left;
     }
 });
+
+function logOut(){
+    document.cookie = "userData=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+}

@@ -101,19 +101,29 @@ function getCookie(cookieName) {
 }
 
 // Usage example
-const registrationData = getCookie('userData');
-console.log(registrationData); // Log the value retrieved from the cookie
-if (registrationData !== '') {
-    const data = JSON.parse(registrationData);
-    console.log(data);
-    my_token = data.token;
-    // Do something with the registration data
-} else {
-    console.log('Registration data not found in cookie.');
+function registrationCookie(){
+    const registrationData = getCookie('userData');
+    console.log(registrationData); // Log the value retrieved from the cookie
+    if (registrationData !== '') {
+        const data = JSON.parse(registrationData);
+        console.log(data);
+        my_token = data.token;
+        // Do something with the registration data
+        let loginNav = document.getElementById('login');
+        loginNav.style.cssText = "display: none;"
+        let registerNav = document.getElementById('register');
+        registerNav.style.cssText = "display: none;"
+    } else {
+        console.log('Registration data not found in cookie.');
+        let progileNav = document.getElementById('profile');
+        progileNav.style.cssText = "display: none;"
+    }
+        
 }
 
 window.onload = function () {
     getMates();
+    registrationCookie();
 }
 
 // export default url;

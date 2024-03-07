@@ -27,8 +27,10 @@ if (registrationData !== "") {
     console.log(data);
     my_token = data.token;
     // Do something with the registration data
+    
 } else {
     console.log("Registration data not found in cookie.");
+
 }
 
 window.onload = function () {
