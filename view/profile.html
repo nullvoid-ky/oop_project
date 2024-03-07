@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile Page</title>
+  <link rel="stylesheet" href="../style/profile.css">
+  <link rel="stylesheet" href="../style/nav.css">
+</head>
+<body>
+    <nav>
+        <img class="logo" src="../img/logo.svg" alt="../img/logo.svg" />
+        <div class="nav-items">
+            <a href="index.html"><button>Home</button></a>
+            <a href="mate.html"><button>Mates</button></a>
+            <a href="chat.html"><button>Chat</button></a>
+            <a href="post.html"><button>Post</button></a>
+        </div>
+    </nav>
+    <div class="profile-container">
+        <div class="profile-pic">
+        <img src="" alt="Profile Picture">
+        </div>
+        <div class="profile-info">
+        <div class="username">
+            <span>Username: </span>
+            <span id="username">JohnDoe</span>
+            <button id="editUsernameBtn">Edit</button>
+        </div>
+        <div class="pic-url">
+            <span>Pic URL: </span>
+            <span id="picUrl">http://example.com/pic.jpg</span>
+            <button id="editPicUrlBtn">Edit</button>
+        </div>
+        <div class="money-left">
+            <span>Money Left in Account: </span>
+            <span id="moneyLeft">$100</span>
+        </div>
+        </div>
+    </div>
+    <script src="../script/profile.js"></script>
+</body>
+</html>
