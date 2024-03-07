@@ -27,7 +27,7 @@ if (registrationData !== "") {
     console.log(data);
     my_token = data.token;
     // Do something with the registration data
-    
+
 } else {
     console.log("Registration data not found in cookie.");
 
@@ -130,7 +130,7 @@ function createChatRoom(username, picUrl, accountId, timestamp, text, chat_room_
 
     // Set timestamp text content or "No record" if empty
     if (timestamp === "") {
-        cardDetailTimestamp.textContent = "DD/MM/YY -";
+        cardDetailTimestamp.textContent = "มาเริ่มคุยกันเลย";
     } else {
         cardDetailTimestamp.textContent = timestamp;
     }
