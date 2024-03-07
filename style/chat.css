@@ -44,7 +44,7 @@
     overflow-x: hidden;
 }
 .message-container{
-    /* overflow-x: hidden; */
+    overflow-x: hidden;
     height: 70vh;
 }
 

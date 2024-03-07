@@ -83,7 +83,7 @@ let url = 'http://10.66.4.108:8000'
 // Add event listener to send button
 
 
-export function getCookie(cookieName) {
+function getCookie(cookieName) {
     const name = cookieName + "=";
     const decodedCookie = decodeURIComponent(document.cookie);
     console.log(decodedCookie);
@@ -116,4 +116,4 @@ window.onload = function () {
     getMates();
 }
 
-export default url;
+// export default url;

@@ -104,11 +104,11 @@ function handleFormSubmissionRegister(event) {
                 // Use the role value here
                 if(role == 'customer'){
                     setTimeout(function() {
-                        window.location.href = '../view/index.html'; // Redirect to success page
+                        window.location.href = 'index.html'; // Redirect to success page
                     }, 100);
                 } else {
                     setTimeout(function() {
-                        window.location.href = '../view/mate.html'; // Redirect to success page
+                        window.location.href = 'mate.html'; // Redirect to success page
                     }, 100);
                 }
             })
@@ -174,11 +174,11 @@ function handleFormSubmissionLogin(event) {
                 // Use the role value here
                 if(role == 'customer'){
                     setTimeout(function() {
-                        window.location.href = '../view/index.html'; // Redirect to success page
+                        window.location.href = 'index.html'; // Redirect to success page
                     }, 100);
                 } else {
                     setTimeout(function() {
-                        window.location.href = '../view/mate.html'; // Redirect to success page
+                        window.location.href = 'mate.html'; // Redirect to success page
                     }, 100);
                 }
             })
@@ -187,7 +187,7 @@ function handleFormSubmissionLogin(event) {
             });
 
         setTimeout(function() {
-            window.location.href = '../view/index.html'; // Redirect to success page
+            window.location.href = 'index.html'; // Redirect to success page
         }, 100);
     })
     .catch((error) => {

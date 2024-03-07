@@ -33,8 +33,29 @@ if (registrationData !== '') {
 
 window.onload = function () {
     const cardList = document.getElementById("message-list");
-    // cardList.innerHTML = "";
+    cardList.innerHTML = "";
+    displayMessage(false);
+
     getChatRooms(my_token);
+}
+
+function displayMessage(isDisplay){
+    if(isDisplay){
+        const messageProfile = document.querySelector('.message-container');
+        if (messageProfile) {
+            messageProfile.style.display = 'flex';
+        } else {
+            console.error('Element with class "message-chat-current" not found.');
+        }
+    } else {
+        const messageProfile = document.querySelector('.message-container');
+        if (messageProfile) {
+            messageProfile.style.display = 'none';
+        } else {
+            console.error('Element with class "message-chat-current" not found.');
+        }
+    }
+
 }
 
 function connectChatRoomWS(chatRoomId){
@@ -42,6 +63,7 @@ function connectChatRoomWS(chatRoomId){
     // ws = new WebSocket("ws://127.0.0.1:8000/api/chat-room/" + chatRoomId, ["x-token", my_token]);
 
     ws = new WebSocket(ws_url + "/api/chat-room/" + chatRoomId + "/" + my_token);
+    displayMessage(true)
     getChatHistory(currentChatRoomId)
 
     console.log("Connect WS Chat success");
@@ -85,6 +107,11 @@ function createChatRoom(username, picUrl, accountId, timestamp, text, chat_room_
     cardDetailName.classList.add("chat-username")
     cardDetailName.textContent = username
 
+    // chat-latest-msg
+    const cardDetailText = document.createElement("div")
+    cardDetailText.classList.add("chat-latest-msg")
+    cardDetailText.textContent = text
+
     // Create card detail timestamp element
     const cardDetailTimestamp = document.createElement("div")
     cardDetailTimestamp.classList.add("chat-timestamp")
@@ -98,6 +125,7 @@ function createChatRoom(username, picUrl, accountId, timestamp, text, chat_room_
 
     // Append elements to card
     cardDetail.appendChild(cardDetailName)
+    cardDetail.appendChild(cardDetailText)
     cardDetail.appendChild(cardDetailTimestamp)
 
     card.appendChild(img)
@@ -164,7 +192,7 @@ function sendMessage() {
 function getChatRooms(token) {
     // Clear previous values
     const cardList = document.getElementById("chat-room-list")
-    // cardList.innerHTML = ""
+    cardList.innerHTML = ""
 
     // Define request options
     const requestOptions = {
