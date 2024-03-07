@@ -1,0 +1,40 @@
+
+.banner{
+    width: calc(100vw - 200px);
+    display: flex;
+    flex-direction: row;
+}
+
+.banner-content{
+    flex: 3;
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+}
+
+.banner-content *{
+    margin-top: 24px;
+
+}
+
+.banner-content :nth-child(n+3){
+    margin-top: 42px;
+}
+
+.banner-img{
+    flex: 2;
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.banner-img img{
+    width: 320px;
+    height: 320px;
+}
+.banner button{
+    font-size: 18px;
+    display: flex;
+    align-self: center;
+    width: 240px;
+    height: 52px;
+}
