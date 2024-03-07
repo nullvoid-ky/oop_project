@@ -12,12 +12,27 @@
                 <img src="../img/return.svg" alt="<" />
             </a>
             <div class="form-container sign-up">
-                <form>
+                <form
+                    id="registrationForm"
+                    onsubmit="handleFormSubmissionRegister(event)"
+                >
                     <h1>Create Account</h1>
-                    <input type="text" placeholder="Username" />
-                    <input id="pwd" type="password" placeholder="Password" />
-                    <input type="password" placeholder="Re-Password" />
-                    <p id="warning">กรุณาใส่พาสเวิร์ดที่มี 8 ตัวอักษรขึ้นไปนะคะ</p>
+                    <input
+                        type="text"
+                        id="create-username"
+                        placeholder="Username"
+                    />
+                    <input
+                        type="password"
+                        id="create-password"
+                        placeholder="Password"
+                    />
+                    <input
+                        type="password"
+                        id="create-password-re"
+                        placeholder="Re-Password"
+                    />
+                    <p>กรุณาใส่พาสเวิร์ดที่มี 8 ตัวอักษรขึ้นไปนะคะ</p>
                     <div class="checkbox-container">
                         <input
                             type="radio"
@@ -26,17 +41,28 @@
                             checked
                         />
                         Renter<br />
-                        <input type="radio" name="account-type" value="Mate" />
+                        <input type="radio" name="account-type" value="mate" />
                         Mate<br />
                     </div>
                     <button>Create Account</button>
                 </form>
             </div>
             <div class="form-container sign-in">
-                <form>
+                <form
+                    id="loginForm"
+                    onsubmit="handleFormSubmissionLogin(event)"
+                >
                     <h1>Login</h1>
-                    <input type="text" placeholder="Username" />
-                    <input type="password" placeholder="Password" />
+                    <input
+                        type="text"
+                        id="login-username"
+                        placeholder="Username"
+                    />
+                    <input
+                        type="password"
+                        id="login-password"
+                        placeholder="Password"
+                    />
                     <button>Login</button>
                 </form>
             </div>

@@ -179,6 +179,24 @@ function handleFormSubmissionLogin(event) {
         };
         document.cookie = `userData=${JSON.stringify(cookieData)}; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/`;
 
+        verify_role(data.data.token)
+            .then(role => {
+                console.log("role :", role);
+                // Use the role value here
+                if(role == 'customer'){
+                    setTimeout(function() {
+                        window.location.href = '../view/index.html'; // Redirect to success page
+                    }, 100);
+                } else {
+                    setTimeout(function() {
+                        window.location.href = '../view/mate.html'; // Redirect to success page
+                    }, 100);
+                }
+            })
+            .catch(error => {
+                console.error("Error verifying role:", error.message);
+            });
+
         setTimeout(function() {
             window.location.href = '../view/index.html'; // Redirect to success page
         }, 100);
