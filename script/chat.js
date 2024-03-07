@@ -58,6 +58,16 @@ function displayMessage(isDisplay){
 
 }
 
+function updateMessageHeader(picUrl, displayName){
+
+    const img = document.getElementById("message-current-pic")
+    img.src = picUrl
+    img.alt = "Profile Image"
+
+    const msgDisplayName = document.getElementById("message-current-name")
+    msgDisplayName.textContent = displayName
+}
+
 function connectChatRoomWS(chatRoomId){
     // var ws = new WebSocket("ws://127.0.0.1:8000/api/chat-room/"+chatRoomId);
     // ws = new WebSocket("ws://127.0.0.1:8000/api/chat-room/" + chatRoomId, ["x-token", my_token]);
