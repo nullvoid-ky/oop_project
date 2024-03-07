@@ -19,8 +19,9 @@
                 <a href="booking.html"><button>Booking</button></a>
                 <div class="nav-items center" id="user-account">
                     <!-- <h1>kanyok</h1> -->
-                    <a class="login"  onclick="registerPage('login')""><button>Login</button></a>
-                    <a class="login"  onclick="registerPage('register')"><button>Register</button></a>
+                    <a id="login" class="login"  onclick="registerPage('login')""><button>Login</button></a>
+                    <a id="register" class="login register"  onclick="registerPage('register')"><button>Register</button></a>
+                    <a id="profile" href="profile.html"><button>Profile</button></a>
                 </div>
             </div>
         </nav>
@@ -79,7 +80,7 @@
                         </div>
                         <button
                             class="pink-btn input-search search-template"
-                            onclick="getMates()"
+                            onclick="searchMates()"
                         >
                             Search
                         </button>

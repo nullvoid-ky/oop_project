@@ -1,3 +1,8 @@
+let my_token = '';
+let url = 'http://127.0.0.1:8000';
+// let url = 'http://10.66.4.108:8000'
+
+
 function createCard(username, picUrl, accountId) {
     const cardList = document.getElementById("card-list")
 
@@ -59,6 +64,7 @@ function getMates() {
     fetch(url + "/api/controller/get-mates", requestOptions)
         .then((response) => response.json())
         .then((data) => {
+            console.log("Fetch mates: ", data)
             data.data.forEach((item) => {
                 const username = item.account_detail.username
                 const picUrl = item.account_detail.pic_url
@@ -69,19 +75,53 @@ function getMates() {
         .catch((error) => console.error("Error fetching data:", error))
 }
 
-window.onload = function () {
-    getChatRooms()
+
+function searchMates() {
+    // Clear previous values
+    const cardList = document.getElementById("card-list")
+    cardList.innerHTML = ""
+
+    const nameText = document.getElementById("mate-name").value
+
+    // Define request options
+    const requestOptions = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "x-token": my_token,
+        },
+        body: JSON.stringify({
+            name: nameText,
+            location: "",
+            gender: "",
+            age: 18
+        })
+    }
+
+    fetch(url + "/api/controller/search-mates", requestOptions)
+        .then((response) => response.json())
+        .then((data) => {
+            console.log("Fetch mates: ", data)
+            data.data.forEach((item) => {
+                const username = item.account_detail.username
+                const picUrl = item.account_detail.pic_url
+                const accountId = item.account_detail.id
+                createCard(username, picUrl, accountId)
+            })
+        })
+        .catch((error) => console.error("Error fetching data:", error))
 }
+
+
+window.onload = function () {
+    registrationCookie();
+    getMates();
+}
+
 function registerPage(buttonId) {
     var encodedButtonId = encodeURIComponent(buttonId);
     window.location.href = 'login.html?buttonId=' + encodedButtonId;
 }
-
-let my_token = '';
-// let url = 'http://127.0.0.1:8000';
-let url = 'http://10.66.4.108:8000'
-// Add event listener to send button
-
 
 function getCookie(cookieName) {
     const name = cookieName + "=";
@@ -121,9 +161,3 @@ function registrationCookie(){
         
 }
 
-window.onload = function () {
-    getMates();
-    registrationCookie();
-}
-
-// export default url;

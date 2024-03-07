@@ -1,8 +1,11 @@
 let my_token = "";
 let currentChatRoomId = null;
-// let url = 'http://127.0.0.1:8000'
-let url = 'http://10.66.4.108:8000'
-let ws_url = 'ws://10.66.4.108:8000'
+let url = 'http://127.0.0.1:8000'
+let ws_url = 'ws://127.0.0.1:8000'
+
+// let url = 'http://10.66.4.108:8000'
+// let ws_url = 'ws://10.66.4.108:8000'
+
 function getCookie(cookieName) {
     const name = cookieName + "=";
     const decodedCookie = decodeURIComponent(document.cookie);
@@ -225,12 +228,13 @@ function getChatRooms(token) {
         .then((data) => {
             data.data.forEach((item) => {
                 const username = item.account_detail.username
+                const displayName = item.account_detail.display_name
                 const picUrl = item.account_detail.pic_url
                 const accountId = item.account_detail.id
                 const timestamp = item.latest_timestamp
                 const text = item.latest_text
                 const chat_room_id = item.chat_room_id
-                createChatRoom(username, picUrl, accountId, timestamp, text, chat_room_id)
+                createChatRoom(displayName, picUrl, accountId, timestamp, text, chat_room_id)
             })
         })
         .catch((error) => console.error("Error fetching data:", error));
