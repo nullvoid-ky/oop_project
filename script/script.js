@@ -82,6 +82,33 @@ function searchMates() {
     cardList.innerHTML = ""
 
     const nameText = document.getElementById("mate-name").value
+    const locationText = document.getElementById("mate-location").value
+    const ageText = document.getElementById("quantity").value
+
+
+    var genderValues = [];  // Initialize an empty array to store gender values
+
+    // Get all checkboxes with name 'gender'
+    var checkboxes = document.querySelectorAll('.input-gender input[type="checkbox"][name="gender"]');
+
+    // Iterate over each checkbox
+    checkboxes.forEach(function(checkbox) {
+        // If the checkbox is checked, append its value (male or female) to the genderValues array
+        if (checkbox.checked) {
+            genderValues.push(checkbox.value);
+        }
+    });
+
+    // Log the genderValues object to the console
+
+
+    let search_condition = {
+        name: nameText,
+        location: locationText,
+        gender_list: genderValues,
+        age: parseInt(ageText)
+    }
+    console.log(search_condition);
 
     // Define request options
     const requestOptions = {
@@ -90,15 +117,10 @@ function searchMates() {
             "Content-Type": "application/json",
             "x-token": my_token,
         },
-        body: JSON.stringify({
-            name: nameText,
-            location: "",
-            gender: "",
-            age: 18
-        })
+        body: JSON.stringify(search_condition)
     }
 
-    fetch(url + "/api/controller/search-mates", requestOptions)
+    fetch(url + "/api/controller/search-mate-by-condition", requestOptions)
         .then((response) => response.json())
         .then((data) => {
             console.log("Fetch mates: ", data)
@@ -173,11 +195,11 @@ function registrationCookie(){
 }
 
 function clearLocalStorage() {
-    localStorage.clear();
+    // localStorage.clear();
     // console.log("Local storage cleared.");
-    // localStorage.setItem('mate-name', "");
-    // localStorage.setItem('mate-location', "");
-    // localStorage.setItem('quantity', "");
+    localStorage.setItem('mate-name', "");
+    localStorage.setItem('mate-location', "");
+    localStorage.setItem('quantity', 18);
 
 }
 
