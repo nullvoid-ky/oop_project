@@ -1,4 +1,5 @@
 let my_token = '';
+let my_id = '';
 let url = 'http://127.0.0.1:8000';
 // let url = 'http://10.66.4.108:8000'
 
@@ -181,6 +182,7 @@ function registrationCookie(){
         const data = JSON.parse(registrationData);
         console.log(data);
         my_token = data.token;
+        my_id = data.id
         // Do something with the registration data
         let loginNav = document.getElementById('login');
         loginNav.style.cssText = "display: none;"

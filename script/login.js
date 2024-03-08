@@ -1,7 +1,7 @@
 const container = document.getElementById("container")
 const registerBtn = document.getElementById("register")
 const loginBtn = document.getElementById("login")
-
+let my_id = ''
 let url = 'http://127.0.0.1:8000'
 // let url = 'http://10.66.4.108:8000'
 
@@ -94,9 +94,10 @@ function handleFormSubmissionRegister(event) {
         // Save data to cookie
         const cookieData = {
             token: data.data.token,
+            id: data.data.id,
         };
         document.cookie = `userData=${JSON.stringify(cookieData)}; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/`;
-
+        my_id = data.data.id
         // Call verify_role and handle its asynchronous response
         verify_role(data.data.token)
             .then(role => {
@@ -163,11 +164,9 @@ function handleFormSubmissionLogin(event) {
         const cookieData = {
             token: data.data.token,
             id: data.data.id,
-            username: data.data.username,
-            pic_url: data.data.pic_url
         };
         document.cookie = `userData=${JSON.stringify(cookieData)}; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/`;
-
+        my_id = data.data.id
         verify_role(data.data.token)
             .then(role => {
                 console.log("role :", role);
@@ -205,7 +204,7 @@ function verify_role(token) {
     };
 
     // Return the fetch call directly to chain promises
-    return fetch(url + "/api/controller/get-user-profile", requestOptions)
+    return fetch(url + "/api/controller/get-user-profile/" + my_id, requestOptions)
     .then((response) => {
         console.log("get-user-profile ", response);
         if (response.status === 200) {
