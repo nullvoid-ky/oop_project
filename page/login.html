@@ -33,16 +33,51 @@
                         placeholder="Re-Password"
                     />
                     <p>กรุณาใส่พาสเวิร์ดที่มี 8 ตัวอักษรขึ้นไปนะคะ</p>
-                    <div class="checkbox-container">
-                        <input
-                            type="radio"
-                            name="account-type"
-                            value="customer"
-                            checked
-                        />
-                        Renter<br />
-                        <input type="radio" name="account-type" value="mate" />
-                        Mate<br />
+                    <div class="checkbox-form-box">
+                        <div class="checkbox-topic">
+                            <h4>Account</h4>
+                            <div class="checkbox-container">
+                                <div class="row-container">
+                                    <input
+                                        type="radio"
+                                        name="account-type"
+                                        value="customer"
+                                        checked
+                                    />
+                                    <h5>Renter</h5>
+                                </div>
+
+                                <div class="row-container">
+                                    <input
+                                        type="radio"
+                                        name="account-type"
+                                        value="mate"
+                                    />
+                                    <h5>Mate</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="checkbox-topic">
+                            <h4>Gender</h4>
+                            <div class="checkbox-container">
+                                <div class="row-container">
+                                    <input
+                                        type="radio"
+                                        name="account-gender"
+                                        value="male"
+                                    />
+                                    <h5>Male</h5>
+                                </div>
+                                <div class="row-container">
+                                    <input
+                                        type="radio"
+                                        name="account-gender"
+                                        value="female"
+                                    />
+                                    <h5>Female</h5>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <button>Create Account</button>
                 </form>
