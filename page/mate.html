@@ -39,6 +39,7 @@
                             id="mate-name"
                             name="textbox"
                             placeholder="ค้นหาโดยชื่อ"
+                            oninput="syncValue()"
                         />
                         <input
                             class="input-text search-template"
@@ -46,6 +47,7 @@
                             id="mate-location"
                             name="textbox"
                             placeholder="ค้นหาโดยสถานที่"
+                            oninput="syncValue()"
                         />
                         <div class="input-gender search-template">
                             <label>
@@ -53,6 +55,7 @@
                                     type="checkbox"
                                     name="gender"
                                     value="male"
+                                    onclick="syncValue()"
                                 />
                                 <h5>Male</h5>
                             </label>
@@ -61,6 +64,7 @@
                                     type="checkbox"
                                     name="gender"
                                     value="female"
+                                    onclick="syncValue()"
                                 />
                                 <p>Female</p>
                             </label>
@@ -75,10 +79,12 @@
                                 min="18"
                                 max="150"
                                 value="18"
+                                oninput="syncValue()"
                             />
                         </div>
                         <button
                             class="pink-btn input-search search-template"
+                            id="search-btn"
                             onclick="searchMates()"
                         >
                             Search

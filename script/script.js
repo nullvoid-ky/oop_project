@@ -115,12 +115,23 @@ function searchMates() {
 
 window.onload = function () {
     registrationCookie();
-    getMates();
+    addEnterSearch();
+    if (window.location.pathname.includes("index.html")) {
+        clearLocalStorage();
+        updateValue();
+        getMates();
+        console.log("You are on index.html");
+    } else {
+        console.log("You are not mate.html");
+        updateValue();
+        searchMates();
+    }
+    
 }
 
 function registerPage(buttonId) {
     var encodedButtonId = encodeURIComponent(buttonId);
-    window.location.href = 'login.html?buttonId=' + encodedButtonId;
+    window.location.href = 'login.html?buttonId=' + encodedButtonId; // passing value
 }
 
 function getCookie(cookieName) {
@@ -159,5 +170,82 @@ function registrationCookie(){
         progileNav.style.cssText = "display: none;"
     }
         
+}
+
+function clearLocalStorage() {
+    localStorage.clear();
+    // console.log("Local storage cleared.");
+    // localStorage.setItem('mate-name', "");
+    // localStorage.setItem('mate-location', "");
+    // localStorage.setItem('quantity', "");
+
+}
+
+function syncGender() {
+    var selectedGenders = [];
+    var checkboxes = document.querySelectorAll('.input-gender input[type="checkbox"]:checked');
+    checkboxes.forEach(function(checkbox) {
+        selectedGenders.push(checkbox.value);
+    });
+    console.log(selectedGenders)
+    localStorage.setItem('selectedGenders', JSON.stringify(selectedGenders));
+}
+
+function syncValue() {
+    console.log(document.getElementById('mate-name').value)
+    localStorage.setItem('mate-name', document.getElementById('mate-name').value);
+    localStorage.setItem('mate-location', document.getElementById('mate-location').value);
+    localStorage.setItem('quantity', document.getElementById('quantity').value);
+
+    syncGender()    
+}
+
+function updateValue(){
+    document.getElementById('mate-name').value = localStorage.getItem('mate-name');
+    document.getElementById('mate-location').value = localStorage.getItem('mate-location'); 
+    document.getElementById('quantity').value = localStorage.getItem('quantity');
+    var storedGenders = localStorage.getItem('selectedGenders');
+    if (storedGenders) {
+        storedGenders = JSON.parse(storedGenders);
+        var checkboxes = document.querySelectorAll('.input-gender input[type="checkbox"]');
+        checkboxes.forEach(function(checkbox) {
+            if (storedGenders.includes(checkbox.value)) {
+                checkbox.checked = true;
+            }
+        });
+    }
+}
+
+function addEnterSearch(){
+    var enterMessage = document.getElementById("mate-name");
+    enterMessage.addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            document.getElementById("search-btn").click();
+            enterMessage.innerText = "";
+            window.location.href = "mate.html";
+        }
+    });
+
+    var enterMessage = document.getElementById("mate-location");
+    enterMessage.addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            document.getElementById("search-btn").click();
+            enterMessage.innerText = "";
+            window.location.href = "mate.html";
+        }
+    });
+
+    var enterMessage = document.getElementById("quantity");
+    enterMessage.addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            document.getElementById("search-btn").click();
+            enterMessage.innerText = "";
+            window.location.href = "mate.html";
+        }
+    });
+
 }
 
