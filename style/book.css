@@ -1,18 +1,19 @@
 @import url(nav.css);
+@import url(header.css);
 
 .main-content{
     display: flex;
     width: calc(100vw - 200px);
     flex-direction: row;
     height: 540px;
-    background-color: rebeccapurple;
+    background-color: rgba(102, 51, 153, 0.206);
     align-items: center;
 }
 
 .main-content > img{
     width: 480px;
     height: 480px;
-    background-color: blueviolet;
+    background-color: rgba(137, 43, 226, 0.332);
     margin: 30px 100px 30px 30px;
 
 }
@@ -26,7 +27,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background-color: cadetblue;
+    background-color: rgba(95, 158, 160, 0.119);
 }
 
 .book-page{
@@ -37,6 +38,59 @@
     align-items: center;
 }
 
+.name-text{
+    font-size: 24px;
+}
+
+.location-text{
+    display: flex;
+    font-size: 15px;
+    width:fit-content;
+    padding: 8px 16px;
+    background-color: #9888C6;
+    border-radius: 16px;
+    text-align: center;
+    justify-content: center;
+    color: white;
+}
+
+.rent-detail{
+    font-size: 16px;
+    display: flex;
+    flex-direction: row;
+}
+.rent-detail *{
+    padding-left: 16px;
+}
+.average-star{
+    color: #DE89A1;
+    padding-right: 16px;
+    border-right: 1px #BABABA solid;
+}
+.rent-count{
+    padding-right: 16px;
+    border-right: 1px #BABABA solid;
+}
+/* .review-amount{
+
+} */
+
+.price-text{
+    font-size: 32px;
+    color: #9888C6;
+}
+
+.open-time{
+    font-size: 32px;
+}
+
+.available-zone{
+    font-size: 16px;
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+}
 header{
     position: absolute;
     top: calc(54px + 64px);
