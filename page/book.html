@@ -4,31 +4,52 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../style/booking.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Prompt:wght@300;400&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Sunflower:wght@300&display=swap"
-        rel="stylesheet">
+    <link rel="stylesheet" href="../style/book.css" />
     <title>Document</title>
 </head>
 
 <body>
-    <h1 id="name-text">test</h1>
-    <p id="location-text">กรุงเทพ</p>
-    <p id="price-text">1000</p>
-    <div id="availability-content">
-        <p id="availability-text">10-3-4</p>
-    </div>
-    <button id="book-btn">Book</button>
-    <button id="pay-btn">Pay</button>
-    <div id="review-content">
-        <div>
-            <p id="review-text">Review</p>
-            <p id="start-text">5</p>
-            <p id="time-text">timestamp</p>
+
+    <nav>
+        <img class="logo" src="../img/logo.svg" alt="../img/logo.svg" />
+        <div class="nav-items">
+            <a href="index.html">Home</a>
+            <a href="mate.html">Mates</a>
+            <a href="chat.html">Chat</a>
+            <a href="post.html">Post</a>
+            <a href="leaderboard.html">Leaderboard</a>
+            <a href="booking.html">Booking</a>
+            <div class="nav-items center" id="user-account">
+                <!-- <h1>kanyok</h1> -->
+                <a id="login" class="login"  onclick="registerPage('login')"">Login</a>
+                <a id="register" class="login register"  onclick="registerPage('register')">Register</a>
+                <a id="profile" href="profile.html">Profile</a>
+            </div>
         </div>
-    </div>
+    </nav>
+   <div class="book-page">
+    <header>จองเมท</header>
+    <div class="main-content">
+        <img id="pic" src="" alt="img">
+        <div class="mate-content">
+
+        <h1 id="name-text">test</h1>
+        <p id="location-text">กรุงเทพ</p>
+        <p id="price-text">1000</p>
+        <div id="availability-content">
+            <p id="availability-text">10-3-4</p>
+        </div>
+        <a href="#" id="book-btn">Book</a>
+        </div>
+       </div>
+        <div id="review-content">
+            <div>
+                <p id="review-text">Review</p>
+                <p id="star-text">5</p> 
+                <p id="time-text">timestamp</p>
+            </div>
+        </div>
+   </div>
     <script src="../script/book.js"></script>
 </body>
 
