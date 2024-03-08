@@ -31,9 +31,15 @@ if (registrationData !== "") {
     my_token = data.token;
     // Do something with the registration data
 
+    let loginNav = document.getElementById('login');
+    loginNav.style.cssText = "display: none;"
+    let registerNav = document.getElementById('register');
+    registerNav.style.cssText = "display: none;"
 } else {
-    console.log("Registration data not found in cookie.");
+    let progileNav = document.getElementById('profile');
+    progileNav.style.cssText = "display: none;"
 
+    console.log('Registration data not found in cookie.');
 }
 
 window.onload = function () {
@@ -42,6 +48,7 @@ window.onload = function () {
     displayMessage(false);
 
     getChatRooms(my_token);
+    registrationData()
 };
 
 function displayMessage(isDisplay){
