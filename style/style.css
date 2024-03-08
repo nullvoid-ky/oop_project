@@ -1,6 +1,7 @@
 @import url(nav.css);
 @import url(content.css);
 @import url(card.css);
+@import url(mate.css);
 * {
     padding: 0px;
     margin: 0px;

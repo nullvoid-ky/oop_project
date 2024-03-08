@@ -1,4 +1,4 @@
-function createCard(username, picUrl, accountId) {
+function crZeateCard(username, picUrl, accountId) {
     const cardList = document.getElementById("card-list")
 
     // Create card element

@@ -1,4 +1,42 @@
 const url = "http://127.0.0.1:8000"
+let valid = false
+function getCookie(cookieName) {
+    const name = cookieName + "=";
+    const decodedCookie = decodeURIComponent(document.cookie);
+    console.log(decodedCookie);
+    const cookieArray = decodedCookie.split(';');
+    for(let i = 0; i < cookieArray.length; i++) {
+        let cookie = cookieArray[i];
+        while (cookie.charAt(0) === ' ') {
+            cookie = cookie.substring(1);
+        }
+        if (cookie.indexOf(name) === 0) {
+            return cookie.substring(name.length, cookie.length);
+        }
+    }
+    return "";
+}
+
+// Usage example
+function registrationCookie(){
+    const registrationData = getCookie('userData');
+    console.log(registrationData); // Log the value retrieved from the cookie
+    if (registrationData !== '') {
+        const data = JSON.parse(registrationData);
+        console.log(data);
+        my_token = data.token;
+        // Do something with the registration data
+        let loginNav = document.getElementById('login');
+        loginNav.style.cssText = "display: none;"
+        let registerNav = document.getElementById('register');
+        registerNav.style.cssText = "display: none;"
+    } else {
+        console.log('Registration data not found in cookie.');
+        let progileNav = document.getElementById('profile');
+        progileNav.style.cssText = "display: none;"
+    }
+        
+}
 
 async function delBooking(token, id) {
     await fetch(url + `/api/controller/delete-booking/${id}`, {
@@ -102,3 +140,12 @@ getBooking(
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNWY4NTUwZWEtZmI4NC00YjE3LWE4Y2ItMzhiMTc1ZWM2NjNiIiwicm9sZSI6ImN1c3RvbWVyIn0.mCHHIxdY96dcWzU21poRVnvD4O9AawFN4XddQIcesGs"
 )
 
+
+function registerPage(buttonId) {
+    var encodedButtonId = encodeURIComponent(buttonId);
+    window.location.href = 'login.html?buttonId=' + encodedButtonId;
+}
+
+window.onload = function () {
+    registrationCookie();
+}
