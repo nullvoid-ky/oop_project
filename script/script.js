@@ -99,14 +99,14 @@ function searchMates() {
         }
     });
 
-    // Log the genderValues object to the console
-
+    var availabilityValue = document.querySelector('.input-availability input[type="checkbox"][name="availability"]').checked;
 
     let search_condition = {
         name: nameText,
         location: locationText,
         gender_list: genderValues,
-        age: parseInt(ageText)
+        age: parseInt(ageText),
+        availability: availabilityValue
     }
     console.log(search_condition);
 
@@ -213,13 +213,25 @@ function syncGender() {
     localStorage.setItem('selectedGenders', JSON.stringify(selectedGenders));
 }
 
+function syncAvailability() {
+    var selectedAvailabilitys = [];
+    var checkboxes = document.querySelectorAll('.input-availability input[type="checkbox"]:checked');
+    checkboxes.forEach(function(checkbox) {
+        selectedAvailabilitys.push(checkbox.value);
+    });
+    console.log(selectedAvailabilitys)
+    localStorage.setItem('selectedAvailability', JSON.stringify(selectedAvailabilitys));
+}
+
+
 function syncValue() {
     console.log(document.getElementById('mate-name').value)
     localStorage.setItem('mate-name', document.getElementById('mate-name').value);
     localStorage.setItem('mate-location', document.getElementById('mate-location').value);
     localStorage.setItem('quantity', document.getElementById('quantity').value);
 
-    syncGender()    
+    syncGender() 
+    syncAvailability()   
 }
 
 function updateValue(){
@@ -233,6 +245,19 @@ function updateValue(){
         checkboxes.forEach(function(checkbox) {
             if (storedGenders.includes(checkbox.value)) {
                 checkbox.checked = true;
+            }
+        });
+    }
+
+    var storedAvailablility = localStorage.getItem('selectedAvailability');
+    if (storedAvailablility) {
+        storedAvailablility = JSON.parse(storedAvailablility);
+        var checkboxes = document.querySelectorAll('.input-availability input[type="checkbox"]');
+        checkboxes.forEach(function(checkbox) {
+            if (storedAvailablility.includes(checkbox.value)) {
+                checkbox.checked = true;
+            } else {
+                checkbox.checked = false;
             }
         });
     }
