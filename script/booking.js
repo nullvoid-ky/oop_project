@@ -101,3 +101,4 @@ function getBooking(token) {
 getBooking(
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNWY4NTUwZWEtZmI4NC00YjE3LWE4Y2ItMzhiMTc1ZWM2NjNiIiwicm9sZSI6ImN1c3RvbWVyIn0.mCHHIxdY96dcWzU21poRVnvD4O9AawFN4XddQIcesGs"
 )
+

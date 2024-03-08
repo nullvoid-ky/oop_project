@@ -17,11 +17,18 @@
     <nav>
         <img class="logo" src="../img/logo.svg" alt="../img/logo.svg" />
         <div class="nav-items">
-            <button>Home</button>
-            <button>Mates</button>
-            <a href="chat.html"><button>Chat</button></a>
-            <button>Post</button>
-            <button>Profile</button>
+            <a href="index.html">Home</a>
+            <a href="mate.html">Mates</a>
+            <a href="chat.html">Chat</a>
+            <a href="post.html">Post</a>
+            <a href="leaderboard.html">Leaderboard</a>
+            <a href="booking.html">Booking</a>
+            <div class="nav-items center" id="user-account">
+                <!-- <h1>kanyok</h1> -->
+                <a id="login" class="login"  onclick="registerPage('login')"">Login</a>
+                <a id="register" class="login register"  onclick="registerPage('register')">Register</a>
+                <a id="profile" href="profile.html">Profile</a>
+            </div>
         </div>
     </nav>
     <div class="body-content">
@@ -153,6 +160,7 @@
         <!-- </div>  -->
 
         <script src="../script/booking.js"></script>
+        <!-- <script src="../script/script.js"></script> -->
 </body>
 
 </html>

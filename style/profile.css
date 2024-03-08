@@ -1,9 +1,13 @@
-body {
+.profile-container{
+  margin-left: 20vw;
+}
+
+/* body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-}
-
+} */
+/* 
 .profile-container {
   display: flex;
   align-items: center;
@@ -45,4 +49,4 @@ button {
 .edit-input input {
   width: 100%;
 }
-
+ */

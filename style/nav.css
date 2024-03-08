@@ -29,17 +29,16 @@ nav{
     
 }
 
-.nav-items a button{
-    border: none;
-    background-color: transparent;
-}
 
 .nav-items a{
-    width: 50%;
+    padding: calc(1rem + 0.5px);
     font-size: 18px;
-    padding: 17px 32px;
     background-color: transparent;
-    border: 0;
+    border: none;
+    box-sizing: border-box;
+    color: black;
+    text-decoration: none;
+
 }
 
 .nav-items div{
@@ -63,6 +62,7 @@ nav{
 
 .nav-items a:hover{
     background-color: rgba(0, 0, 0, 0.1);
+    cursor: pointer;
 }
 
 .sub-items{
