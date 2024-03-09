@@ -152,6 +152,16 @@ function createCardRating(username, picUrl, accountId, rating) {
         starImg.alt = 'star';
         starRatingContainer.appendChild(starImg);
     }
+
+    const numEmptyStars = 5 - Math.floor(rating); // Get the integer part of the rating
+    for (let i = 0; i < numEmptyStars; i++) {
+        const starImg = document.createElement('img');
+        starImg.className = 'average-star';
+        starImg.src = '../img/no-star.svg';
+        starImg.alt = 'star';
+        starRatingContainer.appendChild(starImg);
+    }
+
     ratingBox.appendChild(starRatingContainer)
     ratingBox.appendChild(cardDetailRating)
 
