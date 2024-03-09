@@ -176,6 +176,8 @@ function createCardRating(username, picUrl, accountId, rating) {
     card.addEventListener("click", () => {
         const accountId = card.dataset.accountId
         console.log("Clicked card with accountId:", accountId)
+        localStorage.setItem('book-mate-id', accountId);
+        document.location.href = 'book.html'
         // Perform GET request with accountId
     })
 
