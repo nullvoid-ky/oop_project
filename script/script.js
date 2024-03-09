@@ -76,6 +76,35 @@ function getMates() {
         .catch((error) => console.error("Error fetching data:", error))
 }
 
+function getLeaderboard() {
+    // Clear previous values
+    const cardList = document.getElementById("card-list")
+    cardList.innerHTML = ""
+
+    // Define request options
+    const requestOptions = {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "x-token": my_token,
+        },
+        // body: JSON.stringify(requestBody)
+    }
+
+    fetch(url + "/api/controller/get-leaderboard", requestOptions)
+        .then((response) => response.json())
+        .then((data) => {
+            console.log("Fetch mates: ", data)
+            data.data.forEach((item) => {
+                const username = item.account_detail.username
+                const picUrl = item.account_detail.pic_url
+                const accountId = item.account_detail.id
+                createCard(username, picUrl, accountId)
+            })
+        })
+        .catch((error) => console.error("Error fetching data:", error))
+}
+
 
 function searchMates() {
     // Clear previous values
