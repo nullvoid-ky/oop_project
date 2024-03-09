@@ -164,6 +164,10 @@ body{
     border-radius: 2px;
 }
 
+.availability-text.selected {
+    background-color: rgba(137, 43, 226, 0.332);
+}
+
 .book-btn{
     box-sizing: border-box;
     padding: 12px 24px;

@@ -16,6 +16,7 @@ async function getMateData(token) {
     return data
 }
 
+
 async function getMateAvalability(token, mate_id) {
     const res = await fetch(url + "/api/mate/get-availability/" + mate_id, {
         method: "GET",
@@ -97,6 +98,35 @@ async function getReview(token, mate_id) {
     })
     return data
 }
+document.addEventListener('DOMContentLoaded', function () {
+    var availabilityTextElements = document.querySelectorAll('.availability-text');
+    var bookButton = document.getElementById('book-btn');
+    var selectedTime = null;
+
+    // Add click event listeners to each availability text element
+    availabilityTextElements.forEach(function (element) {
+        element.addEventListener('click', function () {
+            // Remove the 'selected' class from all elements
+            availabilityTextElements.forEach(function (el) {
+                el.classList.remove('selected');
+            });
+
+            // Add the 'selected' class to the clicked element
+            element.classList.add('selected');
+            selectedTime = element.getAttribute('data-time');
+        });
+    });
+
+    bookButton.addEventListener('click', function () {
+        if (selectedTime !== null) {
+            // Perform actions for the selected time (e.g., submit data)
+            console.log('Booking for time:', selectedTime);
+            // Add your logic here to submit the data or perform other actions
+        } else {
+            console.log('Please select a time before booking.');
+        }
+    });
+});
 
 getMateData(token)
 getReview(token, "35263c58-fd9c-4222-8ff2-cec339222852")

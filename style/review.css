@@ -21,6 +21,13 @@
 .review-box{
     display: flex;
     flex-direction: row;
+    border-bottom: 1px solid #8f8f8f;
+    padding: 24px 0px 24px 0px;
+    margin-bottom: 24px;
+}
+
+.review-list{
+    background-color: aquamarine;
 }
 
 .review-pic{
