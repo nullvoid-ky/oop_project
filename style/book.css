@@ -19,6 +19,7 @@ body{
     background-color: white;
     align-items: center;
     border-radius: 4px;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1);
 }
 
 .main-content > img{
@@ -164,6 +165,10 @@ body{
     border-radius: 2px;
 }
 
+.availability-text.selected {
+    background-color: rgba(137, 43, 226, 0.332);
+}
+
 .book-btn{
     box-sizing: border-box;
     padding: 12px 24px;
@@ -177,6 +182,12 @@ body{
     border: 0;
     box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1);
 }
+
+.book-btn:hover{
+    background-color: #d76686;
+    cursor: pointer;
+}
+
 header{
     position: absolute;
     top: calc(54px + 64px);
