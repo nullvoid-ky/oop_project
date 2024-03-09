@@ -47,15 +47,16 @@
     /* display: flex; */
     /* flex-direction:column; */
     height: 100%;
-    width: 47vw;
     /* overflow-y: scroll; */
     /* justify-content: end; */
+    width: 100%;
     overflow-x: hidden;
 }
 .message-container{
     overflow-x: hidden;
     /* display: none; */
     height: 70vh;
+    width: 100%;
 }
 
 .chat-room{
