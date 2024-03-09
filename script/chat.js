@@ -6,6 +6,26 @@ let my_id = ''
 // let url = 'http://10.66.4.108:8000'
 // let ws_url = 'ws://10.66.4.108:8000'
 
+window.onload = function () {
+
+    var enterMessage = document.getElementById("message-input");
+    enterMessage.addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            document.getElementById("send-btn").click();
+            enterMessage.innerText = "";
+        }
+    });
+    
+    const cardList = document.getElementById("message-list");
+    cardList.innerHTML = "";
+    displayMessage(false);
+    registrationCookie();
+    verify_role(my_token)
+    getChatRooms(my_token);
+    
+};
+
 function getCookie(cookieName) {
     const name = cookieName + "=";
     const decodedCookie = decodeURIComponent(document.cookie);
@@ -43,16 +63,6 @@ function registrationCookie(){
     }
         
 }
-
-window.onload = function () {
-    const cardList = document.getElementById("message-list");
-    cardList.innerHTML = "";
-    displayMessage(false);
-    registrationCookie();
-    verify_role(my_token)
-    getChatRooms(my_token);
-    
-};
 
 function displayMessage(isDisplay){
     if(isDisplay){
@@ -99,7 +109,7 @@ function connectChatRoomWS(chatRoomId){
         const messageDetail = JSON.parse(respondJsonString);
         console.log(messageDetail);
 
-        createMessageList(messageDetail.sender.display_name, messageDetail.id, messageDetail.text, messageDetail.timestamp, false)
+        createMessageList(messageDetail.sender.displayname, messageDetail.id, messageDetail.text, messageDetail.timestamp, false)
         getChatRooms(my_token);
     };
     // function sendMessage(event) {
@@ -111,6 +121,7 @@ function connectChatRoomWS(chatRoomId){
 }
 
 function createChatRoom(username, picUrl, accountId, timestamp, text, chat_room_id) {
+    console.log("createChatRoom: ", username, picUrl, accountId, timestamp, text, chat_room_id)
     const cardList = document.getElementById("chat-room-list")
 
     // Create card element
@@ -233,12 +244,13 @@ function getChatRooms(token) {
         },
     };
 
-    fetch(url + "/api/chat/chat-room", requestOptions)
+    fetch(url + "/api/chat/get-chat-room", requestOptions)
         .then((response) => response.json())
         .then((data) => {
+            console.log("Respond get-chat-room: ", data)
             data.data.forEach((item) => {
-                const username = item.account_detail.username
-                const displayName = item.account_detail.display_name
+                // const username = item.account_detail.username
+                const displayName = item.account_detail.displayname
                 const picUrl = item.account_detail.pic_url
                 const accountId = item.account_detail.id
                 const timestamp = item.latest_timestamp
@@ -293,10 +305,10 @@ function getChatHistory(chatRoomId) {
         },
     };
 
-    fetch(url + "/api/chat/chat-history/" + chatRoomId, requestOptions)
+    fetch(url + "/api/chat/get-chat-history/" + chatRoomId, requestOptions)
         .then((response) => response.json())
         .then((data) => {
-            console.log("Respond of chat-history")
+            console.log("Respond of get-chat-history")
             console.log(data)
             if (data == "No History") {
                 // Handle the case when there is no history
@@ -304,7 +316,7 @@ function getChatHistory(chatRoomId) {
             } else {
                 console.log(data.data)
                 data.data.forEach((item) => {
-                    const username = item.sender.display_name
+                    const username = item.sender.displayname
                     const message_id = item.id
                     const text = item.text
                     const timestamp = item.timestamp
@@ -322,14 +334,7 @@ function getChatHistory(chatRoomId) {
         .catch((error) => console.error("Error fetching data:", error));
 }
 
-var enterMessage = document.getElementById("message-input");
-enterMessage.addEventListener("keypress", function (event) {
-    if (event.key === "Enter") {
-        event.preventDefault();
-        document.getElementById("send-btn").click();
-        enterMessage.innerText = "";
-    }
-});
+
 
 
 function verify_role(token) {
