@@ -289,6 +289,7 @@ function createMessageList(username, message_id, text, timestamp, is_edit) {
 
     // Append card to card list
     cardList.appendChild(card);
+    cardList.scrollTop = cardList.scrollHeight;
 }
 
 function getChatHistory(chatRoomId) {
