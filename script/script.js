@@ -258,7 +258,9 @@ function searchMates() {
                 const username = item.account_detail.username
                 const picUrl = item.account_detail.pic_url
                 const accountId = item.account_detail.id
-                createCard(username, picUrl, accountId)
+                const rating = item.account_detail.star
+                // createCard(username, picUrl, accountId)
+                createCardRating(username, picUrl, accountId, rating)
             })
         })
         .catch((error) => console.error("Error fetching data:", error))
