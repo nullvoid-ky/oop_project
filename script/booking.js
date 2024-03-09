@@ -1,6 +1,7 @@
 const url = "http://127.0.0.1:8000"
 let valid = false
 let my_id = ''
+let my_token = ''
 function getCookie(cookieName) {
     const name = cookieName + "=";
     const decodedCookie = decodeURIComponent(document.cookie);
