@@ -109,7 +109,7 @@ function handleFormSubmissionRegister(event) {
                     }, 100);
                 } else {
                     setTimeout(function() {
-                        window.location.href = 'mate.html'; // Redirect to success page
+                        window.location.href = 'index.html'; // Redirect to success page
                     }, 100);
                 }
             })
