@@ -1,7 +1,7 @@
 let my_token = '';
 let my_id = '';
-// let url = 'http://127.0.0.1:8000';
-let url = 'http://10.66.4.108:8000'
+let url = 'http://127.0.0.1:8000';
+// let url = 'http://10.66.4.108:8000'
 
 
 function createCard(username, picUrl, accountId) {
