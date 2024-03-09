@@ -5,8 +5,11 @@
 }
 
 body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
     background-color: #c9d6ff;
-    background: linear-gradient(180deg, rgba(255,255,255,1) 40%, rgba(255,250,229,1) 95%);
+    background: linear-gradient(0deg, rgba(255,255,255,1) 20%, rgba(255,250,229,1) 95%);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -17,6 +20,28 @@ body{
 h1{
     margin-bottom: 24px;
 }
+
+.return-home{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: fixed;
+    top: 20px;
+    left: 36px;
+
+    background-color: #DE89A1;
+    width: 48px;
+    height: 48px;
+
+    border-radius: 12px;
+    box-shadow:  0 4px 4px 0 rgba(0, 0, 0, 0.1);
+}
+
+.return-home:hover{
+    background-color: #d76686;
+}
+
 
 .container{
     background-color: #ffffff;
@@ -57,9 +82,23 @@ h1{
     font-weight: 600;
     letter-spacing: 0.5px;
     text-transform: uppercase;
-    margin-top: 10px;
+    margin-top: 32px;
     cursor: pointer;
     box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2);
+
+    /* display: flex;
+    align-items: center;
+    border-radius: 8px;
+    border: 0px transparent;
+    padding: 0;
+    background-color: #DE89A1;
+    color: white;
+    justify-content: center; */
+}
+
+.container button:hover{
+    background-color: #d76686;
+   
 
     /* display: flex;
     align-items: center;
@@ -75,6 +114,11 @@ h1{
     background-color: transparent;
     border-color: #fff;
     box-shadow: none;
+}
+
+.container button.hidden:hover{
+    background-color: white;
+    color: #d76686;
 }
 
 .container form{
@@ -102,7 +146,7 @@ h1{
     position: absolute;
     top: 0;
     height: 100%;
-    transition: ease-in all 1s ;
+    transition: ease-in all 0.4s ;
 }
 
 .sign-in{
@@ -131,22 +175,32 @@ h1{
     transform: translateX(100%);
     opacity: 1;
     z-index: 5;
-    animation: move 1s;
+    animation: move 0.4s;
 }
 
 .checkbox-container{
+    margin-top: 8px;
     width: 100%;
     display: flex;
     flex-direction: row;
 
     text-align: center;
     align-items: center;
+    justify-content: space-evenly;
+
+    box-sizing: border-box;
 }
 
-.checkbox-container > input{
-    width: 25%;
+.checkbox-container input{
+    margin-right: 8px;    
 }
 
+.row-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 16px;
+}
 
 @keyframes move{
     0%, 49.99%{
@@ -165,7 +219,7 @@ h1{
     width: 50%;
     height: 100%;
     overflow: hidden;
-    transition: all 0.6s ease-in-out;
+    transition: all 0.4s ease-in-out;
     border-radius: 150px 0 0 100px;
     z-index: 1000;
 }
@@ -185,7 +239,7 @@ h1{
     height: 100%;
     width: 200%;
     transform: translateX(0);
-    transition: all 1s ease-in-out;
+    transition: all 0.4s ease-in-out;
 }
 
 .container.active .toggle{
@@ -204,7 +258,7 @@ h1{
     text-align: center;
     top: 0;
     transform: translateX(0);
-    transition: all 1s ease-in-out;
+    transition: all 0.4s ease-in-out;
 }
 
 .toggle-left{
@@ -224,63 +278,8 @@ h1{
     transform: translateX(200%);
 }
 
-
-/* ADAPTIVE  for mobile devices */
-
-@media only screen and (min-width: 320px) and (max-width: 767px) {
-    .container {
-        background-color: #fff;
-        border-radius: 30px;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
-        position: center;
-        overflow: hidden;
-        width: 330px;
-        max-width: 100%;
-        min-height: 500px;
-    }
-    h1 {
-        font-size: 20px;
-    }
-    span{
-        font-size: 3px;
-    }
-    a {
-        font-size: 5px;
-    }
-    .container form {
-        font-size: 15px;
-    }
-    .container input {
-        border: none;
-        margin: 8px 0;
-        padding: 10px 15px;
-        font-size: 10px;
-        border-radius: 8px;
-        width: 120%;
-        outline: none;
-    }
-    .container button{
-        background-color: #f12711;
-        color: #fff;
-        font-size: 11px;
-        padding: 5px 25px;
-        border: 1px solid transparent;
-        border-radius: 8px;
-        font-weight: 600;
-        letter-spacing: 0.5px;
-        text-transform: uppercase;
-        margin-top: 15px;
-        cursor: pointer;
-    }
-    .sign-in{
-        left: 0;
-        width: 50%;
-        z-index: 1;
-    }
-    .sign-up{
-        left: 0;
-        width: 50%;
-        opacity: 0;
-        z-index: 1;
-    }
+.checkbox-form-box{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }

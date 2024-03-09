@@ -1,10 +1,10 @@
 const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMmViM2Y4MmItNGU5YS00MDBkLWE2YTktMzg0MDU0ZjllMzdkIiwicm9sZSI6ImN1c3RvbWVyIn0.g9FxZnqhe54NDq4ujfhdcTxYBa1LkvX11cOme7COdrk"
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZDQyNmYwYzQtZTcxYi00NjQ1LTg3NTEtNDgwMDRkNDQ5ZTQwIiwicm9sZSI6ImN1c3RvbWVyIn0.BEf0sLm6EO834ESNrMChcdoSaqglT3aq9MzmBlESTBs"
 const url = "http://127.0.0.1:8000"
 
 async function getMateData(token) {
-    const mate_id = "066a8ef8-58b1-47ad-99ef-1b3c41835b1a"
-    const res = await fetch(url + "/api/controller/get-user-data/" + mate_id, {
+    const user_id = "35263c58-fd9c-4222-8ff2-cec339222852"
+    const res = await fetch(url + "/api/controller/get-user-data/" + user_id, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -12,15 +12,10 @@ async function getMateData(token) {
         },
     })
     const data = await res.json()
-    const nameElement = document.getElementById("name-text")
-    const locationElement = document.getElementById("location-text")
-    const priceElement = document.getElementById("price-text")
-    nameElement.textContent = data.data.username
-    locationElement.textContent = data.data.location
-    priceElement.textContent = data.data.amount
     console.log(data)
     return data
 }
+
 
 async function getMateAvalability(token, mate_id) {
     const res = await fetch(url + "/api/mate/get-availability/" + mate_id, {
@@ -31,13 +26,7 @@ async function getMateAvalability(token, mate_id) {
         },
     })
     const data = await res.json()
-    const availabilityElement = document.getElementById("availability-content")
     console.log(data)
-    data.data.forEach((item) => {
-        const p = document.createElement("p")
-        p.textContent = item.date
-        availabilityElement.appendChild(p)
-    })
     return data
 }
 
@@ -86,7 +75,6 @@ async function getReview(token, mate_id) {
         },
     })
     const data = await res.json()
-    console.log(data)
     data.data.forEach((item) => {
         const div = document.createElement("div")
 
@@ -108,8 +96,37 @@ async function getReview(token, mate_id) {
 
         document.body.appendChild(div)
     })
+    return data
 }
+document.addEventListener('DOMContentLoaded', function () {
+    var availabilityTextElements = document.querySelectorAll('.availability-text');
+    var bookButton = document.getElementById('book-btn');
+    var selectedTime = null;
+
+    // Add click event listeners to each availability text element
+    availabilityTextElements.forEach(function (element) {
+        element.addEventListener('click', function () {
+            // Remove the 'selected' class from all elements
+            availabilityTextElements.forEach(function (el) {
+                el.classList.remove('selected');
+            });
+
+            // Add the 'selected' class to the clicked element
+            element.classList.add('selected');
+            selectedTime = element.getAttribute('data-time');
+        });
+    });
+
+    bookButton.addEventListener('click', function () {
+        if (selectedTime !== null) {
+            // Perform actions for the selected time (e.g., submit data)
+            console.log('Booking for time:', selectedTime);
+            // Add your logic here to submit the data or perform other actions
+        } else {
+            console.log('Please select a time before booking.');
+        }
+    });
+});
 
 getMateData(token)
-getMateAvalability(token, "066a8ef8-58b1-47ad-99ef-1b3c41835b1a")
-getReview(token, "066a8ef8-58b1-47ad-99ef-1b3c41835b1a")
+getReview(token, "35263c58-fd9c-4222-8ff2-cec339222852")

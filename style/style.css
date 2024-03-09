@@ -1,6 +1,7 @@
 @import url(nav.css);
 @import url(content.css);
 @import url(card.css);
+@import url(mate.css);
 * {
     padding: 0px;
     margin: 0px;
@@ -53,7 +54,7 @@ footer{
     background-color: #9888c6;
     position: absolute;
     left: 0;
-    bottom: -200vh;
+    bottom: -84vh;
     color: white;
     text-align: center;
     height: 240px;

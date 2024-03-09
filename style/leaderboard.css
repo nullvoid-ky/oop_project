@@ -1,0 +1,64 @@
+@import url(header.css);
+
+body{
+    height: 100vh;
+    background: linear-gradient(0deg, #ffffff 20%, rgba(255,250,229,1) 95%);
+    background-repeat: no-repeat;
+}
+
+.leaderboard{
+    position: absolute;
+    top: 206px;
+    box-sizing: border-box;
+    background-color: rgb(255, 255, 255);
+    width: calc(100vw - 200px);
+    height: 70vh;
+    box-shadow: 0 4px 4px 0 rgb(0, 0, 0,0.1);
+    border-radius: 4px;
+    padding: 32px 64px;
+}
+
+h1{
+    position: absolute;
+    left: 100px;
+    top: 118px;
+}
+
+.leaderboard > .ranking-mate-box:nth-child(1){
+    border: 1px solid gold;
+}
+
+.leaderboard > .ranking-mate-box:nth-child(2){
+    border: 1px solid silver;
+}
+
+.leaderboard > .ranking-mate-box:nth-child(3){
+    border: 1px solid brown;
+}
+.ranking-mate-box{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    height: 9%;
+    margin-bottom: 4px;
+    padding: 0 4px;
+    align-items: center;
+}
+
+.ranking{
+    flex: 1;
+}
+.mate-score{
+    flex: 1;
+}
+.mate-detail{
+    display: flex;
+    justify-content: space-between;
+    flex: 3;
+}
+
+.leaderboard-page{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

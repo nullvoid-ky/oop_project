@@ -1,4 +1,45 @@
 const url = "http://127.0.0.1:8000"
+let valid = false
+let my_id = ''
+let my_token = ''
+function getCookie(cookieName) {
+    const name = cookieName + "=";
+    const decodedCookie = decodeURIComponent(document.cookie);
+    console.log(decodedCookie);
+    const cookieArray = decodedCookie.split(';');
+    for(let i = 0; i < cookieArray.length; i++) {
+        let cookie = cookieArray[i];
+        while (cookie.charAt(0) === ' ') {
+            cookie = cookie.substring(1);
+        }
+        if (cookie.indexOf(name) === 0) {
+            return cookie.substring(name.length, cookie.length);
+        }
+    }
+    return "";
+}
+
+// Usage example
+function registrationCookie(){
+    const registrationData = getCookie('userData');
+    console.log(registrationData); // Log the value retrieved from the cookie
+    if (registrationData !== '') {
+        const data = JSON.parse(registrationData);
+        console.log(data);
+        my_token = data.token;
+        my_id = data.id
+        // Do something with the registration data
+        let loginNav = document.getElementById('login');
+        loginNav.style.cssText = "display: none;"
+        let registerNav = document.getElementById('register');
+        registerNav.style.cssText = "display: none;"
+    } else {
+        console.log('Registration data not found in cookie.');
+        let progileNav = document.getElementById('profile');
+        progileNav.style.cssText = "display: none;"
+    }
+        
+}
 
 async function delBooking(token, id) {
     await fetch(url + `/api/controller/delete-booking/${id}`, {
@@ -101,3 +142,53 @@ function getBooking(token) {
 getBooking(
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNWY4NTUwZWEtZmI4NC00YjE3LWE4Y2ItMzhiMTc1ZWM2NjNiIiwicm9sZSI6ImN1c3RvbWVyIn0.mCHHIxdY96dcWzU21poRVnvD4O9AawFN4XddQIcesGs"
 )
+
+
+function registerPage(buttonId) {
+    var encodedButtonId = encodeURIComponent(buttonId);
+    window.location.href = 'login.html?buttonId=' + encodedButtonId;
+}
+
+window.onload = function () {
+    registrationCookie();
+    verify_role(my_token)
+}
+
+function verify_role(token) {
+    const requestOptions = {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "x-token": token
+        },
+    };
+
+    // Return the fetch call directly to chain promises
+    return fetch(url + "/api/controller/get-user-profile/" + my_id, requestOptions)
+    .then((response) => {
+        console.log("get-user-profile ", response);
+        if (response.status === 200) {
+            return response.json(); // If status is 200, parse response JSON
+        } else {
+            alert("Verification error");
+            window.location.href = 'login.html'
+            throw new Error("Verification error"); // For other statuses, throw unexpected error
+        }
+    })
+    .then((data) => {
+        if(data.hasOwnProperty("status_code")){
+            if(data.status_code == 404){
+                alert("กรุณาเข้าสู่ระบบก่อนใช้งาน");
+                window.location.href = 'login.html'
+            }
+
+        }
+        // Handle success response
+        console.log("Verification respond:", data);
+        return data.data.role;
+    })
+    .catch((error) => {
+        console.error("Error Verification respond:", error.message);
+        throw error; // Re-throw the error to be caught by the caller
+    });
+}

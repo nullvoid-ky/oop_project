@@ -1,5 +1,6 @@
 @import url(content.css);
 @import url(card.css);
+@import url(nav.css);
 
 * {
     box-sizing: border-box;
@@ -52,39 +53,4 @@ body {
 
 .body-content div {
     margin: 10px 0;
-}
-
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    position: relative;
-    left: 0;
-    top: 0;
-    z-index: 4;
-    height: 54px;
-    width: 100%;
-    background-color: white;
-    border-radius: 0 0 12px 12px;
-
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.1);
-}
-
-.nav-items {
-    margin-right: 10%;
-}
-
-.nav-items * {
-    font-size: 18px;
-    padding: 17px 32px;
-    background-color: transparent;
-    border: 0;
-}
-
-a {
-    width: 50%;
-}
-.nav-items a:hover {
-    background-color: rgba(0, 0, 0, 0.1);
 }
