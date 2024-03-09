@@ -74,14 +74,26 @@ body{
     display: flex;
     box-sizing: border-box;
     text-align: center;
-    padding: 3px 16px;
+    padding: 0px 16px;
+    height: 32px;
     align-items: center;
 }
-.average-star{
+.average-star-box{
     color: #DE89A1;
     padding-right: 16px;
     border-right: 1px #BABABA solid;
 }
+.average-star-box *{
+    padding: 0;
+}
+.average-star-container{
+    margin-left: 12px;
+}
+
+.average-star{
+    height: 16px;
+}
+
 .review-amount{
     padding-right: 16px;
     border-right: 1px #BABABA solid;

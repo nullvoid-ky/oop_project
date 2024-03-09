@@ -10,12 +10,17 @@
 .review-detail{
     display: flex;
     flex-direction: column;
+    padding-left: 16px;
+}
+
+.review-detail *{
+    padding: 0;
+    margin: 0;
 }
 
 .review-box{
     display: flex;
     flex-direction: row;
-    align-items: center;
 }
 
 .review-pic{
