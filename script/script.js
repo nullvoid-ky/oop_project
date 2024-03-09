@@ -1,56 +1,56 @@
-const my_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZGZjNTk3ZjUtMDllMS00OTQzLTg0OWItMTFjNTdiYmNkMmE2Iiwicm9sZSI6ImN1c3RvbWVyIn0.nQXdUl5i9cgggIs-zECPMBDfr_ipWCrR7PQ6m-mGCvw';
-let my_id = '';
-let url = 'http://127.0.0.1:8000';
+const my_token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZGZjNTk3ZjUtMDllMS00OTQzLTg0OWItMTFjNTdiYmNkMmE2Iiwicm9sZSI6ImN1c3RvbWVyIn0.nQXdUl5i9cgggIs-zECPMBDfr_ipWCrR7PQ6m-mGCvw";
+let my_id = "";
+let url = "http://127.0.0.1:8000";
 // let url = 'http://10.66.4.108:8000'
 
-
 function createCard(username, picUrl, accountId) {
-    const cardList = document.getElementById("card-list")
+    const cardList = document.getElementById("card-list");
 
     // Create card element
-    const card = document.createElement("div")
-    card.classList.add("card")
-    card.dataset.accountId = accountId // Set accountId as a custom data attribute
+    const card = document.createElement("div");
+    card.classList.add("card");
+    card.dataset.accountId = accountId; // Set accountId as a custom data attribute
 
     // Create image element
-    const img = document.createElement("img")
-    img.src = picUrl
-    img.alt = "Profile Image"
+    const img = document.createElement("img");
+    img.src = picUrl;
+    img.alt = "Profile Image";
 
     // Create card detail element
-    const cardDetail = document.createElement("div")
-    cardDetail.classList.add("card-detail")
+    const cardDetail = document.createElement("div");
+    cardDetail.classList.add("card-detail");
 
     // Create card detail name element
-    const cardDetailName = document.createElement("div")
-    cardDetailName.classList.add("card-detail-name")
-    cardDetailName.textContent = username
+    const cardDetailName = document.createElement("div");
+    cardDetailName.classList.add("card-detail-name");
+    cardDetailName.textContent = username;
 
-    const cardDetailLocation = document.createElement("div")
-    cardDetailLocation.classList.add("card-detail-location")
-    cardDetailLocation.textContent = "Bangkok"
+    const cardDetailLocation = document.createElement("div");
+    cardDetailLocation.classList.add("card-detail-location");
+    cardDetailLocation.textContent = "Bangkok";
 
     // Append elements to card
-    cardDetail.appendChild(cardDetailLocation)
-    cardDetail.appendChild(cardDetailName)
-    card.appendChild(img)
-    card.appendChild(cardDetail)
+    cardDetail.appendChild(cardDetailLocation);
+    cardDetail.appendChild(cardDetailName);
+    card.appendChild(img);
+    card.appendChild(cardDetail);
 
     // Add event listener to card
     card.addEventListener("click", () => {
-        const accountId = card.dataset.accountId
-        console.log("Clicked card with accountId:", accountId)
+        const accountId = card.dataset.accountId;
+        console.log("Clicked card with accountId:", accountId);
         // Perform GET request with accountId
-    })
+    });
 
     // Append card to card list
-    cardList.appendChild(card)
+    cardList.appendChild(card);
 }
 
 function getMates() {
     // Clear previous values
-    const cardList = document.getElementById("card-list")
-    cardList.innerHTML = ""
+    const cardList = document.getElementById("card-list");
+    cardList.innerHTML = "";
 
     // Define request options
     const requestOptions = {
@@ -60,26 +60,26 @@ function getMates() {
             "x-token": my_token,
         },
         // body: JSON.stringify(requestBody)
-    }
+    };
 
     fetch(url + "/api/controller/get-mates", requestOptions)
         .then((response) => response.json())
         .then((data) => {
-            console.log("Fetch mates: ", data)
+            console.log("Fetch mates: ", data);
             data.data.forEach((item) => {
-                const username = item.account_detail.username
-                const picUrl = item.account_detail.pic_url
-                const accountId = item.account_detail.id
-                createCard(username, picUrl, accountId)
-            })
+                const username = item.account_detail.username;
+                const picUrl = item.account_detail.pic_url;
+                const accountId = item.account_detail.id;
+                createCard(username, picUrl, accountId);
+            });
         })
-        .catch((error) => console.error("Error fetching data:", error))
+        .catch((error) => console.error("Error fetching data:", error));
 }
 
 function getTopMateLeaderboard() {
     // Clear previous values
-    const cardList = document.getElementById("card-list")
-    cardList.innerHTML = ""
+    const cardList = document.getElementById("card-list");
+    cardList.innerHTML = "";
 
     // Define request options
     const requestOptions = {
@@ -89,148 +89,151 @@ function getTopMateLeaderboard() {
             "x-token": my_token,
         },
         // body: JSON.stringify(requestBody)
-    }
+    };
 
     fetch(url + "/api/controller/get-leaderboard", requestOptions)
         .then((response) => response.json())
         .then((data) => {
-            console.log("Fetch mates: ", data)
+            console.log("Fetch mates: ", data);
             data.data.forEach((item) => {
-                const username = item.account_detail.username
-                const picUrl = item.account_detail.pic_url
-                const accountId = item.account_detail.id
-                const rating = item.account_detail.star
-                createCardRating(username, picUrl, accountId, rating)
-            })
+                const username = item.account_detail.username;
+                const picUrl = item.account_detail.pic_url;
+                const accountId = item.account_detail.id;
+                const rating = item.account_detail.star;
+                createCardRating(username, picUrl, accountId, rating);
+            });
         })
-        .catch((error) => console.error("Error fetching data:", error))
+        .catch((error) => console.error("Error fetching data:", error));
 }
 
 function createCardRating(username, picUrl, accountId, rating) {
-    const cardList = document.getElementById("card-list")
+    const cardList = document.getElementById("card-list");
 
     // Create card element
-    const card = document.createElement("div")
-    card.classList.add("card")
-    card.dataset.accountId = accountId // Set accountId as a custom data attribute
+    const card = document.createElement("div");
+    card.classList.add("card");
+    card.dataset.accountId = accountId; // Set accountId as a custom data attribute
 
     // Create image element
-    const img = document.createElement("img")
-    img.src = picUrl
-    img.alt = "Profile Image"
+    const img = document.createElement("img");
+    img.src = picUrl;
+    img.alt = "Profile Image";
 
     // Create card detail element
-    const cardDetail = document.createElement("div")
-    cardDetail.classList.add("card-detail")
+    const cardDetail = document.createElement("div");
+    cardDetail.classList.add("card-detail");
 
     // Create card detail name element
-    const cardDetailName = document.createElement("div")
-    cardDetailName.classList.add("card-detail-name")
-    cardDetailName.textContent = username
+    const cardDetailName = document.createElement("div");
+    cardDetailName.classList.add("card-detail-name");
+    cardDetailName.textContent = username;
 
     // Create card detail location element
-    const cardDetailLocation = document.createElement("div")
-    cardDetailLocation.classList.add("card-detail-location")
-    cardDetailLocation.textContent = "Bangkok"
+    const cardDetailLocation = document.createElement("div");
+    cardDetailLocation.classList.add("card-detail-location");
+    cardDetailLocation.textContent = "Bangkok";
 
-    const ratingBox = document.createElement("div")
-    ratingBox.classList.add("average-star-box")
+    const ratingBox = document.createElement("div");
+    ratingBox.classList.add("average-star-box");
 
-    const cardDetailRating = document.createElement("div")
-    cardDetailRating.classList.add("average-star-num")
-    cardDetailRating.textContent = rating
+    const cardDetailRating = document.createElement("div");
+    cardDetailRating.classList.add("average-star-num");
+    cardDetailRating.textContent = rating.toString();
 
     // Create star rating element
-    const starRatingContainer = document.createElement("div")
-    starRatingContainer.classList.add("star-rating-container")
+    const starRatingContainer = document.createElement("div");
+    starRatingContainer.classList.add("star-rating-container");
 
     const numStars = Math.floor(rating); // Get the integer part of the rating
     for (let i = 0; i < numStars; i++) {
-        const starImg = document.createElement('img');
-        starImg.className = 'average-star';
-        starImg.src = '../img/star.svg';
-        starImg.alt = 'star';
+        const starImg = document.createElement("img");
+        starImg.className = "average-star";
+        starImg.src = "../img/star.svg";
+        starImg.alt = "star";
         starRatingContainer.appendChild(starImg);
     }
 
     const numEmptyStars = 5 - Math.floor(rating); // Get the integer part of the rating
     for (let i = 0; i < numEmptyStars; i++) {
-        const starImg = document.createElement('img');
-        starImg.className = 'average-star';
-        starImg.src = '../img/no-star.svg';
-        starImg.alt = 'star';
+        const starImg = document.createElement("img");
+        starImg.className = "average-star";
+        starImg.src = "../img/no-star.svg";
+        starImg.alt = "star";
         starRatingContainer.appendChild(starImg);
     }
 
-    ratingBox.appendChild(starRatingContainer)
-    ratingBox.appendChild(cardDetailRating)
+    ratingBox.appendChild(starRatingContainer);
+    ratingBox.appendChild(cardDetailRating);
 
     // Append elements to card
-    cardDetail.appendChild(cardDetailLocation)
-    cardDetail.appendChild(cardDetailName)
-    card.appendChild(img)
-    card.appendChild(cardDetail)
+    cardDetail.appendChild(cardDetailLocation);
+    cardDetail.appendChild(cardDetailName);
+    card.appendChild(img);
+    card.appendChild(cardDetail);
     card.appendChild(ratingBox); // Append star rating container
 
     // Add event listener to card
     card.addEventListener("click", () => {
-        const accountId = card.dataset.accountId
-        console.log("Clicked card with accountId:", accountId)
-        localStorage.setItem('book-mate-id', accountId);
-        document.location.href = 'book.html'
+        const accountId = card.dataset.accountId;
+        console.log("Clicked card with accountId:", accountId);
+        localStorage.setItem("book-mate-id", accountId);
+        document.location.href = "book.html";
         // Perform GET request with accountId
-    })
+    });
 
     // Append card to card list
-    cardList.appendChild(card)
+    cardList.appendChild(card);
 }
 
 function generateStars(rating) {
-    const container = document.getElementById('average-star-container');
-    container.innerHTML = ''; // Clear existing stars
+    const container = document.getElementById("average-star-container");
+    container.innerHTML = ""; // Clear existing stars
 
     const numStars = Math.floor(rating); // Get the integer part of the rating
     for (let i = 0; i < numStars; i++) {
-        const starImg = document.createElement('img');
-        starImg.className = 'average-star';
-        starImg.src = '../img/star.svg';
-        starImg.alt = 'star';
+        const starImg = document.createElement("img");
+        starImg.className = "average-star";
+        starImg.src = "../img/star.svg";
+        starImg.alt = "star";
         container.appendChild(starImg);
     }
 }
 
 function searchMates() {
     // Clear previous values
-    const cardList = document.getElementById("card-list")
-    cardList.innerHTML = ""
+    const cardList = document.getElementById("card-list");
+    cardList.innerHTML = "";
 
-    const nameText = document.getElementById("mate-name").value
-    const locationText = document.getElementById("mate-location").value
-    const ageText = document.getElementById("quantity").value
+    const nameText = document.getElementById("mate-name").value;
+    const locationText = document.getElementById("mate-location").value;
+    const ageText = document.getElementById("quantity").value;
 
-
-    var genderValues = [];  // Initialize an empty array to store gender values
+    var genderValues = []; // Initialize an empty array to store gender values
 
     // Get all checkboxes with name 'gender'
-    var checkboxes = document.querySelectorAll('.input-gender input[type="checkbox"][name="gender"]');
+    var checkboxes = document.querySelectorAll(
+        '.input-gender input[type="checkbox"][name="gender"]'
+    );
 
     // Iterate over each checkbox
-    checkboxes.forEach(function(checkbox) {
+    checkboxes.forEach(function (checkbox) {
         // If the checkbox is checked, append its value (male or female) to the genderValues array
         if (checkbox.checked) {
             genderValues.push(checkbox.value);
         }
     });
 
-    var availabilityValue = document.querySelector('.input-availability input[type="checkbox"][name="availability"]').checked;
+    var availabilityValue = document.querySelector(
+        '.input-availability input[type="checkbox"][name="availability"]'
+    ).checked;
 
     let search_condition = {
         name: nameText,
         location: locationText,
         gender_list: genderValues,
         age: parseInt(ageText),
-        availability: availabilityValue
-    }
+        availability: availabilityValue,
+    };
     console.log(search_condition);
 
     // Define request options
@@ -240,25 +243,25 @@ function searchMates() {
             "Content-Type": "application/json",
             "x-token": my_token,
         },
-        body: JSON.stringify(search_condition)
-    }
+        body: JSON.stringify(search_condition),
+    };
 
     fetch(url + "/api/controller/search-mate-by-condition", requestOptions)
         .then((response) => response.json())
         .then((data) => {
-            console.log("Fetch mates: ", data)
+            console.log("Fetch mates: ", data);
             data.data.forEach((item) => {
-                const username = item.account_detail.username
-                const picUrl = item.account_detail.pic_url
-                const accountId = item.account_detail.id
-                const rating = item.account_detail.star
+                const username = item.account_detail.username;
+                const picUrl = item.account_detail.pic_url;
+                const accountId = item.account_detail.id;
+                const rating = item.account_detail.star;
+                console.log(item.account_detail.star);
                 // createCard(username, picUrl, accountId)
-                createCardRating(username, picUrl, accountId, rating)
-            })
+                createCardRating(username, picUrl, accountId, rating);
+            });
         })
-        .catch((error) => console.error("Error fetching data:", error))
+        .catch((error) => console.error("Error fetching data:", error));
 }
-
 
 window.onload = function () {
     registrationCookie();
@@ -267,29 +270,28 @@ window.onload = function () {
         clearLocalStorage();
         updateValue();
         // getMates();
-        getTopMateLeaderboard()
+        getTopMateLeaderboard();
         console.log("You are on index.html");
     } else {
         console.log("You are not mate.html");
         updateValue();
         searchMates();
     }
-    
-}
+};
 
 function registerPage(buttonId) {
     var encodedButtonId = encodeURIComponent(buttonId);
-    window.location.href = 'login.html?buttonId=' + encodedButtonId; // passing value
+    window.location.href = "login.html?buttonId=" + encodedButtonId; // passing value
 }
 
 function getCookie(cookieName) {
     const name = cookieName + "=";
     const decodedCookie = decodeURIComponent(document.cookie);
     console.log(decodedCookie);
-    const cookieArray = decodedCookie.split(';');
-    for(let i = 0; i <cookieArray.length; i++) {
+    const cookieArray = decodedCookie.split(";");
+    for (let i = 0; i < cookieArray.length; i++) {
         let cookie = cookieArray[i];
-        while (cookie.charAt(0) === ' ') {
+        while (cookie.charAt(0) === " ") {
             cookie = cookie.substring(1);
         }
         if (cookie.indexOf(name) === 0) {
@@ -300,87 +302,104 @@ function getCookie(cookieName) {
 }
 
 // Usage example
-function registrationCookie(){
-    const registrationData = getCookie('userData');
+function registrationCookie() {
+    const registrationData = getCookie("userData");
     console.log(registrationData); // Log the value retrieved from the cookie
-    if (registrationData !== '') {
+    if (registrationData !== "") {
         const data = JSON.parse(registrationData);
         console.log(data);
         // my_token = data.token;
-        my_id = data.id
+        my_id = data.id;
         // Do something with the registration data
-        let loginNav = document.getElementById('login');
-        loginNav.style.cssText = "display: none;"
-        let registerNav = document.getElementById('register');
-        registerNav.style.cssText = "display: none;"
+        let loginNav = document.getElementById("login");
+        loginNav.style.cssText = "display: none;";
+        let registerNav = document.getElementById("register");
+        registerNav.style.cssText = "display: none;";
     } else {
-        console.log('Registration data not found in cookie.');
-        let progileNav = document.getElementById('profile');
-        progileNav.style.cssText = "display: none;"
+        console.log("Registration data not found in cookie.");
+        let progileNav = document.getElementById("profile");
+        progileNav.style.cssText = "display: none;";
     }
-        
 }
 
 function clearLocalStorage() {
     // localStorage.clear();
     // console.log("Local storage cleared.");
-    localStorage.setItem('mate-name', "");
-    localStorage.setItem('mate-location', "");
-    localStorage.setItem('quantity', 18);
-
+    localStorage.setItem("mate-name", "");
+    localStorage.setItem("mate-location", "");
+    localStorage.setItem("quantity", 18);
 }
 
 function syncGender() {
     var selectedGenders = [];
-    var checkboxes = document.querySelectorAll('.input-gender input[type="checkbox"]:checked');
-    checkboxes.forEach(function(checkbox) {
+    var checkboxes = document.querySelectorAll(
+        '.input-gender input[type="checkbox"]:checked'
+    );
+    checkboxes.forEach(function (checkbox) {
         selectedGenders.push(checkbox.value);
     });
-    console.log(selectedGenders)
-    localStorage.setItem('selectedGenders', JSON.stringify(selectedGenders));
+    console.log(selectedGenders);
+    localStorage.setItem("selectedGenders", JSON.stringify(selectedGenders));
 }
 
 function syncAvailability() {
     var selectedAvailabilitys = [];
-    var checkboxes = document.querySelectorAll('.input-availability input[type="checkbox"]:checked');
-    checkboxes.forEach(function(checkbox) {
+    var checkboxes = document.querySelectorAll(
+        '.input-availability input[type="checkbox"]:checked'
+    );
+    checkboxes.forEach(function (checkbox) {
         selectedAvailabilitys.push(checkbox.value);
     });
-    console.log(selectedAvailabilitys)
-    localStorage.setItem('selectedAvailability', JSON.stringify(selectedAvailabilitys));
+    console.log(selectedAvailabilitys);
+    localStorage.setItem(
+        "selectedAvailability",
+        JSON.stringify(selectedAvailabilitys)
+    );
 }
-
 
 function syncValue() {
-    console.log(document.getElementById('mate-name').value)
-    localStorage.setItem('mate-name', document.getElementById('mate-name').value);
-    localStorage.setItem('mate-location', document.getElementById('mate-location').value);
-    localStorage.setItem('quantity', document.getElementById('quantity').value);
+    console.log(document.getElementById("mate-name").value);
+    localStorage.setItem(
+        "mate-name",
+        document.getElementById("mate-name").value
+    );
+    localStorage.setItem(
+        "mate-location",
+        document.getElementById("mate-location").value
+    );
+    localStorage.setItem("quantity", document.getElementById("quantity").value);
 
-    syncGender() 
-    syncAvailability()   
+    syncGender();
+    syncAvailability();
 }
 
-function updateValue(){
-    document.getElementById('mate-name').value = localStorage.getItem('mate-name');
-    document.getElementById('mate-location').value = localStorage.getItem('mate-location'); 
-    document.getElementById('quantity').value = localStorage.getItem('quantity');
-    var storedGenders = localStorage.getItem('selectedGenders');
+function updateValue() {
+    document.getElementById("mate-name").value =
+        localStorage.getItem("mate-name");
+    document.getElementById("mate-location").value =
+        localStorage.getItem("mate-location");
+    document.getElementById("quantity").value =
+        localStorage.getItem("quantity");
+    var storedGenders = localStorage.getItem("selectedGenders");
     if (storedGenders) {
         storedGenders = JSON.parse(storedGenders);
-        var checkboxes = document.querySelectorAll('.input-gender input[type="checkbox"]');
-        checkboxes.forEach(function(checkbox) {
+        var checkboxes = document.querySelectorAll(
+            '.input-gender input[type="checkbox"]'
+        );
+        checkboxes.forEach(function (checkbox) {
             if (storedGenders.includes(checkbox.value)) {
                 checkbox.checked = true;
             }
         });
     }
 
-    var storedAvailablility = localStorage.getItem('selectedAvailability');
+    var storedAvailablility = localStorage.getItem("selectedAvailability");
     if (storedAvailablility) {
         storedAvailablility = JSON.parse(storedAvailablility);
-        var checkboxes = document.querySelectorAll('.input-availability input[type="checkbox"]');
-        checkboxes.forEach(function(checkbox) {
+        var checkboxes = document.querySelectorAll(
+            '.input-availability input[type="checkbox"]'
+        );
+        checkboxes.forEach(function (checkbox) {
             if (storedAvailablility.includes(checkbox.value)) {
                 checkbox.checked = true;
             } else {
@@ -390,7 +409,7 @@ function updateValue(){
     }
 }
 
-function addEnterSearch(){
+function addEnterSearch() {
     var enterMessage = document.getElementById("mate-name");
     enterMessage.addEventListener("keypress", function (event) {
         if (event.key === "Enter") {
@@ -420,7 +439,6 @@ function addEnterSearch(){
             window.location.href = "mate.html";
         }
     });
-
 }
 
 function verify_role(token) {
@@ -428,36 +446,38 @@ function verify_role(token) {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
-            "x-token": token
+            "x-token": token,
         },
     };
 
     // Return the fetch call directly to chain promises
-    return fetch(url + "/api/controller/get-user-profile/" + my_id, requestOptions)
-    .then((response) => {
-        console.log("get-user-profile ", response);
-        if (response.status === 200) {
-            return response.json(); // If status is 200, parse response JSON
-        } else {
-            alert("Verification error");
-            window.location.href = 'login.html'
-            throw new Error("Verification error"); // For other statuses, throw unexpected error
-        }
-    })
-    .then((data) => {
-        if(data.hasOwnProperty("status_code")){
-            if(data.status_code == 404){
-                alert("กรุณาเข้าสู่ระบบก่อนใช้งาน");
-                window.location.href = 'login.html'
+    return fetch(
+        url + "/api/controller/get-user-profile/" + my_id,
+        requestOptions
+    )
+        .then((response) => {
+            console.log("get-user-profile ", response);
+            if (response.status === 200) {
+                return response.json(); // If status is 200, parse response JSON
+            } else {
+                alert("Verification error");
+                window.location.href = "login.html";
+                throw new Error("Verification error"); // For other statuses, throw unexpected error
             }
-
-        }
-        // Handle success response
-        console.log("Verification respond:", data);
-        return data.data.role;
-    })
-    .catch((error) => {
-        console.error("Error Verification respond:", error.message);
-        throw error; // Re-throw the error to be caught by the caller
-    });
+        })
+        .then((data) => {
+            if (data.hasOwnProperty("status_code")) {
+                if (data.status_code == 404) {
+                    alert("กรุณาเข้าสู่ระบบก่อนใช้งาน");
+                    window.location.href = "login.html";
+                }
+            }
+            // Handle success response
+            console.log("Verification respond:", data);
+            return data.data.role;
+        })
+        .catch((error) => {
+            console.error("Error Verification respond:", error.message);
+            throw error; // Re-throw the error to be caught by the caller
+        });
 }
