@@ -19,6 +19,7 @@ body{
     background-color: white;
     align-items: center;
     border-radius: 4px;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1);
 }
 
 .main-content > img{
@@ -181,6 +182,12 @@ body{
     border: 0;
     box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1);
 }
+
+.book-btn:hover{
+    background-color: #d76686;
+    cursor: pointer;
+}
+
 header{
     position: absolute;
     top: calc(54px + 64px);

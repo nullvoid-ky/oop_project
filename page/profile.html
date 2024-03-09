@@ -3,6 +3,90 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Animated Login Form</title>
+        <link rel="stylesheet" href="../style/profile.css" />
+    </head>
+
+    <body>
+        <a class="return-home" href="index.html">
+            <img src="../img/return.svg" alt="<" />
+        </a>
+        <div class="container" id="container">
+            <div class="profile-detail">
+                <div class="picture-row row">
+                    <h2>Profile Picture</h2>
+                    <div class="images">
+                        <img id="profile-pic" src="" alt="pic" />
+                        <img id="profile-pic" src="" alt="pic" />
+                        <img id="profile-pic" src="" alt="pic" />
+                    </div>
+                    <span class="value-text"
+                        >Pic URL:
+                        <span id="picUrl">http://example.com/pic.jpg</span>
+                    </span>
+                    <button class="btn" id="editPicUrlBtn">Edit</button>
+                </div>
+
+                <div class="name-row row">
+                    <h2>Displayname</h2>
+                    <span class="value-text" id="displayName">JohnDoe</span>
+                    <button class="btn" id="editDisplayNameBtn">Edit</button>
+                </div>
+
+                <div class="money-row row">
+                    <h2>Balance</h2>
+                    <span class="value-text"
+                        ><span id="money-left">100</span><span>บาท</span></span
+                    >
+                    <button class="btn" id="editDisplayNameBtn">Edit</button>
+                </div>
+
+                <div class="mate-content" id="mate-content">
+                    <h1>Mate Zone</h1>
+                    <div class="name-row row">
+                        <h2>Displayname</h2>
+                        <span class="value-text" id="displayName">JohnDoe</span>
+                        <button class="btn" id="editDisplayNameBtn">
+                            Edit
+                        </button>
+                    </div>
+                    <div class="name-row row">
+                        <h2>Displayname</h2>
+                        <span class="value-text" id="displayName">JohnDoe</span>
+                        <button class="btn" id="editDisplayNameBtn">
+                            Edit
+                        </button>
+                    </div>
+                    <div class="name-row row">
+                        <h2>Displayname</h2>
+                        <span class="value-text" id="displayName">JohnDoe</span>
+                        <button class="btn" id="editDisplayNameBtn">
+                            Edit
+                        </button>
+                    </div>
+                </div>
+                <!-- 
+                <div class="money-left">
+                    <span>Money Left in Account: </span>
+                    <span id="moneyLeft">$100</span>
+                </div> -->
+
+                <div class="row">
+                    <h2>ออกสู่ระบบ</h2>
+                    <button class="btn red" onclick="logOut()">Log Out</button>
+                </div>
+            </div>
+        </div>
+
+        <script src="../script/profile.js"></script>
+    </body>
+</html>
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Profile Page</title>
         <link rel="stylesheet" href="../style/profile.css" />
         <link rel="stylesheet" href="../style/nav_profile.css" />
@@ -35,4 +119,4 @@
         </div>
         <script src="../script/profile.js"></script>
     </body>
-</html>
+</html> -->
