@@ -82,7 +82,7 @@ function verify_role(token) {
 
 async function getMateData(token) {
     const res = await fetch(
-        url + "/api/controller/get-user-profile/" + user_id,
+        url + "/api/mate/get-mate-profile/" + user_id,
         {
             method: "GET",
             headers: {
@@ -91,13 +91,14 @@ async function getMateData(token) {
             },
         }
     );
-    console.log("getMateData: ", res)
+    
     const data = await res.json();
+    console.log("getMateData: ", data)
     // console.log(data)
     const pic = document.getElementById("pic");
     pic.src = data.data.pic_url;
     const nameText = document.getElementById("name-text");
-    nameText.textContent = data.data.username;
+    nameText.textContent = data.data.displayname;
     const locationText = document.getElementById("location-text");
     locationText.textContent = data.data.location;
     const averageStarNum = document.getElementById("average-star-num");
