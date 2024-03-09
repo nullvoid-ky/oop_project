@@ -1,13 +1,24 @@
 @import url(nav.css);
 @import url(header.css);
+@import url(review.css);
+
+body{
+    background: linear-gradient(0deg, #ffffff 20%, rgba(255,250,229,1) 95%);
+    background-repeat: no-repeat;
+    overflow-y: scroll;
+    height: 500vh;
+
+
+}
 
 .main-content{
     display: flex;
     width: calc(100vw - 200px);
     flex-direction: row;
     height: 540px;
-    background-color: rgba(102, 51, 153, 0.206);
+    background-color: white;
     align-items: center;
+    border-radius: 4px;
 }
 
 .main-content > img{
@@ -27,7 +38,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background-color: rgba(95, 158, 160, 0.119);
+    /* background-color: rgba(95, 158, 160, 0.119); */
 }
 
 .book-page{
@@ -63,14 +74,26 @@
     display: flex;
     box-sizing: border-box;
     text-align: center;
-    padding: 3px 16px;
+    padding: 0px 16px;
+    height: 32px;
     align-items: center;
 }
-.average-star{
+.average-star-box{
     color: #DE89A1;
     padding-right: 16px;
     border-right: 1px #BABABA solid;
 }
+.average-star-box *{
+    padding: 0;
+}
+.average-star-container{
+    margin-left: 12px;
+}
+
+.average-star{
+    height: 16px;
+}
+
 .review-amount{
     padding-right: 16px;
     border-right: 1px #BABABA solid;
