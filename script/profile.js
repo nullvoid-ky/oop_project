@@ -5,7 +5,19 @@ let my_id = ''
 
 window.onload = function () {
     registrationCookie();
-    verify_role(my_token)    
+    verify_role(my_token)
+    .then(role => {
+        console.log("role :", role);
+        // Use the role value here
+        if(role == 'customer'){
+            const mateContent = document.getElementById('mate-content');
+            // Set its display property to 'none'
+            mateContent.style.display = 'none';
+        }
+    })
+    .catch(error => {
+        console.error("Error verifying role:", error.message);
+    });    
 };
 
 function getCookie(cookieName) {
@@ -41,8 +53,10 @@ function registrationCookie(){
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+    registrationCookie();
     const editDisplayNameBtn = document.getElementById('editDisplayNameBtn');
     const editPicUrlBtn = document.getElementById('editPicUrlBtn');
+    const editMoneyBtn = document.getElementById('editMoneyBtn');
 
     editDisplayNameBtn.addEventListener('click', function() {
         const newDisplayName = prompt('Enter new DisplayName:');
@@ -55,6 +69,13 @@ document.addEventListener('DOMContentLoaded', function() {
         const newPicUrl = prompt('Enter new profile picture URL:');
         if (newPicUrl !== null && newPicUrl !== '') {
             updatePicUrl({ url: newPicUrl });
+        }
+    });
+
+    editMoneyBtn.addEventListener('click', function() {
+        const new_money = prompt('Enter new profile Money:');
+        if (new_money !== null && new_money !== '') {
+            updateMoney({ amount: new_money });
         }
     });
 
@@ -88,7 +109,32 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function updatePicUrl(data) {
         fetch(url+"/api/controller/edit-pic-url", {
-            method: 'POST',
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-token': my_token
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to update profile');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Profile updated successfully:', data);
+            // Update the UI with the new data if necessary
+            fetchUserProfile();
+        })
+        .catch(error => {
+            console.error('Error updating profile:', error);
+        });
+    }
+
+    function updateMoney(data) {
+        fetch(url+"/api/controller/edit-money", {
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
                 'x-token': my_token
@@ -139,15 +185,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function updateProfileUI(profileData) {
         // Update the UI with the fetched profile data
-        document.getElementById('displayName').textContent = profileData.display_name;
+        document.getElementById('displayName').textContent = profileData.displayname;
         document.getElementById('picUrl').textContent = profileData.pic_url;
-        document.querySelector('.profile-pic img').setAttribute('src', profileData.pic_url);
-        // document.getElementById('moneyLeft').textContent = profileData.money_left;
+        // document.querySelector('.profile-pic img').setAttribute('src', profileData.pic_url);
+        // document.querySelector('.images img').setAttribute('src', profileData.pic_url);
+
+        // If you want to set src for all images with class profile-pic:
+        const profilePics = document.querySelectorAll('.images img');
+        profilePics.forEach(pic => {
+            pic.setAttribute('src', profileData.pic_url);
+        });
+
+        document.getElementById('money-left').textContent = profileData.amount;
     }
 });
 
 function logOut(){
     document.cookie = "userData=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.location.href = 'index.html'
 }
 
 function verify_role(token) {
