@@ -99,12 +99,112 @@ function getTopMateLeaderboard() {
                 const username = item.account_detail.username
                 const picUrl = item.account_detail.pic_url
                 const accountId = item.account_detail.id
-                createCard(username, picUrl, accountId)
+                const rating = item.account_detail.star
+                createCardRating(username, picUrl, accountId, rating)
             })
         })
         .catch((error) => console.error("Error fetching data:", error))
 }
 
+function createCardRating(username, picUrl, accountId, rating) {
+    const cardList = document.getElementById("card-list")
+
+    // Create card element
+    const card = document.createElement("div")
+    card.classList.add("card")
+    card.dataset.accountId = accountId // Set accountId as a custom data attribute
+
+    // Create image element
+    const img = document.createElement("img")
+    img.src = picUrl
+    img.alt = "Profile Image"
+
+    // Create card detail element
+    const cardDetail = document.createElement("div")
+    cardDetail.classList.add("card-detail")
+
+    // Create card detail name element
+    const cardDetailName = document.createElement("div")
+    cardDetailName.classList.add("card-detail-name")
+    cardDetailName.textContent = username
+
+    // Create card detail location element
+    const cardDetailLocation = document.createElement("div")
+    cardDetailLocation.classList.add("card-detail-location")
+    cardDetailLocation.textContent = "Bangkok"
+
+    const ratingBox = document.createElement("div")
+    ratingBox.classList.add("average-star-box")
+
+    const cardDetailRating = document.createElement("div")
+    cardDetailRating.classList.add("average-star-num")
+    cardDetailRating.textContent = rating
+
+    // Create star rating element
+    const starRatingContainer = document.createElement("div")
+    starRatingContainer.classList.add("star-rating-container")
+
+    const numStars = Math.floor(rating); // Get the integer part of the rating
+    for (let i = 0; i < numStars; i++) {
+        const starImg = document.createElement('img');
+        starImg.className = 'average-star';
+        starImg.src = '../img/star.svg';
+        starImg.alt = 'star';
+        starRatingContainer.appendChild(starImg);
+    }
+    ratingBox.appendChild(starRatingContainer)
+    ratingBox.appendChild(cardDetailRating)
+
+    // Generate stars based on the rating
+    // generateStars(rating);
+
+    // Append elements to card
+    cardDetail.appendChild(cardDetailLocation)
+    cardDetail.appendChild(cardDetailName)
+    card.appendChild(img)
+    card.appendChild(cardDetail)
+    card.appendChild(ratingBox); // Append star rating container
+
+    // Add event listener to card
+    card.addEventListener("click", () => {
+        const accountId = card.dataset.accountId
+        console.log("Clicked card with accountId:", accountId)
+        // Perform GET request with accountId
+    })
+
+    // Append card to card list
+    cardList.appendChild(card)
+}
+
+function generateStars(rating) {
+    const container = document.getElementById('average-star-container');
+    container.innerHTML = ''; // Clear existing stars
+
+    const numStars = Math.floor(rating); // Get the integer part of the rating
+    for (let i = 0; i < numStars; i++) {
+        const starImg = document.createElement('img');
+        starImg.className = 'average-star';
+        starImg.src = '../img/star.svg';
+        starImg.alt = 'star';
+        container.appendChild(starImg);
+    }
+
+    // // If there's a fractional part, consider adding a half star
+    // const remainder = rating - numStars;
+    // if (remainder >= 0.25 && remainder < 0.75) {
+    //     const halfStarImg = document.createElement('img');
+    //     halfStarImg.className = 'average-star';
+    //     halfStarImg.src = '../img/half-star.svg'; // You might want to provide a half-star image
+    //     halfStarImg.alt = 'half star';
+    //     container.appendChild(halfStarImg);
+    // } else if (remainder >= 0.75) {
+    //     const fullStarImg = document.createElement('img');
+    //     fullStarImg.className = 'average-star';
+    //     fullStarImg.src = '../img/star.svg';
+    //     fullStarImg.alt = 'star';
+    //     container.appendChild(fullStarImg);
+    // }
+}
 
 function searchMates() {
     // Clear previous values
@@ -171,7 +271,8 @@ window.onload = function () {
     if (window.location.pathname.includes("index.html")) {
         clearLocalStorage();
         updateValue();
-        getMates();
+        // getMates();
+        getTopMateLeaderboard()
         console.log("You are on index.html");
     } else {
         console.log("You are not mate.html");
