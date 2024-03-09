@@ -10,5 +10,17 @@
 .review-detail{
     display: flex;
     flex-direction: column;
-    
+}
+
+.review-box{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.review-pic{
+    width: 40px;
+    height: 40px;
+    background-color: red;
+    border-radius: 100%;
 }
