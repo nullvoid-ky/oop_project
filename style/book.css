@@ -60,14 +60,18 @@
     flex-direction: row;
 }
 .rent-detail *{
-    padding-left: 16px;
+    display: flex;
+    box-sizing: border-box;
+    text-align: center;
+    padding: 3px 16px;
+    align-items: center;
 }
 .average-star{
     color: #DE89A1;
     padding-right: 16px;
     border-right: 1px #BABABA solid;
 }
-.rent-count{
+.review-amount{
     padding-right: 16px;
     border-right: 1px #BABABA solid;
 }
@@ -78,18 +82,77 @@
 .price-text{
     font-size: 32px;
     color: #9888C6;
+    margin: 12px 0 12px 0;
 }
 
 .open-time{
-    font-size: 32px;
+    font-size: 16px;
+    display: flex;
+    padding: 0;
+    color: #8F8F8F;
+    margin: 0;
+    padding-top: 4px;
+
 }
 
 .available-zone{
     font-size: 16px;
     display: flex;
     flex-direction: row;
+    /* align-items: center; */
+}
+.availability-content{
+    display: grid;
+    grid-template-columns: 224px 224px;
+    padding: 0 0 0 36px;
+    background-color: transparent;
+}
 
-    align-items: center;
+.availability-text{
+    display: grid;
+    box-sizing: border-box;
+    padding: 8px 16px;
+    background-color: transparent;
+    border: 1px solid #737373;
+
+    margin-top: 0;
+    margin-bottom: 16px; /* gap-bottom */
+    margin-left: 0; /* gap-left-right */
+    margin-right: 16px; /* gap-left-right */
+
+    text-align: center;
+    border-radius: 2px;
+}
+.availability-text:hover{
+    display: grid;
+    box-sizing: border-box;
+    padding: 8px 16px;
+    color: white;
+    background-color: #73737351;
+    border: 1px solid #737373;
+    cursor: pointer;
+
+    margin-top: 0;
+    margin-bottom: 16px; /* gap-bottom */
+    margin-left: 0; /* gap-left-right */
+    margin-right: 16px; /* gap-left-right */
+
+    text-align: center;
+    border-radius: 2px;
+}
+
+.book-btn{
+    box-sizing: border-box;
+    padding: 12px 24px;
+    width: 100px;
+    text-align: center;
+    margin-top: 12px;
+
+    background-color: #DE89A1;
+    color: white;
+    border-radius: 8px;
+    border: 0;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1);
 }
 header{
     position: absolute;
