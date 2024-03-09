@@ -2,7 +2,7 @@ let my_token = "";
 let currentChatRoomId = null;
 let url = 'http://127.0.0.1:8000'
 let ws_url = 'ws://127.0.0.1:8000'
-
+let my_id = ''
 // let url = 'http://10.66.4.108:8000'
 // let ws_url = 'ws://10.66.4.108:8000'
 
@@ -23,32 +23,35 @@ function getCookie(cookieName) {
     return "";
 }
 
-const registrationData = getCookie("userData");
-console.log(registrationData); // Log the value retrieved from the cookie
-if (registrationData !== "") {
-    const data = JSON.parse(registrationData);
-    console.log(data);
-    my_token = data.token;
-    // Do something with the registration data
-
-    let loginNav = document.getElementById('login');
-    loginNav.style.cssText = "display: none;"
-    let registerNav = document.getElementById('register');
-    registerNav.style.cssText = "display: none;"
-} else {
-    let progileNav = document.getElementById('profile');
-    progileNav.style.cssText = "display: none;"
-
-    console.log('Registration data not found in cookie.');
+function registrationCookie(){
+    const registrationData = getCookie('userData');
+    console.log(registrationData); // Log the value retrieved from the cookie
+    if (registrationData !== '') {
+        const data = JSON.parse(registrationData);
+        console.log(data);
+        my_token = data.token;
+        my_id = data.id
+        // Do something with the registration data
+        let loginNav = document.getElementById('login');
+        loginNav.style.cssText = "display: none;"
+        let registerNav = document.getElementById('register');
+        registerNav.style.cssText = "display: none;"
+    } else {
+        console.log('Registration data not found in cookie.');
+        let progileNav = document.getElementById('profile');
+        progileNav.style.cssText = "display: none;"
+    }
+        
 }
 
 window.onload = function () {
     const cardList = document.getElementById("message-list");
     cardList.innerHTML = "";
     displayMessage(false);
-
+    registrationCookie();
+    verify_role(my_token)
     getChatRooms(my_token);
-    registrationData()
+    
 };
 
 function displayMessage(isDisplay){
@@ -327,3 +330,43 @@ enterMessage.addEventListener("keypress", function (event) {
         enterMessage.innerText = "";
     }
 });
+
+
+function verify_role(token) {
+    const requestOptions = {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "x-token": token
+        },
+    };
+
+    // Return the fetch call directly to chain promises
+    return fetch(url + "/api/controller/get-user-profile/" + my_id, requestOptions)
+    .then((response) => {
+        console.log("get-user-profile ", response);
+        if (response.status === 200) {
+            return response.json(); // If status is 200, parse response JSON
+        } else {
+            alert("Verification error");
+            window.location.href = 'login.html'
+            throw new Error("Verification error"); // For other statuses, throw unexpected error
+        }
+    })
+    .then((data) => {
+        if(data.hasOwnProperty("status_code")){
+            if(data.status_code == 404){
+                alert("กรุณาเข้าสู่ระบบก่อนใช้งาน");
+                window.location.href = 'login.html'
+            }
+
+        }
+        // Handle success response
+        console.log("Verification respond:", data);
+        return data.data.role;
+    })
+    .catch((error) => {
+        console.error("Error Verification respond:", error.message);
+        throw error; // Re-throw the error to be caught by the caller
+    });
+}

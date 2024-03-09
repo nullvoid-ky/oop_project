@@ -155,9 +155,6 @@ function createCardRating(username, picUrl, accountId, rating) {
     ratingBox.appendChild(starRatingContainer)
     ratingBox.appendChild(cardDetailRating)
 
-    // Generate stars based on the rating
-    // generateStars(rating);
-
     // Append elements to card
     cardDetail.appendChild(cardDetailLocation)
     cardDetail.appendChild(cardDetailName)
@@ -188,22 +185,6 @@ function generateStars(rating) {
         starImg.alt = 'star';
         container.appendChild(starImg);
     }
-
-    // // If there's a fractional part, consider adding a half star
-    // const remainder = rating - numStars;
-    // if (remainder >= 0.25 && remainder < 0.75) {
-    //     const halfStarImg = document.createElement('img');
-    //     halfStarImg.className = 'average-star';
-    //     halfStarImg.src = '../img/half-star.svg'; // You might want to provide a half-star image
-    //     halfStarImg.alt = 'half star';
-    //     container.appendChild(halfStarImg);
-    // } else if (remainder >= 0.75) {
-    //     const fullStarImg = document.createElement('img');
-    //     fullStarImg.className = 'average-star';
-    //     fullStarImg.src = '../img/star.svg';
-    //     fullStarImg.alt = 'star';
-    //     container.appendChild(fullStarImg);
-    // }
 }
 
 function searchMates() {
@@ -428,5 +409,44 @@ function addEnterSearch(){
         }
     });
 
+}
+
+function verify_role(token) {
+    const requestOptions = {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "x-token": token
+        },
+    };
+
+    // Return the fetch call directly to chain promises
+    return fetch(url + "/api/controller/get-user-profile/" + my_id, requestOptions)
+    .then((response) => {
+        console.log("get-user-profile ", response);
+        if (response.status === 200) {
+            return response.json(); // If status is 200, parse response JSON
+        } else {
+            alert("Verification error");
+            window.location.href = 'login.html'
+            throw new Error("Verification error"); // For other statuses, throw unexpected error
+        }
+    })
+    .then((data) => {
+        if(data.hasOwnProperty("status_code")){
+            if(data.status_code == 404){
+                alert("กรุณาเข้าสู่ระบบก่อนใช้งาน");
+                window.location.href = 'login.html'
+            }
+
+        }
+        // Handle success response
+        console.log("Verification respond:", data);
+        return data.data.role;
+    })
+    .catch((error) => {
+        console.error("Error Verification respond:", error.message);
+        throw error; // Re-throw the error to be caught by the caller
+    });
 }
 
