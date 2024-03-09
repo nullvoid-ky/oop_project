@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
     fetchUserProfile();
 
     function updateDisplayName(data) {
-        fetch(url+"/api/controller/edit-displayname", {
+        fetch(url+"/api/controller/edit-display-name", {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', function() {
             },
         };
 
-        fetch(url + "/api/controller/get-user-profile", requestOptions)
+        fetch(url + "/api/controller/get-user-profile/"+my_id, requestOptions)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Failed to fetch profile');
