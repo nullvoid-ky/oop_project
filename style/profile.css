@@ -57,7 +57,7 @@ button {
   box-sizing: border-box;
 }
 
-body{
+/* body{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -68,8 +68,28 @@ body{
   justify-content: center;
   flex-direction: column;
   height: 100vh;
+} */
+.fake-body{
+
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #c9d6ff;
+  background: linear-gradient(0deg, rgba(255,255,255,1) 20%, rgba(255,250,229,1) 95%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  height: 100vh;
 }
 
+.content-container{
+  display: flex;
+  flex-direction: row;
+  background-color: rgb(255, 255, 255);
+  border-radius: 12px;
+  box-shadow: 0 4px 16px 0px rgba(0, 0, 0, 0.1);
+}
 h1{
   margin-bottom: 24px;
 }
@@ -95,16 +115,21 @@ h1{
   background-color: #d76686;
 }
 
+.content-container .container:nth-child(n+1){
+  width: 50vw;
+}
+
+.content-container .container:nth-child(2n-1){
+width: 30vw;
+}
+
 
 .container{
-  background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 16px 0px rgba(0, 0, 0, 0.35);
-  width: calc(80vw);
-  height: 80vh;
+  height: 100vh;
 
   box-sizing: border-box;
   padding: 48px;
+  box-shadow: 0 4px 4px 0px rgba(0, 0, 0, 0.2);
 
   overflow-y: scroll;
 }
@@ -117,6 +142,8 @@ h1{
   padding: 24px;
   box-sizing: border-box;
   border-radius: 12px;
+
+  word-break: break-all;
 }
 
 .row *{
@@ -127,6 +154,10 @@ h1{
   margin-bottom: 0px;
 }
 
+.bolded{
+  color: #d76686;
+  font-weight: 800;
+}
 
 .images{
   display: flex;
@@ -137,6 +168,7 @@ h1{
 
 .images *{
   display: flex;
+  object-fit: cover;
 }
 
 .images > img:first-child{
@@ -196,4 +228,27 @@ background-color: #d76686;
   margin-bottom: 32px;
   border-radius: 12px;
   background-color: #d7668666;
+}
+
+header{
+  font-weight: bold;
+  font-size: 36px;
+  margin-bottom: 24px;
+}
+
+.transaction-detail{
+  display: flex;
+  flex-direction: column;
+}
+
+.transaction-item{
+  display: flex;
+  flex-direction: row;
+}
+
+.transaction-item img{
+  background-color: red;
+  width: 100px;
+  aspect-ratio: 1/1;
+  margin-right: 24px;
 }
