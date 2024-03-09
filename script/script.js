@@ -76,7 +76,7 @@ function getMates() {
         .catch((error) => console.error("Error fetching data:", error))
 }
 
-function getLeaderboard() {
+function getTopMateLeaderboard() {
     // Clear previous values
     const cardList = document.getElementById("card-list")
     cardList.innerHTML = ""
