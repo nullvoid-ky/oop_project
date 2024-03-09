@@ -1,4 +1,4 @@
-let my_token = '';
+const my_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZGZjNTk3ZjUtMDllMS00OTQzLTg0OWItMTFjNTdiYmNkMmE2Iiwicm9sZSI6ImN1c3RvbWVyIn0.nQXdUl5i9cgggIs-zECPMBDfr_ipWCrR7PQ6m-mGCvw';
 let my_id = '';
 let url = 'http://127.0.0.1:8000';
 // let url = 'http://10.66.4.108:8000'
@@ -294,7 +294,7 @@ function registrationCookie(){
     if (registrationData !== '') {
         const data = JSON.parse(registrationData);
         console.log(data);
-        my_token = data.token;
+        // my_token = data.token;
         my_id = data.id
         // Do something with the registration data
         let loginNav = document.getElementById('login');
@@ -449,4 +449,3 @@ function verify_role(token) {
         throw error; // Re-throw the error to be caught by the caller
     });
 }
-

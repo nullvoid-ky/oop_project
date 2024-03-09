@@ -15,6 +15,8 @@ async function getMateData(token) {
     );
     const data = await res.json();
     // console.log(data)
+    const reviewAmount = document.getElementById("review-amount");
+    reviewAmount.textContent = data.data.reviewamount;
     const pic = document.getElementById("pic");
     pic.src = data.data.pic_url;
     const nameText = document.getElementById("name-text");
