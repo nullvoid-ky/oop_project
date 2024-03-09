@@ -1,9 +1,21 @@
 
 
+.card-list {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 32px;
+
+    box-sizing: border-box;
+}
+
 .card {
+    flex-grow: 1;
+    max-width: 300px;
+    min-width: 240px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     align-items: flex-start;
     background-color: white;
     /* width: 300px; */
@@ -13,37 +25,40 @@
 
 }
 
-.card img {
-    display: flex;
-    width: 100%;
-    flex: 16;
-    object-fit: cover;
-    background-color: rgba(0, 0, 0, 0.1);
-    cursor: pointer;
+.card > img {
+    max-width: 300px;
+    min-width: 240px;
+
+    max-height: 150px;
+    min-height: 120px;
+    background-color: #9888C6;
+    border-radius: 10px 10px 0 0;
+    margin: 0;
 }
 
 .card-detail {
+    padding: 16px 16px 8px 16px;
     display: flex;
     flex-direction: column;
-    flex: 10;
-    padding: 16px;
-    /* background-color: #f0f0f0; */
 }
 
 .card-detail-location {
-    margin-top: 14px;
+    /* margin-top: 14px; */
     padding: 4px 16px;
     border-radius: 16px;
     background-color: #9888C6;
     color: white;
 }
 .card-detail-name {
-    margin-top: 14px;
+    margin-top: 12px;
 }
 
-#card-list {
-    display: grid;
-    width: 100%;
-    grid-template-columns: auto auto auto auto;
-    gap: 30px;
+.average-star-box{
+    padding-left: 16px;
+    display: flex;
+    color: #DE89A1;
+}
+
+.average-star-num{
+    margin-left: 4px;
 }

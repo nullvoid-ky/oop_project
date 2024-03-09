@@ -1,16 +1,17 @@
 const url = "http://127.0.0.1:8000";
 const user_id = localStorage.getItem("book-mate-id");
-let my_token = ''
-let my_id = ''
+let my_token = "";
+let my_id = "";
+let selectedTime = null;
 
 function getCookie(cookieName) {
     const name = cookieName + "=";
     const decodedCookie = decodeURIComponent(document.cookie);
     console.log(decodedCookie);
-    const cookieArray = decodedCookie.split(';');
-    for(let i = 0; i <cookieArray.length; i++) {
+    const cookieArray = decodedCookie.split(";");
+    for (let i = 0; i < cookieArray.length; i++) {
         let cookie = cookieArray[i];
-        while (cookie.charAt(0) === ' ') {
+        while (cookie.charAt(0) === " ") {
             cookie = cookie.substring(1);
         }
         if (cookie.indexOf(name) === 0) {
@@ -20,25 +21,24 @@ function getCookie(cookieName) {
     return "";
 }
 
-function registrationCookie(){
-    const registrationData = getCookie('userData');
+function registrationCookie() {
+    const registrationData = getCookie("userData");
     console.log(registrationData); // Log the value retrieved from the cookie
-    if (registrationData !== '') {
+    if (registrationData !== "") {
         const data = JSON.parse(registrationData);
         console.log(data);
         my_token = data.token;
-        my_id = data.id
+        my_id = data.id;
         // Do something with the registration data
-        let loginNav = document.getElementById('login');
-        loginNav.style.cssText = "display: none;"
-        let registerNav = document.getElementById('register');
-        registerNav.style.cssText = "display: none;"
+        let loginNav = document.getElementById("login");
+        loginNav.style.cssText = "display: none;";
+        let registerNav = document.getElementById("register");
+        registerNav.style.cssText = "display: none;";
     } else {
-        console.log('Registration data not found in cookie.');
-        let progileNav = document.getElementById('profile');
-        progileNav.style.cssText = "display: none;"
+        console.log("Registration data not found in cookie.");
+        let progileNav = document.getElementById("profile");
+        progileNav.style.cssText = "display: none;";
     }
-        
 }
 
 function verify_role(token) {
@@ -46,57 +46,54 @@ function verify_role(token) {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
-            "x-token": token
+            "x-token": token,
         },
     };
 
     // Return the fetch call directly to chain promises
-    return fetch(url + "/api/controller/get-user-profile/" + my_id, requestOptions)
-    .then((response) => {
-        console.log("get-user-profile ", response);
-        if (response.status === 200) {
-            return response.json(); // If status is 200, parse response JSON
-        } else {
-            alert("Verification error");
-            window.location.href = 'login.html'
-            throw new Error("Verification error"); // For other statuses, throw unexpected error
-        }
-    })
-    .then((data) => {
-        if(data.hasOwnProperty("status_code")){
-            if(data.status_code == 404){
-                alert("กรุณาเข้าสู่ระบบก่อนใช้งาน");
-                window.location.href = 'login.html'
+    return fetch(
+        url + "/api/controller/get-user-profile/" + my_id,
+        requestOptions
+    )
+        .then((response) => {
+            console.log("get-user-profile ", response);
+            if (response.status === 200) {
+                return response.json(); // If status is 200, parse response JSON
+            } else {
+                alert("Verification error");
+                window.location.href = "login.html";
+                throw new Error("Verification error"); // For other statuses, throw unexpected error
             }
-
-        }
-        // Handle success response
-        console.log("Verification respond:", data);
-        return data.data.role;
-    })
-    .catch((error) => {
-        console.error("Error Verification respond:", error.message);
-        throw error; // Re-throw the error to be caught by the caller
-    });
+        })
+        .then((data) => {
+            if (data.hasOwnProperty("status_code")) {
+                if (data.status_code == 404) {
+                    alert("กรุณาเข้าสู่ระบบก่อนใช้งาน");
+                    window.location.href = "login.html";
+                }
+            }
+            // Handle success response
+            console.log("Verification respond:", data);
+            return data.data.role;
+        })
+        .catch((error) => {
+            console.error("Error Verification respond:", error.message);
+            throw error; // Re-throw the error to be caught by the caller
+        });
 }
 
 async function getMateData(token) {
-    const res = await fetch(
-        url + "/api/mate/get-mate-profile/" + user_id,
-        {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                "x-token": token,
-            },
-        }
-    );
-    
+    const res = await fetch(url + "/api/mate/get-mate-profile/" + user_id, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "x-token": token,
+        },
+    });
+
     const data = await res.json();
-    console.log("getMateData: ", data)
+    console.log("getMateData: ", data);
     // console.log(data)
-    const reviewAmount = document.getElementById("review-amount");
-    reviewAmount.textContent = data.data.reviewamount;
     const pic = document.getElementById("pic");
     pic.src = data.data.pic_url;
     const nameText = document.getElementById("name-text");
@@ -105,12 +102,23 @@ async function getMateData(token) {
     locationText.textContent = data.data.location;
     const averageStarNum = document.getElementById("average-star-num");
     averageStarNum.textContent = data.data.star;
-    const averageStarContainer = document.getElementById("average-star-container");
-    for (let i = 0; i < data.data.star; i++) {
+    const averageStarContainer = document.getElementById(
+        "average-star-container"
+    );
+    for (let i = 0; i < Math.floor(data.data.star); i++) {
         const averageStar = document.createElement("img");
         averageStar.className = "average-star";
         averageStar.id = "average-star";
         averageStar.src = "../img/star.svg";
+        averageStar.alt = "star";
+        averageStarContainer.appendChild(averageStar);
+    }
+
+    for (let i = 0; i < 5 - Math.floor(data.data.star); i++) {
+        const averageStar = document.createElement("img");
+        averageStar.className = "average-star";
+        averageStar.id = "average-star";
+        averageStar.src = "../img/no-star.svg";
         averageStar.alt = "star";
         averageStarContainer.appendChild(averageStar);
     }
@@ -136,6 +144,24 @@ async function getMateAvalability(token, mate_id) {
         pElement.setAttribute("data-time", item.date);
         pElement.textContent = item.date;
         parent.appendChild(pElement);
+    });
+
+    const availabilityTextElements =
+        document.querySelectorAll(".availability-text");
+
+    // Add click event listeners to each availability text element
+    availabilityTextElements.forEach(function (element) {
+        element.addEventListener("click", function () {
+            // Remove the 'selected' class from all elements
+            availabilityTextElements.forEach(function (el) {
+                el.classList.remove("selected");
+            });
+
+            // Add the 'selected' class to the clicked element
+            element.classList.add("selected");
+            selectedTime = element.getAttribute("data-time");
+            console.log(selectedTime);
+        });
     });
 }
 
@@ -221,11 +247,20 @@ async function getReview(token, mate_id) {
         reviewStarContainer.id = "review-star-container";
 
         // Create and append 5 review-star images to the review-star-container
-        for (let i = 0; i < item.star; i++) {
+        for (let i = 0; i < Math.floor(item.star); i++) {
             const reviewStar = document.createElement("img");
             reviewStar.className = "review-star";
             reviewStar.id = "review-star";
             reviewStar.src = "../img/star.svg"; // Set the star image source
+            reviewStar.alt = "star";
+            reviewStarContainer.appendChild(reviewStar);
+        }
+
+        for (let i = 0; i < 5 - Math.floor(item.star); i++) {
+            const reviewStar = document.createElement("img");
+            reviewStar.className = "review-star";
+            reviewStar.id = "review-star";
+            reviewStar.src = "../img/no-star.svg"; // Set the star image source
             reviewStar.alt = "star";
             reviewStarContainer.appendChild(reviewStar);
         }
@@ -252,7 +287,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const availabilityTextElements =
         document.querySelectorAll(".availability-text");
     const bookButton = document.getElementById("book-btn");
-    const selectedTime = null;
 
     // Add click event listeners to each availability text element
     availabilityTextElements.forEach(function (element) {
@@ -271,14 +305,17 @@ document.addEventListener("DOMContentLoaded", function () {
     bookButton.addEventListener("click", function () {
         if (selectedTime !== null) {
             // Perform actions for the selected time (e.g., submit data)
+            prompt(
+                "คุณต้องการชำระค่ามัดจำเลยหรือไม่\ny : รับทราบและชำระ\nn หรือกด Cancel: ยกเลิกการจ่าย"
+            );
             console.log("Booking for time:", selectedTime);
+            window.location.href = "booking.html";
             // Add your logic here to submit the data or perform other actions
         } else {
             console.log("Please select a time before booking.");
         }
     });
 });
-
 
 registrationCookie();
 getMateData(my_token);
