@@ -102,7 +102,10 @@ function getTopMateLeaderboard() {
                 const picUrl = item.account_detail.pic_url;
                 const accountId = item.account_detail.id;
                 const rating = item.account_detail.star;
-                createCardRating(displayName, picUrl, accountId, rating);
+                const location = item.account_detail.location
+                console.log(item.account_detail.star);
+                // createCard(displayname, picUrl, accountId)
+                createCardRating(displayName, picUrl, accountId, rating, location);
                 count++; // Increment the counter after each iteration
             }
         });
@@ -111,7 +114,7 @@ function getTopMateLeaderboard() {
 
 }
 
-function createCardRating(username, picUrl, accountId, rating) {
+function createCardRating(username, picUrl, accountId, rating, location) {
     const cardList = document.getElementById("card-list");
 
     // Create card element
@@ -136,7 +139,7 @@ function createCardRating(username, picUrl, accountId, rating) {
     // Create card detail location element
     const cardDetailLocation = document.createElement("div");
     cardDetailLocation.classList.add("card-detail-location");
-    cardDetailLocation.textContent = "Bangkok";
+    cardDetailLocation.textContent = location;
 
     const ratingBox = document.createElement("div");
     ratingBox.classList.add("average-star-box");
@@ -269,9 +272,10 @@ function searchMates() {
                 const picUrl = item.account_detail.pic_url;
                 const accountId = item.account_detail.id;
                 const rating = item.account_detail.star;
+                const location = item.account_detail.location
                 console.log(item.account_detail.star);
                 // createCard(displayname, picUrl, accountId)
-                createCardRating(displayName, picUrl, accountId, rating);
+                createCardRating(displayName, picUrl, accountId, rating, location);
             });
         })
         .catch((error) => console.error("Error fetching data:", error));
