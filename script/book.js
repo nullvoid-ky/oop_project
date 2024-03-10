@@ -99,11 +99,20 @@ async function getMateData(token) {
     const locationText = document.getElementById("location-text");
     locationText.textContent = data.data.location;
     const averageStarNum = document.getElementById("average-star-num");
-    averageStarNum.textContent = data.data.star;
+
+    let starNum = data.data.star;
+    if (data.data.star == "-1.0") {
+        starNum = "None";
+        averageStarNum.textContent = starNum;
+        starNum = 0;
+    } else {
+        averageStarNum.textContent = starNum;
+    }
     const averageStarContainer = document.getElementById(
         "average-star-container"
     );
-    for (let i = 0; i < Math.floor(data.data.star); i++) {
+
+    for (let i = 0; i < Math.floor(starNum); i++) {
         const averageStar = document.createElement("img");
         averageStar.className = "average-star";
         averageStar.id = "average-star";
@@ -112,7 +121,7 @@ async function getMateData(token) {
         averageStarContainer.appendChild(averageStar);
     }
 
-    for (let i = 0; i < 5 - Math.floor(data.data.star); i++) {
+    for (let i = 0; i < 5 - Math.floor(starNum); i++) {
         const averageStar = document.createElement("img");
         averageStar.className = "average-star";
         averageStar.id = "average-star";
