@@ -483,7 +483,7 @@ document.getElementById('addAvailable').addEventListener('click', function() {
     .then(data => {
         console.log("Response from POST:", data);
         if (data.hasOwnProperty("status_code")) {
-            if (data.status_code == 404) {
+            if (data.status_code == 404 || data.status_code == 400) {
                 alert("Fail: เพิ่มช่วงเวลาไม่สำเร็จ, Due to limit or error");
             }
         } else {

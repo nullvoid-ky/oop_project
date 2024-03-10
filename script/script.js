@@ -185,7 +185,7 @@ function createCardRating(username, picUrl, accountId, rating, location) {
         const accountId = card.dataset.accountId;
         console.log("Clicked card with accountId:", accountId);
         localStorage.setItem("book-mate-id", accountId);
-        document.location.href = "book.html";
+        document.location.href = "book.html?id="+accountId;
         // Perform GET request with accountId
     });
 
