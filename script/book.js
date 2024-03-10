@@ -181,6 +181,7 @@ async function bookMate(token, mate_id) {
     const year = parseInt(selectedTime.split("-")[2]);
     const month = parseInt(selectedTime.split("-")[1]);
     const day = parseInt(selectedTime.split("-")[0]);
+    console.log(token);
     console.log(year, month, day);
     const res = await fetch(url + "/api/controller/add-booking", {
         method: "POST",
