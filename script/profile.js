@@ -456,15 +456,17 @@ document.getElementById('addAvailable').addEventListener('click', function() {
     const detail = detailInput ? detailInput : "";
     
     const data = {
-        "day": parseInt(date.getDate()),
-        "month": parseInt(date.getMonth()) + 1, // Months are 0-indexed, so we add 1 to get the correct month
-        "year": parseInt(date.getFullYear()),
+        "date": {
+            "day": parseInt(date.getDate()),
+            "month": parseInt(date.getMonth()) + 1, // Months are 0-indexed, so we add 1 to get the correct month
+            "year": parseInt(date.getFullYear()),
+        },
         "detail": detail
     };
 
     console.log("available on : ", data)
 
-    fetch(url + "/api/controller/add-avalibility", {
+    fetch(url + "/api/mate/add-availability", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
