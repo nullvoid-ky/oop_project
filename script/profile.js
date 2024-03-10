@@ -8,11 +8,17 @@ window.onload = function () {
     verify_role(my_token)
     .then(role => {
         console.log("role :", role);
+
+        const editMoneyBtn = document.getElementById("editMoneyBtn")
         // Use the role value here
         if(role == 'customer'){
             const mateContent = document.getElementById('mate-content');
             // Set its display property to 'none'
             mateContent.style.display = 'none';
+            editMoneyBtn.textContent = 'Deposit'
+
+        } else {
+            editMoneyBtn.textContent = 'Withdraw'
         }
     })
     .catch(error => {
@@ -166,7 +172,7 @@ document.addEventListener('DOMContentLoaded', function() {
             },
         };
 
-        fetch(url + "/api/controller/get-user-profile/"+my_id, requestOptions)
+        fetch(url + "/api/controller/get-self-profile", requestOptions)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Failed to fetch profile');
@@ -215,7 +221,7 @@ function verify_role(token) {
     };
 
     // Return the fetch call directly to chain promises
-    return fetch(url + "/api/controller/get-user-profile/" + my_id, requestOptions)
+    return fetch(url + "/api/controller/get-self-profile", requestOptions)
     .then((response) => {
         console.log("get-user-profile ", response);
         if (response.status === 200) {

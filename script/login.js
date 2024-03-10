@@ -213,7 +213,7 @@ function verify_role(token) {
     };
 
     // Return the fetch call directly to chain promises
-    return fetch(url + "/api/controller/get-user-profile/" + my_id, requestOptions)
+    return fetch(url + "/api/controller/get-self-profile", requestOptions)
     .then((response) => {
         console.log("get-user-profile ", response);
         if (response.status === 200) {
