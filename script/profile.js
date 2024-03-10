@@ -4,10 +4,10 @@ let my_id = "";
 
 window.onload = function () {
     registrationCookie();
+    getTransactionHistory()
     verify_role(my_token)
     .then(role => {
         console.log("role :", role);
-
         const editMoneyBtn = document.getElementById("editMoneyBtn")
         // Use the role value here
         if(role == 'customer'){
@@ -48,7 +48,7 @@ function getTransactionHistory() {
     })
         .then((response) => response.json())
         .then((data) => {
-            console.log(data);
+            console.log("Transaction history:", data.data);
             const transactionList = document.getElementById("transaction-list");
             data.data.forEach((transaction) => {
                 // Assuming you have a parent element with id "transaction-list" where you want to append the transaction item
