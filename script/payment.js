@@ -1,4 +1,4 @@
-const url = "http://127.0.0.1:8000";
+const url = "http://10.66.7.125:8000";
 let my_token = "";
 let my_id = "";
 const bookingId = new URLSearchParams(window.location.search).get("id");
@@ -83,7 +83,7 @@ async function getPayment() {
     })
     .then((response) => response.json())
     .then((data) => {
-        if (!data.data.is_success) {
+        if (data.data.status === "Failed") {
             alert("ไม่พบการจอง");
             window.location.href = 'profile.html';
         }

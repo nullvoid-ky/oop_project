@@ -1,4 +1,4 @@
-const url = "http://127.0.0.1:8000";
+const url = "http://10.66.7.125:8000";
 let valid = false;
 let my_id = "";
 let my_token = "";
@@ -80,7 +80,7 @@ async function searchMates() {
     const parent = document.getElementById("booking-element");
     data.data.forEach((item) => {
         console.log(item.mate.username);
-        if (item.mate.username === value && item.is_success) {
+        if (item.mate.username === value && item.status !== "Failed") {
             const bookingElement = document.createElement("div");
             bookingElement.classList.add("booking-column-element");
 
@@ -132,35 +132,37 @@ async function searchMates() {
             addressElement.textContent = item.mate.location;
 
             // Create delete button
-            const deleteButton = document.createElement("button");
-            deleteButton.classList.add(
-                "booking-button",
-                "red",
-                "pink-btn",
-                "input-search",
-                "search-template"
-            );
-            deleteButton.textContent = "ลบ";
-            deleteButton.setAttribute("onclick", "delBookingByID(this)"); // Add onclick event
-            deleteButton.setAttribute("uuid", item.id);
-
-            // Create add button
-            const addButton = document.createElement("button");
-            addButton.classList.add(
-                "booking-button",
-                "pink-btn",
-                "input-search",
-                "search-template"
-            );
-            addButton.textContent = "เพิ่ม";
             // addButton.onclick = getMates; // Add onclick event
-
+            
             // Append elements to booking info
             bookingInfo.appendChild(priceElement);
             bookingInfo.appendChild(dateElement);
             bookingInfo.appendChild(addressElement);
-            bookingInfo.appendChild(deleteButton);
-            bookingInfo.appendChild(addButton);
+            if (item.status != "Success") {
+                const deleteButton = document.createElement("button");
+                deleteButton.classList.add(
+                    "booking-button",
+                    "red",
+                    "pink-btn",
+                    "input-search",
+                    "search-template"
+                );
+                deleteButton.textContent = "ลบ";
+                deleteButton.setAttribute("onclick", "delBookingByID(this)"); // Add onclick event
+                deleteButton.setAttribute("uuid", item.id);
+
+                // Create add button
+                const addButton = document.createElement("button");
+                addButton.classList.add(
+                    "booking-button",
+                    "pink-btn",
+                    "input-search",
+                    "search-template"
+                );
+                addButton.textContent = "เพิ่ม";
+                bookingInfo.appendChild(deleteButton);
+                bookingInfo.appendChild(addButton);
+            }
 
             // Append booking profile and booking info to booking element
             bookingElement.appendChild(bookingProfile);
@@ -184,7 +186,7 @@ async function getBooking() {
             useEffect("booking-element");
             const parent = document.getElementById("booking-element");
             data.data.forEach((item) => {
-                if (!item.is_success) {
+                if (item.status === "Failed") {
                     return;
                 }
                 const bookingElement = document.createElement("div");
@@ -238,38 +240,40 @@ async function getBooking() {
                 addressElement.textContent = item.mate.location;
 
                 // Create delete button
-                const deleteButton = document.createElement("button");
-                deleteButton.classList.add(
-                    "booking-button",
-                    "red",
-                    "pink-btn",
-                    "input-search",
-                    "search-template"
-                );
-                deleteButton.textContent = "ลบ";
-                deleteButton.setAttribute("onclick", "delBookingByID(this)"); // Add onclick event
-                deleteButton.setAttribute("uuid", item.id);
-
-                // Create add button
-                const addButton = document.createElement("button");
-                addButton.classList.add(
-                    "booking-button",
-                    "pink-btn",
-                    "input-search",
-                    "search-template"
-                );
-                addButton.textContent = "เพิ่ม";
-                addButton.addEventListener("click", () => {
-                    window.location.href = 'payment.html?id=' + item.id
-                });
                 // addButton.onclick = getMates; // Add onclick event
-
+                
                 // Append elements to booking info
                 bookingInfo.appendChild(priceElement);
                 bookingInfo.appendChild(dateElement);
                 bookingInfo.appendChild(addressElement);
-                bookingInfo.appendChild(deleteButton);
-                bookingInfo.appendChild(addButton);
+                if (item.status != "Success") {
+                    const deleteButton = document.createElement("button");
+                    deleteButton.classList.add(
+                        "booking-button",
+                        "red",
+                        "pink-btn",
+                        "input-search",
+                        "search-template"
+                    );
+                    deleteButton.textContent = "ลบ";
+                    deleteButton.setAttribute("onclick", "delBookingByID(this)"); // Add onclick event
+                    deleteButton.setAttribute("uuid", item.id);
+    
+                    // Create add button
+                    const addButton = document.createElement("button");
+                    addButton.classList.add(
+                        "booking-button",
+                        "pink-btn",
+                        "input-search",
+                        "search-template"
+                    );
+                    addButton.textContent = "เพิ่ม";
+                    addButton.addEventListener("click", () => {
+                        window.location.href = 'payment.html?id=' + item.id
+                    });
+                    bookingInfo.appendChild(deleteButton);
+                    bookingInfo.appendChild(addButton);
+                }
 
                 // Append booking profile and booking info to booking element
                 bookingElement.appendChild(bookingProfile);

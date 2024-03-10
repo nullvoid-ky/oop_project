@@ -1,7 +1,7 @@
 let my_token = "";
 let currentChatRoomId = null;
-let url = 'http://127.0.0.1:8000'
-let ws_url = 'ws://127.0.0.1:8000'
+let url = 'http://10.66.7.125:8000'
+let ws_url = 'ws://10.66.7.125:8000'
 let my_id = ''
 // let url = 'http://10.66.4.108:8000'
 // let ws_url = 'ws://10.66.4.108:8000'
@@ -94,8 +94,8 @@ function updateMessageHeader(picUrl, displayName){
 }
 
 function connectChatRoomWS(chatRoomId){
-    // var ws = new WebSocket("ws://127.0.0.1:8000/api/chat-room/"+chatRoomId);
-    // ws = new WebSocket("ws://127.0.0.1:8000/api/chat-room/" + chatRoomId, ["x-token", my_token]);
+    // var ws = new WebSocket("ws://10.66.7.125:8000/api/chat-room/"+chatRoomId);
+    // ws = new WebSocket("ws://10.66.7.125:8000/api/chat-room/" + chatRoomId, ["x-token", my_token]);
 
     ws = new WebSocket(ws_url + "/api/chat-room/" + chatRoomId + "/" + my_token);
     displayMessage(true)
