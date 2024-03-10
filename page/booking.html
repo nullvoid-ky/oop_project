@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../style/booking.css" />
+    <link rel="stylesheet" href="../style/booking.css">
     <title>Document</title>
 </head>
 
@@ -26,47 +26,52 @@
             </div>
         </div>
     </nav>
+    <header>รายการที่จองไว้</header>
+    <div class="search-box">
+        <button class="search-btn pink-btn input-search search-template" onclick="getMates()">
+            ค้นหา
+        </button>
+        <input class=" input-search input-text search-template" type="text" id="mate-name" name="textbox"
+            placeholder="ค้นหารายการ"/>
+    </div>
     <div class="body-content">
-        <div class="booking-header-content"
-            style="display: flex; width: 1312px; justify-content: space-around;align-items: center;margin-top: 60px;">
-            <h1>รายการที่จองไว้</h1>
-            <div class="search-box" style="display: flex; justify-content: space-around;">
-                <input class="input-text search-template" type="text" id="mate-name" name="textbox"
-                    placeholder="ค้นหารายการ" style="width: 488px; margin-right: 10px;" />
-                <button class="pink-btn input-search search-template" onclick="getMates()"
-                    style="font-size: 24px;background-color: #DE89A1;color: white;width: 140px;padding: 0; margin-left: 10px;">
-                    ค้นหา
-                </button>
-            </div>
+        <div class="booking-header-content">
         </div>
-        <div class="select-content" style="flex-direction: row; justify-content: space-between;padding: 0 44px;">
-            <div class="select-all">
-                <input type="checkbox" id="select-all" name="select-all" value="select-all" />
-                <label for="select-all">เลือกทั้งหมด</label>
-            </div>
-            <div class="columm-name" style="display: flex;justify-content: space-between; width: 632px;height: 21px;">
+        <div class="select-content">
+            <h3>รายการ</h3>
+            <div class="column-name" >
                 <h3>จำนวนเงิน</h3>
                 <h3>วัน</h3>
+                <h3>สถานที่</h3>
                 <h3>ลบรายการ</h3>
+                <h3>ชำระเงิน</h3>
             </div>
         </div>
-        <div class="booking-content" id="booking-element" style="width: 1312px;">
-            <div class="name-box">
-                <input type="checkbox" id="select-1" name="select-name" value="select-name" />
-                <label for="select-name">รายการที่ 1</label>
-            </div>
-            <div class="columm-content" id="booking-columm-element"
-                style="display: flex;justify-content: space-between; width: 632px;height: 21px;">
-                <div class="name-box">
-                    <input type="checkbox" id="select-1" name="select-1" value="select-1" />
-                    <label for="select-1">รายการที่ 1</label>
+        <div class="booking-content" id="booking-element">
+            <div class="booking-column-element" id="booking-column-element">
+                <div class="booking-profile">
+                    <img class="booking-pic" src="" alt="pic">
+                    <div class="booking-mate-detail">
+                        <div class="booking-location">KrungThep</div>
+                        <span class="booking-text">
+                            <span class="booking-name">Name</span>
+                            <span class="booking-age">Age</span><span> ปี</span>
+                            <span class="booking-gender">Gender</span>
+                        </span>
+                    </div>
                 </div>
-                <h3>1000 บาท</h3>
+                <div class="booking-info">
+                    <h3>1000 บาท</h3>
                 <h3>วันที่ 1</h3>
-                <button class="pink-btn input-search search-template" onclick="getMates()"
-                    style="font-size: 24px;background-color: #DE89A1;color: white;width: 140px;padding: 0; margin-left: 10px;">
+                <h3>รัชดาซอย 9</h3>
+                <button class="booking-button red pink-btn input-search search-template" onclick="getMates()">
                     ลบ
                 </button>
+
+                <button class="booking-button pink-btn input-search search-template" onclick="getMates()">
+                    เพิ่ม
+                </button>
+                </div>
             </div>
         </div>
         <!-- <div class="content-container">
