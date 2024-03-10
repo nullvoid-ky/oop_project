@@ -383,3 +383,42 @@ function verify_role(token) {
         throw error; // Re-throw the error to be caught by the caller
     });
 }
+
+document.getElementById('addAvailable').addEventListener('click', function() {
+    const availableDate = document.getElementById('availableTime').value;
+    const date = new Date(availableDate);
+
+    const detailInput = prompt("Enter Available detail: ");
+    const detail = detailInput ? detailInput : "";
+    
+    const data = {
+        "day": parseInt(date.getDate()),
+        "month": parseInt(date.getMonth()) + 1, // Months are 0-indexed, so we add 1 to get the correct month
+        "year": parseInt(date.getFullYear()),
+        "detail": detail
+    };
+
+    console.log("available on : ", data)
+
+    fetch(url + "/api/controller/add-avalibility", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "x-token": my_token
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("Network response was not ok");
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log("Response from POST:", data);
+        // Handle response data as needed
+    })
+    .catch(error => {
+        console.error("Error adding availability:", error);
+    });
+});
