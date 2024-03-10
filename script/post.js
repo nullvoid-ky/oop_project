@@ -43,8 +43,54 @@ function registrationCookie() {
 window.onload = function () {
     registrationCookie();
     getPosts()
+    addPostBtn()
 };
 
+function addPostBtn(){
+    const addPostElement = document.getElementById("add-post");
+    addPostElement.addEventListener('click', () => {
+        let pic_url = prompt("(Leave EMPTY if canccle)\nEnter Picture Content: ")
+        let post_detail = prompt("(Leave EMPTY if canccle)\nEnter Post Detail: ")
+
+        if(pic_url != "" && post_detail != ""){
+            alert("add post")
+            addPost(post_detail, pic_url)
+            getPosts()
+        } else {
+            alert("Cancle add post")
+        }
+    })
+}
+
+function addPost(description, picture) {
+    let post = {
+        "description": description,
+        "picture": picture
+    }
+    const requestOptions = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "x-token": my_token,
+        },
+        body: JSON.stringify(post),
+    };
+
+    fetch(url + "/api/controller/add-post", requestOptions)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("Network response was not ok");
+        }
+        return response.json();
+    })
+    .then(posts => {
+        console.log("Posts received:", posts); // Log the response data
+
+    })
+    .catch(error => {
+        console.error("Error fetching posts:", error);
+    });
+}
 
 function getPosts() {
     fetch(url + "/api/controller/get-post", {
