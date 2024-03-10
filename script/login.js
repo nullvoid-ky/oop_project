@@ -49,6 +49,14 @@ function handleFormSubmissionRegister(event) {
         }
     });
 
+    const radioButtonsGender = document.querySelectorAll('input[name="account-type"]');
+    let gender = "male"
+    radioButtonsGender.forEach((radioButton) => {
+        if (radioButton.checked) {
+            gender = radioButton.value;
+        }
+    });
+
     // Check if passwords match
     if (password !== password_re) {
         alert("Passwords do not match. Please try again.");
@@ -71,7 +79,8 @@ function handleFormSubmissionRegister(event) {
         body: JSON.stringify({
             username: username,
             password: password,
-            role: role
+            role: role,
+            gender: gender,
         }),
     };
 
