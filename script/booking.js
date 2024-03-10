@@ -315,7 +315,6 @@ function verify_role(token) {
                 alert("กรุณาเข้าสู่ระบบก่อนใช้งาน");
                 window.location.href = 'login.html'
             }
-
         }
         // Handle success response
         console.log("Verification respond:", data);
