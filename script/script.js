@@ -92,19 +92,24 @@ function getTopMateLeaderboard() {
     };
 
     fetch(url + "/api/controller/get-leaderboard", requestOptions)
-        .then((response) => response.json())
-        .then((data) => {
-            console.log("Fetch mates: ", data);
-            data.data.forEach((item) => {
+    .then((response) => response.json())
+    .then((data) => {
+        console.log("Fetch mates: ", data);
+        let count = 0; // Counter variable to track the number of iterations
+        data.data.forEach((item) => {
+            if (count < 4) {
                 const username = item.account_detail.username;
                 const displayName = item.account_detail.displayname;
                 const picUrl = item.account_detail.pic_url;
                 const accountId = item.account_detail.id;
                 const rating = item.account_detail.star;
                 createCardRating(displayName, picUrl, accountId, rating);
-            });
-        })
-        .catch((error) => console.error("Error fetching data:", error));
+                count++; // Increment the counter after each iteration
+            }
+        });
+    })
+    .catch((error) => console.error("Error fetching data:", error));
+
 }
 
 function createCardRating(username, picUrl, accountId, rating) {
