@@ -210,6 +210,160 @@ function createCardRating(display_name, picUrl, accountId, rating) {
     cardList.appendChild(card);
 }
 
+function getTransactionHistory() {
+    fetch(url + "/api/controller/get-transaction-by-admin", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "x-token": my_token,
+        },
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            console.log("Transaction history:", data.data);
+            const transactionList = document.getElementById("card-list-transaction");
+            data.data.forEach((transaction) => {
+                // Assuming you have a parent element with id "transaction-list" where you want to append the transaction item
+
+                // Create the transaction item container
+                const transactionItem = document.createElement("div");
+                transactionItem.classList.add("transaction-item", "row");
+
+                // Create the transaction image element
+                const imgElement = document.createElement("img");
+                imgElement.src = transaction.recipient.pic_url; // Set the src attribute to the actual image URL
+                imgElement.alt = transaction.recipient.pic_url;
+
+                // Create the transaction detail container
+                const transactionDetail = document.createElement("div");
+                transactionDetail.classList.add("transaction-detail");
+
+                // Create the transaction topic element
+                const topicElement = document.createElement("h2");
+                topicElement.classList.add("transaction-topic");
+                topicElement.textContent = `From ${transaction.sender.username} to ${transaction.recipient.username}`; // Set the text content to the desired topic
+
+                // Create the transaction type and receiver elements
+                const typeElement = document.createElement("span");
+                typeElement.classList.add("transaction-type", "bolded");
+                typeElement.textContent = transaction.timestamp;
+
+                const receiverElement = document.createElement("span");
+                receiverElement.classList.add("transaction-receiver");
+                // receiverElement.textContent = "Nana";
+
+                // Create the transaction amount element
+                const amountElement = document.createElement("div");
+                amountElement.classList.add("transaction-amount");
+                amountElement.textContent = `${transaction.amount} บาท`; // Set the text content to the desired amount
+
+                // Append the elements to the transaction detail container
+                transactionDetail.appendChild(topicElement);
+                transactionDetail.appendChild(document.createTextNode(" "));
+                transactionDetail.appendChild(typeElement);
+                transactionDetail.appendChild(document.createTextNode(" "));
+                transactionDetail.appendChild(receiverElement);
+                transactionDetail.appendChild(amountElement);
+
+                // Append the image and transaction detail to the transaction item container
+                transactionItem.appendChild(imgElement);
+                transactionItem.appendChild(transactionDetail);
+
+                // Append the transaction item to the transaction list
+                transactionList.appendChild(transactionItem);
+            });
+        });
+}
+
+async function getBooking() {
+    await fetch(url + "/api/controller/get-booking-by-admin", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "x-token": my_token,
+        },
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            // useEffect("card-list-transaction");
+            const parent = document.getElementById("card-list-booking");
+            data.data.forEach((item) => {
+                if (!item.is_success) {
+                    return;
+                }
+                const bookingElement = document.createElement("div");
+                bookingElement.classList.add("booking-column-element");
+
+                // Create booking profile
+                const bookingProfile = document.createElement("div");
+                bookingProfile.classList.add("booking-profile");
+
+                // Create image element
+                const imageElement = document.createElement("img");
+                imageElement.classList.add("booking-pic");
+                imageElement.src = item.mate.pic_url; // Set the image source
+
+                // Create booking mate detail
+                const bookingMateDetail = document.createElement("div");
+                bookingMateDetail.classList.add("booking-mate-detail");
+
+                // Create name element
+                const nameElement = document.createElement("span");
+                nameElement.classList.add("booking-text", "booking-name");
+                nameElement.textContent = item.mate.username;
+
+                // Create age element
+                const ageElement = document.createElement("span");
+                ageElement.classList.add("booking-text", "booking-age");
+                ageElement.textContent = item.mate.age + " ปี";
+
+                // Append name and age to booking mate detail
+                bookingMateDetail.appendChild(nameElement);
+                bookingMateDetail.appendChild(ageElement);
+
+                // Append image and booking mate detail to booking profile
+                bookingProfile.appendChild(imageElement);
+                bookingProfile.appendChild(bookingMateDetail);
+
+                // Create booking info
+                const bookingInfo = document.createElement("div");
+                bookingInfo.classList.add("booking-info");
+
+                // Create price element
+                const priceElement = document.createElement("h3");
+                priceElement.textContent = "ราคา: " + item.payment + " บาท";
+
+                // Create date element
+                const dateElement = document.createElement("h3");
+                dateElement.textContent = "วันจอง: " + item.book_date;
+
+                // Create address element
+                const addressElement = document.createElement("h3");
+                addressElement.textContent = "สถานที่: " + item.mate.location;
+
+                const customerElement = document.createElement("h3");
+                customerElement.textContent = "ผู้จอง: "+ item.customer.displayname;
+
+                const statusElement = document.createElement("h3");
+                statusElement.textContent = "สถานะ: "+ item.is_success;
+
+            
+                // Append elements to booking info
+                bookingInfo.appendChild(priceElement);
+                bookingInfo.appendChild(dateElement);
+                bookingInfo.appendChild(addressElement);
+                bookingInfo.appendChild(customerElement);
+                bookingInfo.appendChild(statusElement);
+
+                // Append booking profile and booking info to booking element
+                bookingElement.appendChild(bookingProfile);
+                bookingElement.appendChild(bookingInfo);
+                parent.appendChild(bookingElement);
+            });
+        })
+        .catch((error) => console.error("Error fetching data:", error));
+}
+
 function registerPage(buttonId) {
     var encodedButtonId = encodeURIComponent(buttonId);
     window.location.href = "login.html?buttonId=" + encodedButtonId; // passing value
@@ -251,9 +405,16 @@ function logOut() {
         "userData=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     document.location.href = "login.html";
 }
-
+function useEffect(elementId) {
+    const parent = document.getElementById(elementId);
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
+}
 window.onload = function () {
     registrationCookie();
     getMates();
     getCustomer();
+    getTransactionHistory()
+    getBooking()
 };
