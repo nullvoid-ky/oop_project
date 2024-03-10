@@ -1,0 +1,52 @@
+/* CSS for post container */
+.post-container {
+    width: 300px; /* Adjust width as needed */
+    height: 400px; /* Adjust height as needed */
+    overflow-y: auto; /* Enable vertical scrolling */
+    border: 1px solid #ccc; /* Add border */
+    border-radius: 10px; /* Add border radius for card shape */
+    margin: 10px; /* Add margin between post containers */
+}
+
+/* CSS for post header */
+#post-header {
+    padding: 10px;
+    background-color: #f0f0f0; /* Add background color */
+    border-bottom: 1px solid #ddd; /* Add border at the bottom */
+    display: flex;
+}
+
+/* CSS for profile pic */
+#post-header img {
+    width: 50px; /* Adjust profile pic width */
+    height: 50px; /* Adjust profile pic height */
+    border-radius: 50%; /* Make profile pic round */
+    margin-right: 10px; /* Add margin to the right */
+}
+
+/* CSS for post profile name */
+#post-profile-name {
+    font-weight: bold; /* Make profile name bold */
+}
+
+/* CSS for post timestamp */
+#post-timestamp {
+    font-size: 0.8em; /* Adjust font size */
+    color: #666; /* Adjust color */
+}
+
+/* CSS for post content */
+#post-content {
+    padding: 10px;
+}
+
+/* CSS for content image */
+#post-content img {
+    max-width: 100%; /* Make content image responsive */
+    height: auto; /* Maintain aspect ratio */
+}
+
+/* CSS for post detail */
+#post-detail {
+    padding: 10px;
+}
