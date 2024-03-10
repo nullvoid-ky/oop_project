@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="../style/payment.css" />
+        <title>Document</title>
+    </head>
+    <body>
+        <nav>
+            <img class="logo" src="../img/logo.svg" alt="../img/logo.svg" />
+            <div class="nav-items">
+                <a href="index.html">Home</a>
+                <a style="color: #de89a1" href="mate.html">Mates</a>
+                <a href="chat.html">Chat</a>
+                <a href="post.html">Post</a>
+                <a href="leaderboard.html">Leaderboard</a>
+                <a href="booking.html">Booking</a>
+                <div class="nav-items center" id="user-account">
+                    <a id="login" class="login" onclick="registerPage('login')"
+                        >Login</a
+                    >
+                    <a
+                        id="register"
+                        class="login register"
+                        onclick="registerPage('register')"
+                        >Register</a
+                    >
+                    <a id="profile" href="profile.html">Profile</a>
+                </div>
+            </div>
+        </nav>
+        <header>Payment</header>
+        <div class="body-content">
+            <div class="main-content">
+                <div class="payment-content">
+                    <div class="booked-detail">
+                        <img
+                        class="booked-mate-pic"
+                        src="../img/customer_female.svg"
+                        alt=""
+                        />
+                    </div>
+                </div>
+                <div class="payment-content">
+                    <p class="booked-mate">Nana</p>
+                    <div class="booked-time">12-12-2024</div>
+                    <div class="booked-description">จองแบบคุณภาพ</div>
+                    <div class="booked-price">1000</div>
+                    <button>ยกเลิกการจอง</button>
+                    <button>ชำระเงิน</button>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
