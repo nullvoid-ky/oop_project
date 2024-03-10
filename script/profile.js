@@ -416,6 +416,14 @@ document.getElementById('addAvailable').addEventListener('click', function() {
     })
     .then(data => {
         console.log("Response from POST:", data);
+        if (data.hasOwnProperty("status_code")) {
+            if (data.status_code == 404) {
+                alert("Fail: เพิ่มช่วงเวลาไม่สำเร็จ, Due to limit or error");
+            }
+        } else {
+            alert("Success: เพิ่มช่วงเวลาสำเร็จ");
+        }
+
         // Handle response data as needed
     })
     .catch(error => {
