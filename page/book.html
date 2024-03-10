@@ -1,66 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="../style/book.css" />
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../style/book.css" />
-    
-    <title>Document</title>
-</head>
+        <title>Document</title>
+    </head>
 
-<body>
-
-    <nav>
-        <img class="logo" src="../img/logo.svg" alt="../img/logo.svg" />
-        <div class="nav-items">
-            <a href="index.html">Home</a>
-            <a style="color: #DE89A1;" href="mate.html">Mates</a>
-            <a href="chat.html">Chat</a>
-            <a href="post.html">Post</a>
-            <a href="leaderboard.html">Leaderboard</a>
-            <a href="booking.html">Booking</a>
-            <div class="nav-items center" id="user-account">
-                <!-- <h1>kanyok</h1> -->
-                <a id="login" class="login" onclick="registerPage('login')">Login</a>
-                <a id="register" class="login register" onclick="registerPage('register')">Register</a>
-                <a id="profile" href="profile.html">Profile</a>
+    <body>
+        <nav>
+            <img class="logo" src="../img/logo.svg" alt="../img/logo.svg" />
+            <div class="nav-items">
+                <a href="index.html">Home</a>
+                <a style="color: #de89a1" href="mate.html">Mates</a>
+                <a href="chat.html">Chat</a>
+                <a href="post.html">Post</a>
+                <a href="leaderboard.html">Leaderboard</a>
+                <a href="booking.html">Booking</a>
+                <div class="nav-items center" id="user-account">
+                    <!-- <h1>kanyok</h1> -->
+                    <a id="login" class="login" onclick="registerPage('login')"
+                        >Login</a
+                    >
+                    <a
+                        id="register"
+                        class="login register"
+                        onclick="registerPage('register')"
+                        >Register</a
+                    >
+                    <a id="profile" href="profile.html">Profile</a>
+                </div>
             </div>
-        </div>
-    </nav>
-    <div class="book-page">
-        <header>จองเมท</header>
-        <div class="main-content">
-            <img id="pic" src="" alt="img">
-            <div class="mate-content">
-                <h1 class="name-text" id="name-text">อาจึน</h1>
-                <p class="location-text" id="location-text">กรุงเทพ</p>
-                <div class="rent-detail">
-                    <div class="average-star-box">
-                        <p class="average-star-num" id="average-star-num"></p>
-                        <div class="average-star-container" id="average-star-container">
+        </nav>
+        <div class="book-page">
+            <header>จองเมท</header>
+            <div class="main-content">
+                <img id="pic" src="" alt="img" />
+                <div class="mate-content">
+                    <h1 class="name-text" id="name-text">อาจึน</h1>
+                    <p class="location-text" id="location-text">กรุงเทพ</p>
+                    <div class="rent-detail">
+                        <div class="average-star-box">
+                            <p
+                                class="average-star-num"
+                                id="average-star-num"
+                            ></p>
+                            <div
+                                class="average-star-container"
+                                id="average-star-container"
+                            ></div>
+                        </div>
+                        <div id="review-count" class="review-count">
+                            200 Rating
+                        </div>
+                        <div id="rent-count" class="rent-count">
+                            239 งานที่สำเร็จ
                         </div>
                     </div>
-                    <div class="review-amount">200 Rating</div>
-                    <div class="rent-count">239 งานที่สำเร็จ</div>
-                </div>
-                <p class="price-text" id="price-text">1000 บาท</p>
-                <div class="available-zone">
-                    <p class="open-time">เวลาที่เปิดรับ</p>
-                    <div class="availability-content" id="availability-content">
+                    <p class="price-text" id="price-text">1000 บาท</p>
+                    <div class="available-zone">
+                        <p class="open-time">เวลาที่เปิดรับ</p>
+                        <div
+                            class="availability-content"
+                            id="availability-content"
+                        ></div>
                     </div>
+                    <span
+                        >*กรุณาอ่าน
+                        <a href="">เงื่อนไขการจอง</a> ก่อนการทำจองทุกครั้ง</span
+                    >
+                    <button class="book-btn" id="book-btn">Book</button>
                 </div>
-                <span>*กรุณาอ่าน <a href="">เงื่อนไขการจอง</a> ก่อนการทำจองทุกครั้ง</span>
-                <button class="book-btn" id="book-btn">Book</button>
+            </div>
+            <div class="review-content" id="review-content">
+                <p class="sub-head" id="sub-head">รีวิวเมท</p>
+                <div class="review-list"></div>
             </div>
         </div>
-        <div class="review-content" id="review-content">
-            <p class="sub-head" id="sub-head">รีวิวเมท</p>
-            <div class="review-list">
-            </div>
-        </div>
-    </div>
-    <script src="../script/book.js"></script>
-</body>
-
+        <script src="../script/book.js"></script>
+    </body>
 </html>
