@@ -322,7 +322,7 @@ function registrationCookie() {
     if (registrationData !== "") {
         const data = JSON.parse(registrationData);
         console.log(data);
-        // my_token = data.token;
+        my_token = data.token;
         my_id = data.id;
         // Do something with the registration data
         let loginNav = document.getElementById("login");
