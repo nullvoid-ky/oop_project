@@ -334,6 +334,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (ans == "y") {
                 alert("Successfully paid");
                 console.log("Booking for time:", selectedTime);
+                bookMate(my_token, user_id);
                 window.location.href = "booking.html";
             } else if (ans == "n") {
                 alert("ยกเลิกการจ่าย ยังไม่ได้จองเมท");
