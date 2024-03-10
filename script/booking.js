@@ -1,15 +1,15 @@
-const url = "http://127.0.0.1:8000"
-let valid = false
-let my_id = ''
-let my_token = ''
+const url = "http://127.0.0.1:8000";
+let valid = false;
+let my_id = "";
+let my_token = "";
 function getCookie(cookieName) {
     const name = cookieName + "=";
     const decodedCookie = decodeURIComponent(document.cookie);
     console.log(decodedCookie);
-    const cookieArray = decodedCookie.split(';');
-    for(let i = 0; i < cookieArray.length; i++) {
+    const cookieArray = decodedCookie.split(";");
+    for (let i = 0; i < cookieArray.length; i++) {
         let cookie = cookieArray[i];
-        while (cookie.charAt(0) === ' ') {
+        while (cookie.charAt(0) === " ") {
             cookie = cookie.substring(1);
         }
         if (cookie.indexOf(name) === 0) {
@@ -20,146 +20,277 @@ function getCookie(cookieName) {
 }
 
 // Usage example
-function registrationCookie(){
-    const registrationData = getCookie('userData');
+function registrationCookie() {
+    const registrationData = getCookie("userData");
     console.log(registrationData); // Log the value retrieved from the cookie
-    if (registrationData !== '') {
+    if (registrationData !== "") {
         const data = JSON.parse(registrationData);
         console.log(data);
         my_token = data.token;
-        my_id = data.id
+        my_id = data.id;
         // Do something with the registration data
-        let loginNav = document.getElementById('login');
-        loginNav.style.cssText = "display: none;"
-        let registerNav = document.getElementById('register');
-        registerNav.style.cssText = "display: none;"
+        let loginNav = document.getElementById("login");
+        loginNav.style.cssText = "display: none;";
+        let registerNav = document.getElementById("register");
+        registerNav.style.cssText = "display: none;";
     } else {
-        console.log('Registration data not found in cookie.');
-        let progileNav = document.getElementById('profile');
-        progileNav.style.cssText = "display: none;"
+        console.log("Registration data not found in cookie.");
+        let progileNav = document.getElementById("profile");
+        progileNav.style.cssText = "display: none;";
     }
-        
 }
 
-async function delBooking(token, id) {
+async function delBookingByID(button) {
+    const id = button.getAttribute("uuid");
     await fetch(url + `/api/controller/delete-booking/${id}`, {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json",
-            "x-token": token,
+            "x-token": my_token,
         },
     })
         .then((response) => response.json())
         .then((data) => {
-            console.log(data)
+            console.log(data);
         })
-        .catch((error) => console.error("Error fetching data:", error))
-    useEffect("booking-element")
-    getBooking(token)
+        .catch((error) => console.error("Error fetching data:", error));
+    useEffect("booking-element");
+    getBooking();
 }
 
 function useEffect(elementId) {
-    const parent = document.getElementById(elementId)
+    const parent = document.getElementById(elementId);
     while (parent.firstChild) {
         parent.removeChild(parent.firstChild);
     }
-    
 }
 
-function getBooking(token) {
-    fetch(url + "/api/controller/get-booking", {
+async function searchMates() {
+    const value = document.getElementById("mate-name").value;
+    useEffect("booking-element");
+    const res = await fetch(url + `/api/controller/get-booking`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
-            "x-token": token,
+            "x-token": my_token,
+        },
+    });
+    const data = await res.json();
+    const parent = document.getElementById("booking-element");
+    data.data.forEach((item) => {
+        console.log(item.mate.username);
+        if (item.mate.username === value) {
+            const bookingElement = document.createElement("div");
+            bookingElement.classList.add("booking-column-element");
+
+            // Create booking profile
+            const bookingProfile = document.createElement("div");
+            bookingProfile.classList.add("booking-profile");
+
+            // Create image element
+            const imageElement = document.createElement("img");
+            imageElement.classList.add("booking-pic");
+            imageElement.src = item.mate.pic_url; // Set the image source
+
+            // Create booking mate detail
+            const bookingMateDetail = document.createElement("div");
+            bookingMateDetail.classList.add("booking-mate-detail");
+
+            // Create name element
+            const nameElement = document.createElement("span");
+            nameElement.classList.add("booking-text", "booking-name");
+            nameElement.textContent = item.mate.username;
+
+            // Create age element
+            const ageElement = document.createElement("span");
+            ageElement.classList.add("booking-text", "booking-age");
+            ageElement.textContent = item.mate.age + " ปี";
+
+            // Append name and age to booking mate detail
+            bookingMateDetail.appendChild(nameElement);
+            bookingMateDetail.appendChild(ageElement);
+
+            // Append image and booking mate detail to booking profile
+            bookingProfile.appendChild(imageElement);
+            bookingProfile.appendChild(bookingMateDetail);
+
+            // Create booking info
+            const bookingInfo = document.createElement("div");
+            bookingInfo.classList.add("booking-info");
+
+            // Create price element
+            const priceElement = document.createElement("h3");
+            priceElement.textContent = item.payment + " บาท";
+
+            // Create date element
+            const dateElement = document.createElement("h3");
+            dateElement.textContent = "วันที่ " + item.timestamp;
+
+            // Create address element
+            const addressElement = document.createElement("h3");
+            addressElement.textContent = item.mate.location;
+
+            // Create delete button
+            const deleteButton = document.createElement("button");
+            deleteButton.classList.add(
+                "booking-button",
+                "red",
+                "pink-btn",
+                "input-search",
+                "search-template"
+            );
+            deleteButton.textContent = "ลบ";
+            deleteButton.setAttribute("onclick", "delBookingByID(this)"); // Add onclick event
+            deleteButton.setAttribute("uuid", item.id);
+
+            // Create add button
+            const addButton = document.createElement("button");
+            addButton.classList.add(
+                "booking-button",
+                "pink-btn",
+                "input-search",
+                "search-template"
+            );
+            addButton.textContent = "เพิ่ม";
+            // addButton.onclick = getMates; // Add onclick event
+
+            // Append elements to booking info
+            bookingInfo.appendChild(priceElement);
+            bookingInfo.appendChild(dateElement);
+            bookingInfo.appendChild(addressElement);
+            bookingInfo.appendChild(deleteButton);
+            bookingInfo.appendChild(addButton);
+
+            // Append booking profile and booking info to booking element
+            bookingElement.appendChild(bookingProfile);
+            bookingElement.appendChild(bookingInfo);
+            parent.appendChild(bookingElement);
+        }
+    });
+    // console.log(data)
+}
+
+async function getBooking() {
+    await fetch(url + "/api/controller/get-booking", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "x-token": my_token,
         },
     })
         .then((response) => response.json())
         .then((data) => {
-            console.log(data.data)
-            const parent = document.getElementById("booking-element")
+            useEffect("booking-element");
+            const parent = document.getElementById("booking-element");
             data.data.forEach((item) => {
-                // Create the first checkbox and label
-                const checkbox1 = document.createElement("input")
-                checkbox1.type = "checkbox"
-                checkbox1.id = "select-name"
-                checkbox1.name = "select-name"
-                checkbox1.value = "select-name"
+                const bookingElement = document.createElement("div");
+                bookingElement.classList.add("booking-column-element");
 
-                const label1 = document.createElement("label")
-                label1.htmlFor = "select-name"
-                label1.textContent = item.mate.username
+                // Create booking profile
+                const bookingProfile = document.createElement("div");
+                bookingProfile.classList.add("booking-profile");
 
-                // Append checkbox and label to the first name-box div
-                const nameBox1 = document.createElement("div")
-                nameBox1.classList.add("name-box")
-                nameBox1.appendChild(checkbox1)
-                nameBox1.appendChild(label1)
+                // Create image element
+                const imageElement = document.createElement("img");
+                imageElement.classList.add("booking-pic");
+                imageElement.src = item.mate.pic_url; // Set the image source
 
-                // Create the second checkbox, label, price, date, and button
-                const checkbox2 = document.createElement("input")
-                checkbox2.type = "checkbox"
-                checkbox2.id = "select-2"
-                checkbox2.name = "select-2"
-                checkbox2.value = "select-2"
+                // Create booking mate detail
+                const bookingMateDetail = document.createElement("div");
+                bookingMateDetail.classList.add("booking-mate-detail");
 
-                const label2 = document.createElement("label")
-                label2.htmlFor = "select-2"
-                label2.textContent = "รายการที่ 1"
+                // Create name element
+                const nameElement = document.createElement("span");
+                nameElement.classList.add("booking-text", "booking-name");
+                nameElement.textContent = item.mate.username;
 
-                const price = document.createElement("h3")
-                price.textContent = item.payment
+                // Create age element
+                const ageElement = document.createElement("span");
+                ageElement.classList.add("booking-text", "booking-age");
+                ageElement.textContent = item.mate.age + " ปี";
 
-                const date = document.createElement("h3")
-                date.textContent = item.timestamp
+                // Append name and age to booking mate detail
+                bookingMateDetail.appendChild(nameElement);
+                bookingMateDetail.appendChild(ageElement);
 
-                const deleteButton = document.createElement("button")
+                // Append image and booking mate detail to booking profile
+                bookingProfile.appendChild(imageElement);
+                bookingProfile.appendChild(bookingMateDetail);
+
+                // Create booking info
+                const bookingInfo = document.createElement("div");
+                bookingInfo.classList.add("booking-info");
+
+                // Create price element
+                const priceElement = document.createElement("h3");
+                priceElement.textContent = item.payment + " บาท";
+
+                // Create date element
+                const dateElement = document.createElement("h3");
+                dateElement.textContent = "วันที่ " + item.timestamp;
+
+                // Create address element
+                const addressElement = document.createElement("h3");
+                addressElement.textContent = item.mate.location;
+
+                // Create delete button
+                const deleteButton = document.createElement("button");
                 deleteButton.classList.add(
+                    "booking-button",
+                    "red",
                     "pink-btn",
                     "input-search",
                     "search-template"
-                )
-                deleteButton.textContent = "ลบ"
-                deleteButton.style.cssText =
-                    "font-size: 24px; background-color: #DE89A1; color: white; width: 140px; padding: 0; margin-left: 10px;"
-                deleteButton.setAttribute("onclick", `delBooking("${token}", "${item.id}")`)
-                // Append elements to the columm-content div
-                const colummContent = document.createElement("div")
-                colummContent.classList.add("columm-content")
-                colummContent.id = "booking-columm-element"
-                colummContent.appendChild(nameBox1)
-                colummContent.appendChild(price)
-                colummContent.appendChild(date)
-                colummContent.appendChild(deleteButton)
-                parent.appendChild(colummContent)
-            })
+                );
+                deleteButton.textContent = "ลบ";
+                deleteButton.setAttribute("onclick", "delBookingByID(this)"); // Add onclick event
+                deleteButton.setAttribute("uuid", item.id);
+
+                // Create add button
+                const addButton = document.createElement("button");
+                addButton.classList.add(
+                    "booking-button",
+                    "pink-btn",
+                    "input-search",
+                    "search-template"
+                );
+                addButton.textContent = "เพิ่ม";
+                // addButton.onclick = getMates; // Add onclick event
+
+                // Append elements to booking info
+                bookingInfo.appendChild(priceElement);
+                bookingInfo.appendChild(dateElement);
+                bookingInfo.appendChild(addressElement);
+                bookingInfo.appendChild(deleteButton);
+                bookingInfo.appendChild(addButton);
+
+                // Append booking profile and booking info to booking element
+                bookingElement.appendChild(bookingProfile);
+                bookingElement.appendChild(bookingInfo);
+                parent.appendChild(bookingElement);
+            });
         })
-        .catch((error) => console.error("Error fetching data:", error))
+        .catch((error) => console.error("Error fetching data:", error));
 }
 
-// const data = JSON.parse(getCookie("userData"));
-// getBooking(data.token);
-getBooking(
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNWY4NTUwZWEtZmI4NC00YjE3LWE4Y2ItMzhiMTc1ZWM2NjNiIiwicm9sZSI6ImN1c3RvbWVyIn0.mCHHIxdY96dcWzU21poRVnvD4O9AawFN4XddQIcesGs"
-)
-
-
 function registerPage(buttonId) {
-    var encodedButtonId = encodeURIComponent(buttonId);
-    window.location.href = 'login.html?buttonId=' + encodedButtonId;
+    const encodedButtonId = encodeURIComponent(buttonId);
+    window.location.href = "login.html?buttonId=" + encodedButtonId;
 }
 
 window.onload = function () {
     registrationCookie();
-    verify_role(my_token)
-}
+    verify_role(my_token);
+    getCookie("userData");
+    getBooking();
+};
 
 function verify_role(token) {
     const requestOptions = {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
-            "x-token": token
+            "x-token": token,
         },
     };
 

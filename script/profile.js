@@ -1,14 +1,13 @@
-const url = 'http://127.0.0.1:8000';
-// let url = 'http://10.66.4.108:8000'
-let my_token = '';
-let my_id = ''
+const url = "http://127.0.0.1:8000";
+let my_token = "";
+let my_id = "";
 
 window.onload = function () {
     registrationCookie();
+    getTransactionHistory()
     verify_role(my_token)
     .then(role => {
         console.log("role :", role);
-
         const editMoneyBtn = document.getElementById("editMoneyBtn")
         // Use the role value here
         if(role == 'customer'){
@@ -39,14 +38,79 @@ window.onload = function () {
     });    
 };
 
+function getTransactionHistory() {
+    fetch(url + "/api/controller/get-transaction", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "x-token": my_token,
+        },
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            console.log("Transaction history:", data.data);
+            const transactionList = document.getElementById("transaction-list");
+            data.data.forEach((transaction) => {
+                // Assuming you have a parent element with id "transaction-list" where you want to append the transaction item
+
+                // Create the transaction item container
+                const transactionItem = document.createElement("div");
+                transactionItem.classList.add("transaction-item", "row");
+
+                // Create the transaction image element
+                const imgElement = document.createElement("img");
+                imgElement.src = transaction.recipient.pic_url; // Set the src attribute to the actual image URL
+                imgElement.alt = transaction.recipient.pic_url;
+
+                // Create the transaction detail container
+                const transactionDetail = document.createElement("div");
+                transactionDetail.classList.add("transaction-detail");
+
+                // Create the transaction topic element
+                const topicElement = document.createElement("h2");
+                topicElement.classList.add("transaction-topic");
+                topicElement.textContent = `From ${transaction.sender.username} to ${transaction.recipient.username}`; // Set the text content to the desired topic
+
+                // Create the transaction type and receiver elements
+                const typeElement = document.createElement("span");
+                typeElement.classList.add("transaction-type", "bolded");
+                typeElement.textContent = transaction.timestamp;
+
+                const receiverElement = document.createElement("span");
+                receiverElement.classList.add("transaction-receiver");
+                // receiverElement.textContent = "Nana";
+
+                // Create the transaction amount element
+                const amountElement = document.createElement("div");
+                amountElement.classList.add("transaction-amount");
+                amountElement.textContent = `${transaction.amount} บาท`; // Set the text content to the desired amount
+
+                // Append the elements to the transaction detail container
+                transactionDetail.appendChild(topicElement);
+                transactionDetail.appendChild(document.createTextNode(" "));
+                transactionDetail.appendChild(typeElement);
+                transactionDetail.appendChild(document.createTextNode(" "));
+                transactionDetail.appendChild(receiverElement);
+                transactionDetail.appendChild(amountElement);
+
+                // Append the image and transaction detail to the transaction item container
+                transactionItem.appendChild(imgElement);
+                transactionItem.appendChild(transactionDetail);
+
+                // Append the transaction item to the transaction list
+                transactionList.appendChild(transactionItem);
+            });
+        });
+}
+
 function getCookie(cookieName) {
     const name = cookieName + "=";
     const decodedCookie = decodeURIComponent(document.cookie);
     console.log(decodedCookie);
-    const cookieArray = decodedCookie.split(';');
-    for(let i = 0; i <cookieArray.length; i++) {
+    const cookieArray = decodedCookie.split(";");
+    for (let i = 0; i < cookieArray.length; i++) {
         let cookie = cookieArray[i];
-        while (cookie.charAt(0) === ' ') {
+        while (cookie.charAt(0) === " ") {
             cookie = cookie.substring(1);
         }
         if (cookie.indexOf(name) === 0) {
@@ -56,15 +120,14 @@ function getCookie(cookieName) {
     return "";
 }
 
-function registrationCookie(){
-    const registrationData = getCookie('userData');
+function registrationCookie() {
+    const registrationData = getCookie("userData");
     console.log(registrationData); // Log the value retrieved from the cookie
-    if (registrationData !== '') {
+    if (registrationData !== "") {
         const data = JSON.parse(registrationData);
         console.log(data);
         my_token = data.token;
-        my_id = data.id
-
+        my_id = data.id;
     } else {
         console.log('Registration data not found in cookie.');
     }
@@ -130,16 +193,16 @@ document.addEventListener('DOMContentLoaded', function() {
     const editAgeBtn = document.getElementById('editAgeBtn');
     const editLocationBtn = document.getElementById('editLocationBtn');
 
-    editDisplayNameBtn.addEventListener('click', function() {
-        const newDisplayName = prompt('Enter new DisplayName:');
-        if (newDisplayName !== null && newDisplayName !== '') {
+    editDisplayNameBtn.addEventListener("click", function () {
+        const newDisplayName = prompt("Enter new DisplayName:");
+        if (newDisplayName !== null && newDisplayName !== "") {
             updateDisplayName({ display_name: newDisplayName });
         }
     });
 
-    editPicUrlBtn.addEventListener('click', function() {
-        const newPicUrl = prompt('Enter new profile picture URL:');
-        if (newPicUrl !== null && newPicUrl !== '') {
+    editPicUrlBtn.addEventListener("click", function () {
+        const newPicUrl = prompt("Enter new profile picture URL:");
+        if (newPicUrl !== null && newPicUrl !== "") {
             updatePicUrl({ url: newPicUrl });
         }
     });
@@ -340,9 +403,10 @@ function updateProfileUI(profileData) {
     document.getElementById('location').textContent = profileData.location;
 }
 
-function logOut(){
-    document.cookie = "userData=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    document.location.href = 'index.html'
+function logOut() {
+    document.cookie =
+        "userData=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.location.href = "index.html";
 }
 
 function verify_role(token) {
@@ -350,7 +414,7 @@ function verify_role(token) {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
-            "x-token": token
+            "x-token": token,
         },
     };
 
@@ -383,3 +447,52 @@ function verify_role(token) {
         throw error; // Re-throw the error to be caught by the caller
     });
 }
+
+document.getElementById('addAvailable').addEventListener('click', function() {
+    const availableDate = document.getElementById('availableTime').value;
+    const date = new Date(availableDate);
+
+    const detailInput = prompt("Enter Available detail: ");
+    const detail = detailInput ? detailInput : "";
+    
+    const data = {
+        "date": {
+            "day": parseInt(date.getDate()),
+            "month": parseInt(date.getMonth()) + 1, // Months are 0-indexed, so we add 1 to get the correct month
+            "year": parseInt(date.getFullYear()),
+        },
+        "detail": detail
+    };
+
+    console.log("available on : ", data)
+
+    fetch(url + "/api/mate/add-availability", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "x-token": my_token
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("Network response was not ok");
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log("Response from POST:", data);
+        if (data.hasOwnProperty("status_code")) {
+            if (data.status_code == 404 || data.status_code == 400) {
+                alert("Fail: เพิ่มช่วงเวลาไม่สำเร็จ, Due to limit or error");
+            }
+        } else {
+            alert("Success: เพิ่มช่วงเวลาสำเร็จ");
+        }
+
+        // Handle response data as needed
+    })
+    .catch(error => {
+        console.error("Error adding availability:", error);
+    });
+});

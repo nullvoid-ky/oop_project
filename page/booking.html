@@ -29,7 +29,7 @@
     </nav>
     <header>รายการที่จองไว้</header>
     <div class="search-box">
-        <button class="search-btn pink-btn input-search search-template" onclick="getMates()">
+        <button class="search-btn pink-btn input-search search-template" onclick="searchMates()">
             ค้นหา
         </button>
         <input class=" input-search input-text search-template" type="text" id="mate-name" name="textbox"
@@ -49,29 +49,6 @@
             </div>
         </div>
         <div class="booking-content" id="booking-element">
-            <div class="booking-column-element" id="booking-column-element">
-                <div class="booking-profile">
-                    <img class="booking-pic" src="" alt="pic">
-                    <div class="booking-mate-detail">
-                        <span class="booking-text">
-                            <span class="booking-name">Name</span>
-                            <span class="booking-age">Age</span><span> ปี</span>
-                        </span>
-                    </div>
-                </div>
-                <div class="booking-info">
-                    <h3>1000 บาท</h3>
-                <h3>วันที่ 1</h3>
-                <h3>รัชดาซอย 9</h3>
-                <button class="booking-button red pink-btn input-search search-template" onclick="getMates()">
-                    ลบ
-                </button>
-
-                <button class="booking-button pink-btn input-search search-template" onclick="getMates()">
-                    เพิ่ม
-                </button>
-                </div>
-            </div>
         </div>
         <!-- <div class="content-container">
         </div> -->
@@ -125,7 +102,7 @@
                         </div>
                         <button
                             class="pink-btn input-search search-template"
-                            onclick="getMates()"
+                            onclick="searchMates()"
                         >
                             Search
                         </button>
