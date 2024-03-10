@@ -1,4 +1,4 @@
-const url = "http://10.66.7.125:8000";
+const url = "http://127.0.0.1:8000";
 const user_id = new URLSearchParams(window.location.search).get("id")
 let my_token = "";
 let my_id = "";

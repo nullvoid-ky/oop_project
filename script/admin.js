@@ -1,6 +1,6 @@
 let my_token = "";
 let my_id = "";
-let url = "http://10.66.7.125:8000";
+let url = "http://127.0.0.1:8000";
 // let url = 'http://10.66.4.108:8000'
 
 function getCustomer() {
@@ -285,12 +285,11 @@ async function getBooking() {
     })
         .then((response) => response.json())
         .then((data) => {
+            console.log("book: ", data)
             // useEffect("card-list-transaction");
             const parent = document.getElementById("card-list-booking");
             data.data.forEach((item) => {
-                if (!item.is_success) {
-                    return;
-                }
+
                 const bookingElement = document.createElement("div");
                 bookingElement.classList.add("booking-column-element");
 

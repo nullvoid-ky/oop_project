@@ -1,6 +1,6 @@
 let my_token = ""
 let my_id = "";
-let url = "http://10.66.7.125:8000";
+let url = "http://127.0.0.1:8000";
 
 function getCookie(cookieName) {
     const name = cookieName + "=";
