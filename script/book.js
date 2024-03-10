@@ -1,5 +1,5 @@
 const url = "http://127.0.0.1:8000";
-const user_id = localStorage.getItem("book-mate-id");
+const user_id = new URLSearchParams(window.location.search).get("id")
 let my_token = "";
 let my_id = "";
 let selectedTime = null;
@@ -127,8 +127,8 @@ async function getMateData(token) {
     return data;
 }
 
-async function getMateAvalability(token, mate_id) {
-    const res = await fetch(url + "/api/mate/get-availability/" + mate_id, {
+async function getMateAvalability(token) {
+    const res = await fetch(url + "/api/mate/get-availability/" + user_id, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -137,6 +137,7 @@ async function getMateAvalability(token, mate_id) {
     });
     const data = await res.json();
     const parent = document.getElementById("availability-content");
+    console.log(data);
     data.data.forEach((item) => {
         const pElement = document.createElement("p");
         pElement.className = "availability-text";
@@ -166,6 +167,10 @@ async function getMateAvalability(token, mate_id) {
 }
 
 async function bookMate(token, mate_id) {
+    const year = parseInt(selectedTime.split("-")[2]);
+    const month = parseInt(selectedTime.split("-")[1]);
+    const day = parseInt(selectedTime.split("-")[0]);
+    console.log(year, month, day);
     const res = await fetch(url + "/api/controller/add-booking", {
         method: "POST",
         headers: {
@@ -175,9 +180,9 @@ async function bookMate(token, mate_id) {
         body: JSON.stringify({
             mate_id: mate_id,
             date: {
-                year: Date.now().getFullYear(),
-                month: Date.now().getMonth(),
-                day: Date.now().getDate(),
+                year: year,
+                month: month,
+                day: day,
             },
         }),
     });
@@ -302,13 +307,14 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    bookButton.addEventListener("click", function () {
+    bookButton.addEventListener("click", async function () {
         if (selectedTime !== null) {
             // Perform actions for the selected time (e.g., submit data)
             prompt(
                 "คุณต้องการชำระค่ามัดจำเลยหรือไม่\ny : รับทราบและชำระ\nn หรือกด Cancel: ยกเลิกการจ่าย"
             );
             console.log("Booking for time:", selectedTime);
+            bookMate(my_token, user_id);
             window.location.href = "booking.html";
             // Add your logic here to submit the data or perform other actions
         } else {
@@ -320,4 +326,4 @@ document.addEventListener("DOMContentLoaded", function () {
 registrationCookie();
 getMateData(my_token);
 getReview(my_token, user_id);
-getMateAvalability(my_token, user_id);
+getMateAvalability(my_token);
