@@ -337,6 +337,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 }\ny : รับทราบและชำระ\nn : ยกเลิกการจ่าย`
             );
             if (ans == "y") {
+                bookMate(my_token, user_id);
                 alert("Successfully paid");
                 console.log("Booking for time:", selectedTime);
                 bookMate(my_token, user_id);
