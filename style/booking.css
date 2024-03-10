@@ -1,6 +1,7 @@
 @import url(content.css);
 @import url(nav.css);
 @import url(header.css);
+@import url(font.css);
 
 * {
     box-sizing: border-box;

@@ -69,6 +69,7 @@ button {
   flex-direction: column;
   height: 100vh;
 } */
+@import url(font.css);
 .fake-body{
 
   margin: 0;

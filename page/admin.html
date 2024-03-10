@@ -3,58 +3,40 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <!-- <link rel="stylesheet" href="../style/style.css" /> -->
-        <link rel="stylesheet" href="../style/style.css" />
-        <script src="../script/admin.js"></script>
+        <link rel="stylesheet" href="../style/admin.css" />
         <title>Document</title>
     </head>
-    <body>
-        <nav>
-            <img class="logo" src="../img/logo.svg" alt="../img/logo.svg" />
-            <div class="nav-items">
-                <a href="index.html">Home</a>
-                <a href="mate.html">Mates</a>
-                <a href="chat.html">Chat</a>
-                <a href="post.html">Post</a>
-                <a href="leaderboard.html">Leaderboard</a>
-                <a href="booking.html">Booking</a>
-                <div class="nav-items center" id="user-account">
-                    <!-- <h1>kanyok</h1> -->
-                    <a id="login" class="login"  onclick="registerPage('login')"">Login</a>
-                    <a id="register" class="login register"  onclick="registerPage('register')">Register</a>
-                    <a id="profile" href="profile.html">Profile</a>
-                </div>
-            </div>
-        </nav>
-        <div class="column-container">
-            <div class="content-container">
-                <div class="banner">
-                    <div class="banner-content">
-                        <header>
-                            <span>
-                                Admin
-                            </span>
-                        </header>
-                    </div>
-                </div>
 
-                <div class="content top-mate">
-                    <h3 class="topic">Customer</h3>
-                    <ul class="card-list-customer" id="card-list-customer"></ul>
-                </div>
-                <div class="content top-mate">
-                    <h3 class="topic">Mate</h3>
-                    <ul class="card-list-mate" id="card-list-mate"></ul>
-                </div>
-                <div class="content top-mate">
-                    <h3 class="topic">Transactions</h3>
-                    <ul class="card-list-transaction" id="card-list-transaction"></ul>
-                </div>
-                <div class="content top-mate">
-                    <h3 class="topic">Logs</h3>
-                    <ul class="card-list-log" id="card-list-log"></ul>
-                </div>
+    <body>
+        <a class="return-home" onclick="logOut()"">
+            <span
+                ><img src="../img/return.svg" alt="<" /><span>
+                    Log Out</span
+                ></span
+            >
+        </a>
+        <header>Admin</header>
+        <div class="body-container">
+            <div class="">
+                <h3 class="topic">Customer</h3>
+                <ul class="card-list-customer" id="card-list-customer"></ul>
+            </div>
+            <div class="">
+                <h3 class="topic">Mate</h3>
+                <ul class="card-list-mate" id="card-list-mate"></ul>
+            </div>
+            <div class="">
+                <h3 class="topic">Transactions</h3>
+                <ul
+                    class="card-list-transaction"
+                    id="card-list-transaction"
+                ></ul>
+            </div>
+            <div class="">
+                <h3 class="topic">Logs</h3>
+                <ul class="card-list-log" id="card-list-log"></ul>
             </div>
         </div>
+        <script src="../script/admin.js"></script>
     </body>
 </html>

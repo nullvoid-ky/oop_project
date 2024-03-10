@@ -1,4 +1,4 @@
-
+@import url(font.css);
 .banner{
     width: calc(100vw - 200px);
     display: flex;

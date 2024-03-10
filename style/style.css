@@ -2,6 +2,7 @@
 @import url(content.css);
 @import url(card.css);
 @import url(mate.css);
+@import url(font.css);
 * {
     padding: 0px;
     margin: 0px;
@@ -73,4 +74,8 @@ footer{
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+header{
+    width: 100%;
 }

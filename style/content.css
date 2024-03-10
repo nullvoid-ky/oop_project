@@ -1,5 +1,6 @@
 @import url(banner.css);
 @import url(search.css);
+@import url(font.css);
 
 .content-container{
     display: flex;

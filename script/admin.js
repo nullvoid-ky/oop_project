@@ -1,4 +1,4 @@
-let my_token = ""
+let my_token = "";
 let my_id = "";
 let url = "http://127.0.0.1:8000";
 // let url = 'http://10.66.4.108:8000'
@@ -19,11 +19,10 @@ function getCustomer() {
     };
 
     fetch(url + "/api/controller/get-customers", requestOptions)
-    .then((response) => response.json())
-    .then((data) => {
-        console.log("Fetch mates: ", data);
-        data.data.forEach((item) => {
-
+        .then((response) => response.json())
+        .then((data) => {
+            console.log("Fetch mates: ", data);
+            data.data.forEach((item) => {
                 const username = item.account_detail.username;
                 const displayName = item.account_detail.displayname;
                 const picUrl = item.account_detail.pic_url;
@@ -31,14 +30,29 @@ function getCustomer() {
                 const gender = item.account_detail.gender;
                 const location = item.account_detail.location;
                 const timestamp = item.account_detail.timestamp;
-                createCardCustomer(username, displayName, picUrl, accountId, gender, location, timestamp);
-        });
-    })
-    .catch((error) => console.error("Error fetching data:", error));
-
+                createCardCustomer(
+                    username,
+                    displayName,
+                    picUrl,
+                    accountId,
+                    gender,
+                    location,
+                    timestamp
+                );
+            });
+        })
+        .catch((error) => console.error("Error fetching data:", error));
 }
 
-function createCardCustomer(username, displayName, picUrl, accountId, gender, location, timestamp) {
+function createCardCustomer(
+    username,
+    displayName,
+    picUrl,
+    accountId,
+    gender,
+    location,
+    timestamp
+) {
     const cardList = document.getElementById("card-list-customer");
 
     // Create card element
@@ -81,7 +95,6 @@ function createCardCustomer(username, displayName, picUrl, accountId, gender, lo
     cardList.appendChild(card);
 }
 
-
 function getMates() {
     // Clear previous values
     const cardList = document.getElementById("card-list-mate");
@@ -98,20 +111,19 @@ function getMates() {
     };
 
     fetch(url + "/api/controller/get-mates", requestOptions)
-    .then((response) => response.json())
-    .then((data) => {
-        console.log("Fetch mates: ", data);
-        data.data.forEach((item) => {
+        .then((response) => response.json())
+        .then((data) => {
+            console.log("Fetch mates: ", data);
+            data.data.forEach((item) => {
                 const username = item.account_detail.username;
                 const displayName = item.account_detail.displayname;
                 const picUrl = item.account_detail.pic_url;
                 const accountId = item.account_detail.id;
                 const rating = item.account_detail.star;
                 createCardRating(displayName, picUrl, accountId, rating);
-        });
-    })
-    .catch((error) => console.error("Error fetching data:", error));
-
+            });
+        })
+        .catch((error) => console.error("Error fetching data:", error));
 }
 
 function createCardRating(username, picUrl, accountId, rating) {
@@ -193,7 +205,6 @@ function createCardRating(username, picUrl, accountId, rating) {
     cardList.appendChild(card);
 }
 
-
 function registerPage(buttonId) {
     var encodedButtonId = encodeURIComponent(buttonId);
     window.location.href = "login.html?buttonId=" + encodedButtonId; // passing value
@@ -225,20 +236,19 @@ function registrationCookie() {
         console.log(data);
         my_token = data.token;
         my_id = data.id;
-        // Do something with the registration data
-        let loginNav = document.getElementById("login");
-        loginNav.style.cssText = "display: none;";
-        let registerNav = document.getElementById("register");
-        registerNav.style.cssText = "display: none;";
     } else {
         console.log("Registration data not found in cookie.");
-        let progileNav = document.getElementById("profile");
-        progileNav.style.cssText = "display: none;";
     }
+}
+
+function logOut() {
+    document.cookie =
+        "userData=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.location.href = "login.html";
 }
 
 window.onload = function () {
     registrationCookie();
     getMates();
-    getCustomer()
+    getCustomer();
 };
