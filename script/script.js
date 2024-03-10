@@ -1,4 +1,4 @@
-let my_token = ""
+let my_token = "";
 let my_id = "";
 let url = "http://127.0.0.1:8000";
 // let url = 'http://10.66.4.108:8000'
@@ -91,27 +91,32 @@ function getTopMateLeaderboard() {
     };
 
     fetch(url + "/api/controller/get-leaderboard", requestOptions)
-    .then((response) => response.json())
-    .then((data) => {
-        console.log("Fetch mates: ", data);
-        let count = 0; // Counter variable to track the number of iterations
-        data.data.forEach((item) => {
-            if (count < 4) {
-                const username = item.account_detail.username;
-                const displayName = item.account_detail.displayname;
-                const picUrl = item.account_detail.pic_url;
-                const accountId = item.account_detail.id;
-                const rating = item.account_detail.star;
-                const location = item.account_detail.location
-                console.log(item.account_detail.star);
-                // createCard(displayname, picUrl, accountId)
-                createCardRating(displayName, picUrl, accountId, rating, location);
-                count++; // Increment the counter after each iteration
-            }
-        });
-    })
-    .catch((error) => console.error("Error fetching data:", error));
-
+        .then((response) => response.json())
+        .then((data) => {
+            console.log("Fetch mates: ", data);
+            let count = 0; // Counter variable to track the number of iterations
+            data.data.forEach((item) => {
+                if (count < 4) {
+                    const username = item.account_detail.username;
+                    const displayName = item.account_detail.displayname;
+                    const picUrl = item.account_detail.pic_url;
+                    const accountId = item.account_detail.id;
+                    const rating = item.account_detail.star;
+                    const location = item.account_detail.location;
+                    console.log(item.account_detail.star);
+                    // createCard(displayname, picUrl, accountId)
+                    createCardRating(
+                        displayName,
+                        picUrl,
+                        accountId,
+                        rating,
+                        location
+                    );
+                    count++; // Increment the counter after each iteration
+                }
+            });
+        })
+        .catch((error) => console.error("Error fetching data:", error));
 }
 
 function createCardRating(username, picUrl, accountId, rating, location) {
@@ -146,7 +151,12 @@ function createCardRating(username, picUrl, accountId, rating, location) {
 
     const cardDetailRating = document.createElement("div");
     cardDetailRating.classList.add("average-star-num");
-    cardDetailRating.textContent = rating.toString();
+    let ratingSrting = rating.toString();
+    if (ratingSrting == "-1.0") {
+        ratingSrting = "None";
+        rating = 0;
+    }
+    cardDetailRating.textContent = ratingSrting;
 
     // Create star rating element
     const starRatingContainer = document.createElement("div");
@@ -272,10 +282,16 @@ function searchMates() {
                 const picUrl = item.account_detail.pic_url;
                 const accountId = item.account_detail.id;
                 const rating = item.account_detail.star;
-                const location = item.account_detail.location
+                const location = item.account_detail.location;
                 console.log(item.account_detail.star);
                 // createCard(displayname, picUrl, accountId)
-                createCardRating(displayName, picUrl, accountId, rating, location);
+                createCardRating(
+                    displayName,
+                    picUrl,
+                    accountId,
+                    rating,
+                    location
+                );
             });
         })
         .catch((error) => console.error("Error fetching data:", error));
@@ -297,8 +313,8 @@ window.onload = function () {
     }
 };
 
-function goToMate(){
-    window.location.href = 'mate.html'
+function goToMate() {
+    window.location.href = "mate.html";
 }
 
 function registerPage(buttonId) {
@@ -473,10 +489,7 @@ function verify_role(token) {
     };
 
     // Return the fetch call directly to chain promises
-    return fetch(
-        url + "/api/controller/get-self-profile",
-        requestOptions
-    )
+    return fetch(url + "/api/controller/get-self-profile", requestOptions)
         .then((response) => {
             console.log("get-user-profile ", response);
             if (response.status === 200) {
@@ -503,4 +516,3 @@ function verify_role(token) {
             throw error; // Re-throw the error to be caught by the caller
         });
 }
-
