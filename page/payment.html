@@ -43,14 +43,15 @@
                     </div>
                 </div>
                 <div class="payment-content">
-                    <p class="booked-mate">Nana</p>
-                    <div class="booked-time">12-12-2024</div>
-                    <div class="booked-description">จองแบบคุณภาพ</div>
-                    <div class="booked-price">1000</div>
-                    <button>ยกเลิกการจอง</button>
-                    <button>ชำระเงิน</button>
+                    <p class="booked-mate" id="booked-mate"></p>
+                    <div class="booked-time" id="booked-time"></div>
+                    <div class="booked-location" id="booked-location"></div>
+                    <div class="booked-price" id="booked-price"></div>
+                    <button onclick="cancleBooking()">ยกเลิกการจอง</button>
+                    <button onclick="confirmPayment()">ชำระเงิน</button>
                 </div>
             </div>
         </div>
+        <script src="../script/payment.js"></script>
     </body>
 </html>
