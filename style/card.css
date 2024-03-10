@@ -10,6 +10,15 @@
 
     box-sizing: border-box;
 }
+.card-list-overflow {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 50px;
+    box-sizing: border-box;
+    overflow-x: scroll;
+}
 
 .card {
     flex-grow: 1;

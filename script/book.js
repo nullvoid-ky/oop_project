@@ -3,7 +3,8 @@ const user_id = new URLSearchParams(window.location.search).get("id")
 let my_token = "";
 let my_id = "";
 let selectedTime = null;
-
+let availabilitySelectedElement = null;
+let matePrice = 0;
 function getCookie(cookieName) {
     const name = cookieName + "=";
     const decodedCookie = decodeURIComponent(document.cookie);
@@ -51,10 +52,7 @@ function verify_role(token) {
     };
 
     // Return the fetch call directly to chain promises
-    return fetch(
-        url + "/api/controller/get-self-profile",
-        requestOptions
-    )
+    return fetch(url + "/api/controller/get-self-profile", requestOptions)
         .then((response) => {
             console.log("get-user-profile ", response);
             if (response.status === 200) {
@@ -101,11 +99,20 @@ async function getMateData(token) {
     const locationText = document.getElementById("location-text");
     locationText.textContent = data.data.location;
     const averageStarNum = document.getElementById("average-star-num");
-    averageStarNum.textContent = data.data.star;
+
+    let starNum = data.data.star;
+    if (data.data.star == "-1.0") {
+        starNum = "None";
+        averageStarNum.textContent = starNum;
+        starNum = 0;
+    } else {
+        averageStarNum.textContent = starNum;
+    }
     const averageStarContainer = document.getElementById(
         "average-star-container"
     );
-    for (let i = 0; i < Math.floor(data.data.star); i++) {
+
+    for (let i = 0; i < Math.floor(starNum); i++) {
         const averageStar = document.createElement("img");
         averageStar.className = "average-star";
         averageStar.id = "average-star";
@@ -114,7 +121,7 @@ async function getMateData(token) {
         averageStarContainer.appendChild(averageStar);
     }
 
-    for (let i = 0; i < 5 - Math.floor(data.data.star); i++) {
+    for (let i = 0; i < 5 - Math.floor(starNum); i++) {
         const averageStar = document.createElement("img");
         averageStar.className = "average-star";
         averageStar.id = "average-star";
@@ -123,6 +130,7 @@ async function getMateData(token) {
         averageStarContainer.appendChild(averageStar);
     }
     const priceText = document.getElementById("price-text");
+    matePrice = data.data.price;
     priceText.textContent = data.data.price + " บาท";
     return data;
 }
@@ -143,6 +151,7 @@ async function getMateAvalability(token) {
         pElement.className = "availability-text";
         pElement.id = "availability-text";
         pElement.setAttribute("data-time", item.date);
+        pElement.setAttribute("detail", item.detail);
         pElement.textContent = item.date;
         parent.appendChild(pElement);
     });
@@ -161,6 +170,8 @@ async function getMateAvalability(token) {
             // Add the 'selected' class to the clicked element
             element.classList.add("selected");
             selectedTime = element.getAttribute("data-time");
+            availabilitySelectedElement = element.getAttribute("detail");
+            console.log(availabilitySelectedElement);
             console.log(selectedTime);
         });
     });
@@ -303,6 +314,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // Add the 'selected' class to the clicked element
             element.classList.add("selected");
+            availabilitySelectedElement = element;
+            console.log(availabilitySelectedElement.getAttribute("detail"));
             selectedTime = element.getAttribute("data-time");
         });
     });
@@ -310,12 +323,21 @@ document.addEventListener("DOMContentLoaded", function () {
     bookButton.addEventListener("click", async function () {
         if (selectedTime !== null) {
             // Perform actions for the selected time (e.g., submit data)
-            prompt(
-                "คุณต้องการชำระค่ามัดจำเลยหรือไม่\ny : รับทราบและชำระ\nn หรือกด Cancel: ยกเลิกการจ่าย"
+            alert(availabilitySelectedElement);
+            let ans = prompt(
+                `คุณต้องการชำระค่ามัดจำเลยหรือไม่\n${
+                    matePrice / 2
+                }\ny : รับทราบและชำระ\nn : ยกเลิกการจ่าย`
             );
-            console.log("Booking for time:", selectedTime);
-            bookMate(my_token, user_id);
-            window.location.href = "booking.html";
+            if (ans == "y") {
+                alert("Successfully paid");
+                console.log("Booking for time:", selectedTime);
+                window.location.href = "booking.html";
+            } else if (ans == "n") {
+                alert("ยกเลิกการจ่าย ยังไม่ได้จองเมท");
+            } else {
+                alert("กรุณากรอกให้ถูกต้อง\nhint : 'y' or 'n'");
+            }
             // Add your logic here to submit the data or perform other actions
         } else {
             console.log("Please select a time before booking.");

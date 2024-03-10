@@ -1,0 +1,22 @@
+@import url(header.css);
+@import url(nav.css);
+
+body{
+    background: linear-gradient(0deg, rgba(255,255,255,1) 20%, rgba(255,250,229,1) 95%);
+    background-repeat: no-repeat;
+    box-sizing: border-box;
+}
+
+.body-content{
+    display: flex;
+    justify-content: center; 
+    padding-top: calc(54px + 64px + 24px + 64px);
+
+}
+.main-content{
+    display: flex;
+    background-color: white;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    width: calc(100vw - 200px);
+}

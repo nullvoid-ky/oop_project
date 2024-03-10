@@ -126,7 +126,7 @@ function getMates() {
         .catch((error) => console.error("Error fetching data:", error));
 }
 
-function createCardRating(username, picUrl, accountId, rating) {
+function createCardRating(display_name, picUrl, accountId, rating) {
     const cardList = document.getElementById("card-list-mate");
 
     // Create card element
@@ -146,7 +146,7 @@ function createCardRating(username, picUrl, accountId, rating) {
     // Create card detail name element
     const cardDetailName = document.createElement("div");
     cardDetailName.classList.add("card-detail-name");
-    cardDetailName.textContent = username;
+    cardDetailName.textContent = display_name;
 
     // Create card detail location element
     const cardDetailLocation = document.createElement("div");
@@ -158,7 +158,12 @@ function createCardRating(username, picUrl, accountId, rating) {
 
     const cardDetailRating = document.createElement("div");
     cardDetailRating.classList.add("average-star-num");
-    cardDetailRating.textContent = rating.toString();
+    let ratingSrting = rating.toString();
+    if (ratingSrting == "-1.0") {
+        ratingSrting = "None";
+        rating = 0;
+    }
+    cardDetailRating.textContent = ratingSrting;
 
     // Create star rating element
     const starRatingContainer = document.createElement("div");
