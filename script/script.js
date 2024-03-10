@@ -97,10 +97,11 @@ function getTopMateLeaderboard() {
             console.log("Fetch mates: ", data);
             data.data.forEach((item) => {
                 const username = item.account_detail.username;
+                const displayName = item.account_detail.displayname;
                 const picUrl = item.account_detail.pic_url;
                 const accountId = item.account_detail.id;
                 const rating = item.account_detail.star;
-                createCardRating(username, picUrl, accountId, rating);
+                createCardRating(displayName, picUrl, accountId, rating);
             });
         })
         .catch((error) => console.error("Error fetching data:", error));
@@ -260,12 +261,13 @@ function searchMates() {
             console.log("Fetch mates: ", data);
             data.data.forEach((item) => {
                 const username = item.account_detail.username;
+                const displayName = item.account_detail.displayname;
                 const picUrl = item.account_detail.pic_url;
                 const accountId = item.account_detail.id;
                 const rating = item.account_detail.star;
                 console.log(item.account_detail.star);
-                // createCard(username, picUrl, accountId)
-                createCardRating(username, picUrl, accountId, rating);
+                // createCard(displayname, picUrl, accountId)
+                createCardRating(displayName, picUrl, accountId, rating);
             });
         })
         .catch((error) => console.error("Error fetching data:", error));
