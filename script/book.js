@@ -1,4 +1,4 @@
-const url = "http://127.0.0.1:8000";
+const url = "http://10.66.7.125:8000";
 const user_id = new URLSearchParams(window.location.search).get("id")
 let my_token = "";
 let my_id = "";
@@ -181,6 +181,7 @@ async function bookMate(token, mate_id) {
     const year = parseInt(selectedTime.split("-")[2]);
     const month = parseInt(selectedTime.split("-")[1]);
     const day = parseInt(selectedTime.split("-")[0]);
+    console.log(token);
     console.log(year, month, day);
     const res = await fetch(url + "/api/controller/add-booking", {
         method: "POST",
@@ -199,7 +200,7 @@ async function bookMate(token, mate_id) {
     });
     const data = await res.json();
     console.log(data);
-    return data;
+    return data.message;
 }
 
 async function pay(token, booking_id) {
@@ -330,7 +331,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 }\ny : รับทราบและชำระ\nn : ยกเลิกการจ่าย`
             );
             if (ans == "y") {
-                bookMate(my_token, user_id);
+                console.log(bookMate(my_token, user_id));
                 alert("Successfully paid");
                 console.log("Booking for time:", selectedTime);
                 window.location.href = "booking.html";
