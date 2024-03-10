@@ -295,33 +295,31 @@ function verify_role(token) {
     };
 
     // Return the fetch call directly to chain promises
-    return fetch(
-        url + "/api/controller/get-user-profile/" + my_id,
-        requestOptions
-    )
-        .then((response) => {
-            console.log("get-user-profile ", response);
-            if (response.status === 200) {
-                return response.json(); // If status is 200, parse response JSON
-            } else {
-                alert("Verification error");
-                window.location.href = "login.html";
-                throw new Error("Verification error"); // For other statuses, throw unexpected error
+    return fetch(url + "/api/controller/get-self-profile", requestOptions)
+    .then((response) => {
+        console.log("get-user-profile ", response);
+        if (response.status === 200) {
+            return response.json(); // If status is 200, parse response JSON
+        } else {
+            alert("Verification error");
+            window.location.href = 'login.html'
+            throw new Error("Verification error"); // For other statuses, throw unexpected error
+        }
+    })
+    .then((data) => {
+        if(data.hasOwnProperty("status_code")){
+            if(data.status_code == 404){
+                alert("กรุณาเข้าสู่ระบบก่อนใช้งาน");
+                window.location.href = 'login.html'
             }
-        })
-        .then((data) => {
-            if (data.hasOwnProperty("status_code")) {
-                if (data.status_code == 404) {
-                    alert("กรุณาเข้าสู่ระบบก่อนใช้งาน");
-                    window.location.href = "login.html";
-                }
-            }
-            // Handle success response
-            console.log("Verification respond:", data);
-            return data.data.role;
-        })
-        .catch((error) => {
-            console.error("Error Verification respond:", error.message);
-            throw error; // Re-throw the error to be caught by the caller
-        });
+
+        }
+        // Handle success response
+        console.log("Verification respond:", data);
+        return data.data.role;
+    })
+    .catch((error) => {
+        console.error("Error Verification respond:", error.message);
+        throw error; // Re-throw the error to be caught by the caller
+    });
 }
