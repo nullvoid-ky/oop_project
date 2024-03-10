@@ -4,7 +4,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Animated Login Form</title>
-        
+
         <link rel="stylesheet" href="../style/login.css" />
     </head>
     <body>
@@ -27,13 +27,16 @@
                         type="password"
                         id="create-password"
                         placeholder="Password"
+                        onchange="checkPassLenght()"
                     />
                     <input
                         type="password"
                         id="create-password-re"
                         placeholder="Re-Password"
                     />
-                    <p>กรุณาใส่พาสเวิร์ดที่มี 8 ตัวอักษรขึ้นไปนะคะ</p>
+                    <p id="warning">
+                        กรุณาใส่พาสเวิร์ดที่มี 8 ตัวอักษรขึ้นไปนะคะ
+                    </p>
                     <div class="checkbox-form-box">
                         <div class="checkbox-topic">
                             <h4>Account</h4>
