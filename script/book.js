@@ -1,5 +1,5 @@
 const url = "http://127.0.0.1:8000";
-const user_id = new URLSearchParams(window.location.search).get("id")
+const user_id = new URLSearchParams(window.location.search).get("id");
 let my_token = "";
 let my_id = "";
 let selectedTime = null;
@@ -329,18 +329,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
     bookButton.addEventListener("click", async function () {
         if (selectedTime !== null) {
-            // Perform actions for the selected time (e.g., submit data)
-            alert(availabilitySelectedElement);
+            alert(availabilitySelectedElement); // details
             let ans = prompt(
                 `คุณต้องการชำระค่ามัดจำเลยหรือไม่\n${
                     matePrice / 2
                 }\ny : รับทราบและชำระ\nn : ยกเลิกการจ่าย`
             );
             if (ans == "y") {
-                bookMate(my_token, user_id);
+                let book = await bookMate(my_token, user_id);
+                let payReturn = await pay(my_token, book);
+                console.log(book);
+                console.log(payReturn);
+
                 alert("Successfully paid");
                 console.log("Booking for time:", selectedTime);
-                bookMate(my_token, user_id);
                 window.location.href = "booking.html";
             } else if (ans == "n") {
                 alert("ยกเลิกการจ่าย ยังไม่ได้จองเมท");

@@ -183,7 +183,8 @@ async function getBooking() {
             useEffect("booking-element");
             const parent = document.getElementById("booking-element");
             data.data.forEach((item) => {
-                if (!item.is_success) {
+                console.log(item.is_success);
+                if (item.is_success) {
                     return;
                 }
                 const bookingElement = document.createElement("div");
@@ -299,29 +300,29 @@ function verify_role(token) {
 
     // Return the fetch call directly to chain promises
     return fetch(url + "/api/controller/get-self-profile", requestOptions)
-    .then((response) => {
-        console.log("get-user-profile ", response);
-        if (response.status === 200) {
-            return response.json(); // If status is 200, parse response JSON
-        } else {
-            alert("Verification error");
-            window.location.href = 'login.html'
-            throw new Error("Verification error"); // For other statuses, throw unexpected error
-        }
-    })
-    .then((data) => {
-        if(data.hasOwnProperty("status_code")){
-            if(data.status_code == 404){
-                alert("กรุณาเข้าสู่ระบบก่อนใช้งาน");
-                window.location.href = 'login.html'
+        .then((response) => {
+            console.log("get-user-profile ", response);
+            if (response.status === 200) {
+                return response.json(); // If status is 200, parse response JSON
+            } else {
+                alert("Verification error");
+                window.location.href = "login.html";
+                throw new Error("Verification error"); // For other statuses, throw unexpected error
             }
-        }
-        // Handle success response
-        console.log("Verification respond:", data);
-        return data.data.role;
-    })
-    .catch((error) => {
-        console.error("Error Verification respond:", error.message);
-        throw error; // Re-throw the error to be caught by the caller
-    });
+        })
+        .then((data) => {
+            if (data.hasOwnProperty("status_code")) {
+                if (data.status_code == 404) {
+                    alert("กรุณาเข้าสู่ระบบก่อนใช้งาน");
+                    window.location.href = "login.html";
+                }
+            }
+            // Handle success response
+            console.log("Verification respond:", data);
+            return data.data.role;
+        })
+        .catch((error) => {
+            console.error("Error Verification respond:", error.message);
+            throw error; // Re-throw the error to be caught by the caller
+        });
 }
