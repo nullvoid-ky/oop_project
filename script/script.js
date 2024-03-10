@@ -197,6 +197,14 @@ function generateStars(rating) {
         starImg.alt = "star";
         container.appendChild(starImg);
     }
+    const numNoStar = 5 - numStars;
+    for (let i = 0; i < numNoStar; i++) {
+        const starImg = document.createElement("img");
+        starImg.className = "average-star";
+        starImg.src = "../img/no-star.svg";
+        starImg.alt = "star";
+        container.appendChild(starImg);
+    }
 }
 
 function searchMates() {
@@ -481,3 +489,4 @@ function verify_role(token) {
             throw error; // Re-throw the error to be caught by the caller
         });
 }
+

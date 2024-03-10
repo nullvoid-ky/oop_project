@@ -174,7 +174,8 @@ width: 30vw;
 .images > img:first-child{
   display: flex;
   width: 256px;
-  height: 128px;
+  height: 170px;
+  object-position: 0 0;
   background-color: #2b2023;
   border-radius: 4px;
 }
