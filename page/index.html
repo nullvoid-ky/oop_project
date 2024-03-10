@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <!-- <link rel="stylesheet" href="../style/style.css" /> -->
         <link rel="stylesheet" href="../style/style.css" />
+        
         <script src="../script/script.js"></script>
         <title>Document</title>
     </head>
@@ -42,7 +43,7 @@
                             แล้วมาเปิดประสบการณ์พบเจอเพื่อนใหม่ ๆ ในสถานที่ใหม่
                             ๆ
                         </h2>
-                        <button class="pink-btn search-template">
+                        <button onclick="window.location.href = 'mate.html', syncValue()" class="pink-btn search-template">
                             Rent Mate
                         </button>
                     </div>
@@ -74,6 +75,7 @@
                         <div class="input-gender search-template">
                             <label>
                                 <input
+                                class="genderbox"
                                     type="checkbox"
                                     name="gender"
                                     value="male"
@@ -84,13 +86,14 @@
                             </label>
                             <label>
                                 <input
-                                    type="checkbox"
+                                class="genderbox"
+                                type="checkbox"
                                     name="gender"
                                     value="female"
                                     onclick="syncValue()"
                                     checked
                                 />
-                                <p>Female</p>
+                                <h5>Female</h5>
                             </label>
                         </div>
                         <div class="input-availability search-template">
@@ -106,7 +109,7 @@
                             </label>
                         </div>
                         <div class="input-age search-template">
-                            <p>อายุ</p>
+                            <p><p>อายุ</p>
                             <input
                                 class="input-num"
                                 type="number"
@@ -117,6 +120,8 @@
                                 value="18"
                                 oninput="syncValue()"
                             />
+                            ปี
+                            </p>
                         </div>
                         <button
                             class="pink-btn input-search search-template"

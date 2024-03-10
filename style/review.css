@@ -1,3 +1,4 @@
+@import url(font.css);
 .review-content{
     width: calc(100vw - 200px);
     background-color: white;

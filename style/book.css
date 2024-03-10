@@ -1,6 +1,7 @@
 @import url(nav.css);
 @import url(header.css);
 @import url(review.css);
+@import url(font.css);
 
 body{
     background: linear-gradient(0deg, #ffffff 20%, rgba(255,250,229,1) 95%);

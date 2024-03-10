@@ -1,3 +1,4 @@
+@import url(font.css);
 .chat-room-list{
     overflow-y: scroll;
 }
