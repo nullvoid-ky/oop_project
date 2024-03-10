@@ -188,6 +188,7 @@ async function bookMate(token, mate_id) {
     const year = parseInt(selectedTime.split("-")[2]);
     const month = parseInt(selectedTime.split("-")[1]);
     const day = parseInt(selectedTime.split("-")[0]);
+    console.log(token);
     console.log(year, month, day);
     const res = await fetch(url + "/api/controller/add-booking", {
         method: "POST",
@@ -206,7 +207,7 @@ async function bookMate(token, mate_id) {
     });
     const data = await res.json();
     console.log(data);
-    return data;
+    return data.message;
 }
 
 async function pay(token, booking_id) {
@@ -336,11 +337,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 }\ny : รับทราบและชำระ\nn : ยกเลิกการจ่าย`
             );
             if (ans == "y") {
-                let book = await bookMate(my_token, user_id);
-                let payReturn = await pay(my_token, book);
-                console.log(book);
-                console.log(payReturn);
-
+                console.log(bookMate(my_token, user_id));
                 alert("Successfully paid");
                 console.log("Booking for time:", selectedTime);
                 window.location.href = "booking.html";

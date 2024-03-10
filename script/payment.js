@@ -83,7 +83,7 @@ async function getPayment() {
     })
     .then((response) => response.json())
     .then((data) => {
-        if (!data.data.is_success) {
+        if (data.data.status === "Failed") {
             alert("ไม่พบการจอง");
             window.location.href = 'profile.html';
         }
