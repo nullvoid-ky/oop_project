@@ -8,11 +8,30 @@ window.onload = function () {
     verify_role(my_token)
     .then(role => {
         console.log("role :", role);
+
+        const editMoneyBtn = document.getElementById("editMoneyBtn")
         // Use the role value here
         if(role == 'customer'){
             const mateContent = document.getElementById('mate-content');
             // Set its display property to 'none'
             mateContent.style.display = 'none';
+            editMoneyBtn.textContent = 'Deposit';
+
+            editMoneyBtn.addEventListener('click', function() {
+                const amount = prompt('Enter new profile Money:');
+                if (amount !== null && amount !== '') {
+                    addMoney({ amount: amount });
+                }
+            });
+
+        } else {
+            editMoneyBtn.textContent = 'Withdraw'
+            editMoneyBtn.addEventListener('click', function() {
+                const amount = prompt('Enter new profile Money:');
+                if (amount !== null && amount !== '') {
+                    delMoney({ amount: amount });
+                }
+            });
         }
     })
     .catch(error => {
@@ -51,12 +70,65 @@ function registrationCookie(){
     }
         
 }
+function addMoney(data) {
+    fetch(url+"/api/controller/add-amount", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'x-token': my_token
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to update profile');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Profile updated successfully:', data);
+        // Update the UI with the new data if necessary
+        fetchUserProfile();
+    })
+    .catch(error => {
+        console.error('Error updating profile:', error);
+    });
+}
+
+function delMoney(data) {
+    fetch(url+"/api/controller/del-amount", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'x-token': my_token
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to update profile');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Profile updated successfully:', data);
+        // Update the UI with the new data if necessary
+        fetchUserProfile();
+    })
+    .catch(error => {
+        console.error('Error updating profile:', error);
+    });
+}
+
+
 
 document.addEventListener('DOMContentLoaded', function() {
     registrationCookie();
     const editDisplayNameBtn = document.getElementById('editDisplayNameBtn');
     const editPicUrlBtn = document.getElementById('editPicUrlBtn');
     const editMoneyBtn = document.getElementById('editMoneyBtn');
+    const editAgeBtn = document.getElementById('editAgeBtn');
+    const editLocationBtn = document.getElementById('editLocationBtn');
 
     editDisplayNameBtn.addEventListener('click', function() {
         const newDisplayName = prompt('Enter new DisplayName:');
@@ -72,133 +144,201 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    editMoneyBtn.addEventListener('click', function() {
-        const new_money = prompt('Enter new profile Money:');
-        if (new_money !== null && new_money !== '') {
-            updateMoney({ amount: new_money });
+    // editMoneyBtn.addEventListener('click', function() {
+    //     const new_money = prompt('Enter new profile Money:');
+    //     if (new_money !== null && new_money !== '') {
+    //         updateMoney({ amount: new_money });
+    //     }
+    // });
+
+    editAgeBtn.addEventListener('click', function() {
+        const age = prompt('Enter new profile Money:');
+        if (age !== null && age !== '') {
+            updateAge({ age: age });
+        }
+    });
+
+    editLocationBtn.addEventListener('click', function() {
+        const location = prompt('Enter new profile Money:');
+        if (location !== null && location !== '') {
+            updateLocation({ location: location });
         }
     });
 
     // Fetch user profile
     fetchUserProfile();
-
-    function updateDisplayName(data) {
-        fetch(url+"/api/controller/edit-display-name", {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'x-token': my_token
-            },
-            body: JSON.stringify(data)
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to update profile');
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Profile updated successfully:', data);
-            // Update the UI with the new data if necessary
-            fetchUserProfile();
-        })
-        .catch(error => {
-            console.error('Error updating profile:', error);
-        });
-    }
-
-    function updatePicUrl(data) {
-        fetch(url+"/api/controller/edit-pic-url", {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'x-token': my_token
-            },
-            body: JSON.stringify(data)
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to update profile');
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Profile updated successfully:', data);
-            // Update the UI with the new data if necessary
-            fetchUserProfile();
-        })
-        .catch(error => {
-            console.error('Error updating profile:', error);
-        });
-    }
-
-    function updateMoney(data) {
-        fetch(url+"/api/controller/edit-money", {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'x-token': my_token
-            },
-            body: JSON.stringify(data)
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to update profile');
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Profile updated successfully:', data);
-            // Update the UI with the new data if necessary
-            fetchUserProfile();
-        })
-        .catch(error => {
-            console.error('Error updating profile:', error);
-        });
-    }
-
-    function fetchUserProfile() {
-        const requestOptions = {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                "x-token": my_token
-            },
-        };
-
-        fetch(url + "/api/controller/get-user-profile/"+my_id, requestOptions)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to fetch profile');
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('User profile fetched successfully:', data);
-            // Update the UI with the fetched data
-            updateProfileUI(data.data);
-        })
-        .catch(error => {
-            console.error('Error fetching profile:', error);
-        });
-    }
-
-    function updateProfileUI(profileData) {
-        // Update the UI with the fetched profile data
-        document.getElementById('displayName').textContent = profileData.displayname;
-        document.getElementById('picUrl').textContent = profileData.pic_url;
-        // document.querySelector('.profile-pic img').setAttribute('src', profileData.pic_url);
-        // document.querySelector('.images img').setAttribute('src', profileData.pic_url);
-
-        // If you want to set src for all images with class profile-pic:
-        const profilePics = document.querySelectorAll('.images img');
-        profilePics.forEach(pic => {
-            pic.setAttribute('src', profileData.pic_url);
-        });
-
-        document.getElementById('money-left').textContent = profileData.amount;
-    }
 });
+
+function updateDisplayName(data) {
+    fetch(url+"/api/controller/edit-display-name", {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'x-token': my_token
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to update profile');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Profile updated successfully:', data);
+        // Update the UI with the new data if necessary
+        fetchUserProfile();
+    })
+    .catch(error => {
+        console.error('Error updating profile:', error);
+    });
+}
+
+function updatePicUrl(data) {
+    fetch(url+"/api/controller/edit-pic-url", {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'x-token': my_token
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to update profile');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Profile updated successfully:', data);
+        // Update the UI with the new data if necessary
+        fetchUserProfile();
+    })
+    .catch(error => {
+        console.error('Error updating profile:', error);
+    });
+}
+
+function updateMoney(data) {
+    fetch(url+"/api/controller/edit-money", {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'x-token': my_token
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to update profile');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Profile updated successfully:', data);
+        // Update the UI with the new data if necessary
+        fetchUserProfile();
+    })
+    .catch(error => {
+        console.error('Error updating profile:', error);
+    });
+}
+
+function updateAge(data) {
+    fetch(url+"/api/controller/edit-age", {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'x-token': my_token
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to update profile');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Profile updated successfully:', data);
+        // Update the UI with the new data if necessary
+        fetchUserProfile();
+    })
+    .catch(error => {
+        console.error('Error updating profile:', error);
+    });
+}
+
+function updateLocation(data) {
+    fetch(url+"/api/controller/edit-location", {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'x-token': my_token
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to update profile');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Profile updated successfully:', data);
+        // Update the UI with the new data if necessary
+        fetchUserProfile();
+    })
+    .catch(error => {
+        console.error('Error updating profile:', error);
+    });
+}
+
+function fetchUserProfile() {
+    const requestOptions = {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "x-token": my_token
+        },
+    };
+
+    fetch(url + "/api/controller/get-self-profile", requestOptions)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to fetch profile');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('User profile fetched successfully:', data);
+        // Update the UI with the fetched data
+        updateProfileUI(data.data);
+    })
+    .catch(error => {
+        console.error('Error fetching profile:', error);
+    });
+}
+
+function updateProfileUI(profileData) {
+    console.log(profileData)
+    // Update the UI with the fetched profile data
+    document.getElementById('displayName').textContent = profileData.displayname;
+    document.getElementById('picUrl').textContent = profileData.pic_url;
+    // document.querySelector('.profile-pic img').setAttribute('src', profileData.pic_url);
+    // document.querySelector('.images img').setAttribute('src', profileData.pic_url);
+
+    // If you want to set src for all images with class profile-pic:
+    const profilePics = document.querySelectorAll('.images img');
+    profilePics.forEach(pic => {
+        pic.setAttribute('src', profileData.pic_url);
+    });
+
+    document.getElementById('money-left').textContent = profileData.amount;
+
+    document.getElementById('age').textContent = profileData.age;
+    document.getElementById('location').textContent = profileData.location;
+}
 
 function logOut(){
     document.cookie = "userData=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
@@ -215,7 +355,7 @@ function verify_role(token) {
     };
 
     // Return the fetch call directly to chain promises
-    return fetch(url + "/api/controller/get-user-profile/" + my_id, requestOptions)
+    return fetch(url + "/api/controller/get-self-profile", requestOptions)
     .then((response) => {
         console.log("get-user-profile ", response);
         if (response.status === 200) {

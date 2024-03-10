@@ -1,5 +1,4 @@
-const my_token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZGZjNTk3ZjUtMDllMS00OTQzLTg0OWItMTFjNTdiYmNkMmE2Iiwicm9sZSI6ImN1c3RvbWVyIn0.nQXdUl5i9cgggIs-zECPMBDfr_ipWCrR7PQ6m-mGCvw";
+let my_token = ''
 let my_id = "";
 let url = "http://127.0.0.1:8000";
 
@@ -21,17 +20,17 @@ function getTopMates() {
     fetch(url + "/api/controller/get-leaderboard", requestOptions)
         .then((response) => response.json())
         .then((data) => {
+            console.log("Get leaderboard: ", data)
             data.data.forEach((item) => {
                 const picUrl = item.account_detail.pic_url;
                 const accountId = item.account_detail.id;
                 const displayName = item.account_detail.displayname;
                 const star = item.account_detail.star;
-                const amount = item.account_detail.amount;
+                const amount = item.account_detail.rentcount;
                 const rank = item.account_detail.rank;
                 const gender = item.account_detail.gender;
                 createRankingBox(
                     accountId,
-                    username,
                     displayName,
                     picUrl,
                     star,
@@ -69,6 +68,7 @@ function registrationCookie() {
         const data = JSON.parse(registrationData);
         console.log(data);
         my_token = data.token;
+        my_id = data.id
         // Do something with the registration data
         let loginNav = document.getElementById("login");
         loginNav.style.cssText = "display: none;";
@@ -89,59 +89,85 @@ function createRankingBox(
     gender,
     rank
 ) {
-    // const leaderboard = document.getElementById("leaderboard");
-    // // Create card element
-    // const rankingBox = document.createElement("div");
-    // rankingBox.classList.add("ranking-mate-box");
-    // rankingBox.dataset.username = accountId; // Set accountId as a custom data attribute
+    const leaderboard = document.getElementById("leaderboard");
+    // Create card element
+    const rankingBox = document.createElement("div");
+    rankingBox.classList.add("ranking-mate-box");
+    rankingBox.dataset.accountId = accountId; // Set accountId as a custom data attribute
 
-    // // Create image element
-    // const ranking = document.createElement("div");
-    // ranking.classList.add("ranking");
-    // ranking.textContent = rank;
+    // Create image element
+    const ranking = document.createElement("div");
+    ranking.classList.add("ranking");
+    ranking.textContent = rank;
 
-    // const img = document.createElement("img");
-    // img.src = picUrl;
-    // img.alt = "Profile Image";
+    const ratingBox = document.createElement("div");
+    ratingBox.classList.add("average-star-box");
 
-    // const name = document.createElement("div");
-    // name.classList.add("mate-name");
-    // name.textContent = displayName;
+    const cardDetailRating = document.createElement("div");
+    cardDetailRating.classList.add("average-star-num");
+    cardDetailRating.textContent = star.toString();
 
-    // const amount = document.createElement("div");
-    // amount.classList.add("mate-amount");
-    // amount.textContent = amountBooked;
+    // Create star rating element
+    const starRatingContainer = document.createElement("div");
+    starRatingContainer.classList.add("star-rating-container");
 
-    // // Create card detail element
-    // const cardDetail = document.createElement("div");
-    // cardDetail.classList.add("card-detail");
+    const numStars = Math.floor(star); // Get the integer part of the star
+    for (let i = 0; i < numStars; i++) {
+        const starImg = document.createElement("img");
+        starImg.className = "average-star";
+        starImg.src = "../img/star.svg";
+        starImg.alt = "star";
+        starRatingContainer.appendChild(starImg);
+    }
 
-    // // Create card detail name element
-    // const cardDetailName = document.createElement("div");
-    // cardDetailName.classList.add("card-detail-name");
-    // cardDetailName.textContent = username;
+    const numEmptyStars = 5 - Math.floor(star); // Get the integer part of the rating
+    for (let i = 0; i < numEmptyStars; i++) {
+        const starImg = document.createElement("img");
+        starImg.className = "average-star";
+        starImg.src = "../img/no-star.svg";
+        starImg.alt = "star";
+        starRatingContainer.appendChild(starImg);
+    }
 
-    // const cardDetailLocation = document.createElement("div");
-    // cardDetailLocation.classList.add("card-detail-location");
-    // cardDetailLocation.textContent = "Bangkok";
+    ratingBox.appendChild(starRatingContainer);
+    ratingBox.appendChild(cardDetailRating);
 
-    // // Append elements to card
-    // cardDetail.appendChild(cardDetailLocation);
-    // cardDetail.appendChild(cardDetailName);
-    // card.appendChild(img);
-    // card.appendChild(cardDetail);
+    const img = document.createElement("img");
+    img.src = picUrl;
+    img.alt = "Profile Image";
 
-    // // Add event listener to card
-    // card.addEventListener("click", () => {
-    //     const accountId = card.dataset.accountId;
-    //     console.log("Clicked card with accountId:", accountId);
-    //     // Perform GET request with accountId
-    // });
+    const name = document.createElement("div");
+    name.classList.add("mate-name");
+    name.textContent = displayName;
 
-    // // Append card to card list
-    // cardList.appendChild(card);
+    const amount = document.createElement("div");
+    amount.classList.add("mate-amount");
+    amount.textContent = amountBooked;
+
+    const genderElement = document.createElement("div");
+    genderElement.classList.add("mate-gender");
+    genderElement.textContent = gender;
+
+
+    rankingBox.appendChild(ranking);
+    rankingBox.appendChild(ratingBox);
+    rankingBox.appendChild(img);
+    rankingBox.appendChild(name);
+    rankingBox.appendChild(amount);
+    rankingBox.appendChild(genderElement);
+
+    // Add event listener to card
+    rankingBox.addEventListener("click", () => {
+        const accountId = rankingBox.dataset.accountId;
+        console.log("Clicked card with accountId:", accountId);
+        // Perform GET request with accountId
+    });
+
+    // Append card to card list
+    leaderboard.appendChild(rankingBox);
 }
 
 window.onload = function () {
     registrationCookie();
+    getTopMates()
 };

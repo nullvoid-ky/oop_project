@@ -112,13 +112,13 @@ function handleFormSubmissionRegister(event) {
             .then(role => {
                 console.log("role :", role);
                 // Use the role value here
-                if(role == 'customer'){
+                if(role == 'customer' || role == 'mate'){
                     setTimeout(function() {
                         window.location.href = 'index.html'; // Redirect to success page
                     }, 100);
-                } else {
+                } else if (role == 'admin') {
                     setTimeout(function() {
-                        window.location.href = 'index.html'; // Redirect to success page
+                        window.location.href = 'admin.html'; // Redirect to success page
                     }, 100);
                 }
             })
@@ -180,13 +180,13 @@ function handleFormSubmissionLogin(event) {
             .then(role => {
                 console.log("role :", role);
                 // Use the role value here
-                if(role == 'customer'){
+                if(role == 'customer' || role == 'mate'){
                     setTimeout(function() {
                         window.location.href = 'index.html'; // Redirect to success page
                     }, 100);
-                } else {
+                } else if (role == 'admin') {
                     setTimeout(function() {
-                        window.location.href = 'mate.html'; // Redirect to success page
+                        window.location.href = 'admin.html'; // Redirect to success page
                     }, 100);
                 }
             })
@@ -213,7 +213,7 @@ function verify_role(token) {
     };
 
     // Return the fetch call directly to chain promises
-    return fetch(url + "/api/controller/get-user-profile/" + my_id, requestOptions)
+    return fetch(url + "/api/controller/get-self-profile", requestOptions)
     .then((response) => {
         console.log("get-user-profile ", response);
         if (response.status === 200) {

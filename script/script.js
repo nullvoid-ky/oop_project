@@ -1,5 +1,4 @@
-const my_token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZGZjNTk3ZjUtMDllMS00OTQzLTg0OWItMTFjNTdiYmNkMmE2Iiwicm9sZSI6ImN1c3RvbWVyIn0.nQXdUl5i9cgggIs-zECPMBDfr_ipWCrR7PQ6m-mGCvw";
+let my_token = ""
 let my_id = "";
 let url = "http://127.0.0.1:8000";
 // let url = 'http://10.66.4.108:8000'
@@ -92,21 +91,30 @@ function getTopMateLeaderboard() {
     };
 
     fetch(url + "/api/controller/get-leaderboard", requestOptions)
-        .then((response) => response.json())
-        .then((data) => {
-            console.log("Fetch mates: ", data);
-            data.data.forEach((item) => {
+    .then((response) => response.json())
+    .then((data) => {
+        console.log("Fetch mates: ", data);
+        let count = 0; // Counter variable to track the number of iterations
+        data.data.forEach((item) => {
+            if (count < 4) {
                 const username = item.account_detail.username;
+                const displayName = item.account_detail.displayname;
                 const picUrl = item.account_detail.pic_url;
                 const accountId = item.account_detail.id;
                 const rating = item.account_detail.star;
-                createCardRating(username, picUrl, accountId, rating);
-            });
-        })
-        .catch((error) => console.error("Error fetching data:", error));
+                const location = item.account_detail.location
+                console.log(item.account_detail.star);
+                // createCard(displayname, picUrl, accountId)
+                createCardRating(displayName, picUrl, accountId, rating, location);
+                count++; // Increment the counter after each iteration
+            }
+        });
+    })
+    .catch((error) => console.error("Error fetching data:", error));
+
 }
 
-function createCardRating(username, picUrl, accountId, rating) {
+function createCardRating(username, picUrl, accountId, rating, location) {
     const cardList = document.getElementById("card-list");
 
     // Create card element
@@ -131,7 +139,7 @@ function createCardRating(username, picUrl, accountId, rating) {
     // Create card detail location element
     const cardDetailLocation = document.createElement("div");
     cardDetailLocation.classList.add("card-detail-location");
-    cardDetailLocation.textContent = "Bangkok";
+    cardDetailLocation.textContent = location;
 
     const ratingBox = document.createElement("div");
     ratingBox.classList.add("average-star-box");
@@ -260,12 +268,14 @@ function searchMates() {
             console.log("Fetch mates: ", data);
             data.data.forEach((item) => {
                 const username = item.account_detail.username;
+                const displayName = item.account_detail.displayname;
                 const picUrl = item.account_detail.pic_url;
                 const accountId = item.account_detail.id;
                 const rating = item.account_detail.star;
+                const location = item.account_detail.location
                 console.log(item.account_detail.star);
-                // createCard(username, picUrl, accountId)
-                createCardRating(username, picUrl, accountId, rating);
+                // createCard(displayname, picUrl, accountId)
+                createCardRating(displayName, picUrl, accountId, rating, location);
             });
         })
         .catch((error) => console.error("Error fetching data:", error));
@@ -286,6 +296,10 @@ window.onload = function () {
         searchMates();
     }
 };
+
+function goToMate(){
+    window.location.href = 'mate.html'
+}
 
 function registerPage(buttonId) {
     var encodedButtonId = encodeURIComponent(buttonId);
@@ -316,7 +330,7 @@ function registrationCookie() {
     if (registrationData !== "") {
         const data = JSON.parse(registrationData);
         console.log(data);
-        // my_token = data.token;
+        my_token = data.token;
         my_id = data.id;
         // Do something with the registration data
         let loginNav = document.getElementById("login");
@@ -460,7 +474,7 @@ function verify_role(token) {
 
     // Return the fetch call directly to chain promises
     return fetch(
-        url + "/api/controller/get-user-profile/" + my_id,
+        url + "/api/controller/get-self-profile",
         requestOptions
     )
         .then((response) => {
