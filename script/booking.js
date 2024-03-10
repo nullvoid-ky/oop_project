@@ -63,7 +63,24 @@ function useEffect(elementId) {
     while (parent.firstChild) {
         parent.removeChild(parent.firstChild);
     }
-    
+}
+
+async function searchMates() {
+    const value = document.getElementById("mate-name").value
+    const res = await fetch(url + `/api/controller/get-booking`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "x-token": my_token,
+        },
+    })
+    const data = await res.json() 
+    data.data.forEach((item) => {
+        if (item.mate.username === value) {
+            console.log(item)
+        }
+    })
+    // console.log(data)
 }
 
 function getBooking(token) {
@@ -152,6 +169,7 @@ function registerPage(buttonId) {
 window.onload = function () {
     registrationCookie();
     verify_role(my_token)
+    getCookie('userData');
 }
 
 function verify_role(token) {
