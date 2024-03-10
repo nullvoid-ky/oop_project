@@ -62,3 +62,8 @@ h1{
     flex-direction: column;
     align-items: center;
 }
+
+img {
+    max-width: 24px;
+    aspect-ratio: 1/1;
+}
