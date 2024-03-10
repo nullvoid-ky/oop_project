@@ -227,7 +227,7 @@ async function getBooking() {
 
                 // Create date element
                 const dateElement = document.createElement("h3");
-                dateElement.textContent = "วันที่ " + item.timestamp;
+                dateElement.textContent = item.book_date;
 
                 // Create address element
                 const addressElement = document.createElement("h3");
