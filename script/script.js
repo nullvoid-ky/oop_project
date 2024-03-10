@@ -293,6 +293,10 @@ window.onload = function () {
     }
 };
 
+function goToMate(){
+    window.location.href = 'mate.html'
+}
+
 function registerPage(buttonId) {
     var encodedButtonId = encodeURIComponent(buttonId);
     window.location.href = "login.html?buttonId=" + encodedButtonId; // passing value
