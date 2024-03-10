@@ -79,7 +79,7 @@ async function searchMates() {
     const parent = document.getElementById("booking-element");
     data.data.forEach((item) => {
         console.log(item.mate.username);
-        if (item.mate.username === value) {
+        if (item.mate.username === value && item.is_success) {
             const bookingElement = document.createElement("div");
             bookingElement.classList.add("booking-column-element");
 
@@ -183,6 +183,9 @@ async function getBooking() {
             useEffect("booking-element");
             const parent = document.getElementById("booking-element");
             data.data.forEach((item) => {
+                if (!item.is_success) {
+                    return;
+                }
                 const bookingElement = document.createElement("div");
                 bookingElement.classList.add("booking-column-element");
 
@@ -227,7 +230,7 @@ async function getBooking() {
 
                 // Create date element
                 const dateElement = document.createElement("h3");
-                dateElement.textContent = "วันที่ " + item.timestamp;
+                dateElement.textContent = item.book_date;
 
                 // Create address element
                 const addressElement = document.createElement("h3");

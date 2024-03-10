@@ -15,7 +15,6 @@ window.onload = function () {
             // Set its display property to 'none'
             mateContent.style.display = 'none';
             editMoneyBtn.textContent = 'Deposit';
-
             editMoneyBtn.addEventListener('click', function() {
                 const amount = prompt('Enter new profile Money:');
                 if (amount !== null && amount !== '') {
