@@ -337,10 +337,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 }\ny : รับทราบและชำระ\nn : ยกเลิกการจ่าย`
             );
             if (ans == "y") {
-                console.log(bookMate(my_token, user_id));
-                alert("Successfully paid");
-                console.log("Booking for time:", selectedTime);
-                window.location.href = "booking.html";
+                let bookResult = await bookMate(my_token, user_id)
+                console.log("bookResult: ", bookResult);
+                if (typeof bookResult === 'undefined') {
+                    alert("Booking Fail: May due to lack of money");
+                } else {
+                    alert("Successfully paid for Booking");
+                    console.log("Booking for time:", selectedTime);
+                    window.location.href = "booking.html";
+                }
             } else if (ans == "n") {
                 alert("ยกเลิกการจ่าย ยังไม่ได้จองเมท");
             } else {
