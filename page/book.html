@@ -75,6 +75,76 @@
             </div>
             <div class="review-content" id="review-content">
                 <p class="sub-head" id="sub-head">รีวิวเมท</p>
+                <div class="search-content">
+                    <div class="checkbox-container">
+                        <div class="row-container">
+                            <input
+                                id="new-review-star"
+                                type="radio"
+                                name="new-review-star"
+                                value="1"
+                                onclick="addReviewShowStar(1)"
+                            />
+                        </div>
+                        <div class="row-container">
+                            <input
+                                id="new-review-star"
+                                type="radio"
+                                name="new-review-star"
+                                value="2"
+                                onclick="addReviewShowStar(2)"
+                            />
+                        </div>
+                        <div class="row-container">
+                            <input
+                                id="new-review-star"
+                                type="radio"
+                                name="new-review-star"
+                                value="3"
+                                onclick="addReviewShowStar(3)"
+                            />
+                        </div>
+                        <div class="row-container">
+                            <input
+                                id="new-review-star"
+                                type="radio"
+                                name="new-review-star"
+                                value="4"
+                                onclick="addReviewShowStar(4)"
+                            />
+                        </div>
+                        <div class="row-container">
+                            <input
+                                id="new-review-star"
+                                type="radio"
+                                name="new-review-star"
+                                value="5"
+                                onclick="addReviewShowStar(5)"
+                            />
+                        </div>
+                    </div>
+
+                    <div class="add-review-content">
+                        <div
+                            class="review-star-container"
+                            id="review-star-container"
+                        ></div>
+                        <input
+                            class="add-review-box"
+                            type="text"
+                            id="add-review-box"
+                            name="textbox"
+                            placeholder="รายละเอียดการรีวิว"
+                        />
+                        <button
+                            class="add-review-button"
+                            id="add-review-button"
+                            type="submit"
+                        >
+                            เพิ่มรีวิว
+                        </button>
+                    </div>
+                </div>
                 <div class="review-list"></div>
             </div>
         </div>
