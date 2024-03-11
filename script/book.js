@@ -151,6 +151,11 @@ async function getMateAvalability(token) {
         },
     });
     const data = await res.json();
+    if (data.hasOwnProperty("status_code")) {
+        if (data.status_code == 404) {
+            return;
+        }
+    }
     const parent = document.getElementById("availability-content");
     console.log(data);
     data.data.forEach((item) => {
@@ -376,6 +381,21 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 registrationCookie();
+
+verify_role(my_token)
+.then((role) => {
+    console.log("role :", role);
+    // Use the role value here
+    if (role == "customer" || role == "mate") {
+        const bookButton = document.getElementById("book-btn");
+        bookButton.style.display = 'none'
+
+    } 
+})
+.catch((error) => {
+    console.error("Error verifying role:", error.message);
+});
+
 getMateData(my_token);
 getReview(my_token, user_id);
 getMateAvalability(my_token);
