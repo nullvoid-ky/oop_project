@@ -129,6 +129,7 @@ body{
 .booking-button{
     box-sizing: border-box;
     width: 12%;
+    transition: background-color 0.1s ease;
     margin: 0 5% 0 3%;
 }
 

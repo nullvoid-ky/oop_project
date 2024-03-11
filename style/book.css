@@ -177,6 +177,7 @@ body{
     text-align: center;
     margin-top: 12px;
 
+    transition: background-color 0.1s ease;
     background-color: #DE89A1;
     color: white;
     border-radius: 8px;

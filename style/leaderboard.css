@@ -26,15 +26,28 @@ h1{
 }
 
 .leaderboard > .ranking-mate-box:nth-child(1){
-    border: 1px solid gold;
+    background-color: rgb(211, 202, 153);
 }
 
 .leaderboard > .ranking-mate-box:nth-child(2){
-    border: 1px solid silver;
+    background-color: rgb(203, 200, 200);
 }
 
 .leaderboard > .ranking-mate-box:nth-child(3){
-    border: 1px solid brown;
+    background-color: rgb(229, 175, 175);
+}
+
+
+.leaderboard > .ranking-mate-box:nth-child(1):hover{
+    background-color: rgb(240, 235, 210);
+}
+
+.leaderboard > .ranking-mate-box:nth-child(2):hover{
+    background-color: rgb(236, 229, 229);
+}
+
+.leaderboard > .ranking-mate-box:nth-child(3):hover{
+    background-color: rgb(216, 190, 190);
 }
 .ranking-mate-box{
     width: 100%;
@@ -42,10 +55,45 @@ h1{
     flex-direction: row;
     height: 9%;
     margin-bottom: 4px;
-    padding: 0 4px;
+    padding: 8px 16px;
+    box-sizing: border-box;
     align-items: center;
+    height: 42px;
+    border-radius: 8px;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.3);
+}
+.ranking-mate-box:hover{
+    background-color: rgba(0, 0, 0, 0.1);
+    cursor: pointer;
 }
 
+.ranking-mate-box > :nth-child(1){
+    width: 128px;
+}
+.ranking-mate-box > :nth-child(2){
+    width: 340px;
+}
+.ranking-mate-box > :nth-child(3){
+    width: 36px;
+    border-radius: 100%;
+    margin-right: 128px;
+}
+.ranking-mate-box > :nth-child(4){
+    width: 144px;
+}
+.ranking-mate-box > :nth-child(5){
+    display: flex;
+    text-align: center;
+    width: 196px;
+}
+
+
+.leaderboard-page{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+/* 
 .ranking{
     flex: 1;
 }
@@ -67,4 +115,4 @@ h1{
 img {
     max-width: 24px;
     aspect-ratio: 1/1;
-}
+} */
