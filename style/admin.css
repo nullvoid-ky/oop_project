@@ -1,7 +1,7 @@
 @import url(header.css);
 header{
-    position:fixed;
-
+    left: 124px !important;
+    top: 144px !important;
 }
 
 body{
@@ -16,25 +16,31 @@ body{
 .body-container{
     display: flex;
     justify-content: center;
-    margin-top: 158px;
+    background: linear-gradient(0deg, rgb(255, 255, 255) 0%, rgba(255,250,229,1) 55%);
+    margin-top: 108px;
 }
 
 .main-container{
     display: flex;
     flex-direction: column;
-    background-color: rebeccapurple;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.1);
+    border-radius: 16px;
     width: calc(100vw - 200px);
     overflow-y: scroll;
     box-sizing: border-box;
     padding: 24px;
     overflow-x: hidden;
-    
+    margin-bottom: 100px;
 }
 
 .content{
-    background-color: #DE89A1;
+    background-color: #f1c2cf;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
     box-sizing: border-box;
-    height: 320px;
+    padding:28px;
+    height: 400px;
     overflow: scroll;
 }
 .card-list{
@@ -44,9 +50,11 @@ body{
     gap: 16px !important;
 }
 .card-list > * {
+    margin-top: 40px;
     aspect-ratio: 300/280 !important;
-    max-height: 280px !important;
+    max-height: 340px !important;
     font-size: 12px !important;
+    overflow-y: hidden;
 }
 .card-list .card{
     flex-direction: column;
@@ -54,6 +62,10 @@ body{
 
 .card-list img {
     max-height: 160px;
+}
+
+.topic{
+    position: absolute;
 }
 
 .return-home{
@@ -77,6 +89,7 @@ body{
   
   .return-home:hover{
     background-color: #d76686;
+    cursor: pointer;
   }
 
   .return-home > span{
