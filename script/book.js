@@ -389,7 +389,6 @@ verify_role(my_token)
     if (role == "mate") {
         const bookButton = document.getElementById("book-btn");
         bookButton.style.display = 'none'
-    } else if (role == "customer"){
         const searchElement = document.getElementById("search-content")
         searchElement.style.display = 'none'
     }
