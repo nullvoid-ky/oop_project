@@ -151,6 +151,11 @@ async function getMateAvalability(token) {
         },
     });
     const data = await res.json();
+    if (data.hasOwnProperty("status_code")) {
+        if (data.status_code == 404) {
+            return;
+        }
+    }
     const parent = document.getElementById("availability-content");
     console.log(data);
     data.data.forEach((item) => {
@@ -400,10 +405,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 }\ny : รับทราบและชำระ\nn : ยกเลิกการจ่าย`
             );
             if (ans == "y") {
-                console.log(bookMate(my_token, user_id));
-                alert("Successfully paid");
-                console.log("Booking for time:", selectedTime);
-                window.location.href = "booking.html";
+                let bookResult = await bookMate(my_token, user_id)
+                console.log("bookResult: ", bookResult);
+                if (typeof bookResult === 'undefined') {
+                    alert("Booking Fail: May due to lack of money");
+                } else {
+                    alert("Successfully paid for Booking");
+                    console.log("Booking for time:", selectedTime);
+                    window.location.href = "booking.html";
+                }
             } else if (ans == "n") {
                 alert("ยกเลิกการจ่าย ยังไม่ได้จองเมท");
             } else {
@@ -417,6 +427,21 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 registrationCookie();
+
+verify_role(my_token)
+.then((role) => {
+    console.log("role :", role);
+    // Use the role value here
+    if (role == "customer" || role == "mate") {
+        const bookButton = document.getElementById("book-btn");
+        bookButton.style.display = 'none'
+
+    } 
+})
+.catch((error) => {
+    console.error("Error verifying role:", error.message);
+});
+
 getMateData(my_token);
 getReview(my_token, user_id);
 getMateAvalability(my_token);

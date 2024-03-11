@@ -411,11 +411,61 @@ function useEffect(elementId) {
         parent.removeChild(parent.firstChild);
     }
 }
+
+function verify_role(token) {
+    const requestOptions = {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "x-token": token,
+        },
+    };
+
+    // Return the fetch call directly to chain promises
+    return fetch(url + "/api/controller/get-self-profile", requestOptions)
+        .then((response) => {
+            console.log("get-user-profile ", response);
+            if (response.status === 200) {
+                return response.json(); // If status is 200, parse response JSON
+            } else {
+                alert("Verification error");
+                throw new Error("Verification error"); // For other statuses, throw unexpected error
+            }
+        })
+        .then((data) => {
+            // Handle success response
+            console.log("Verification respond:", data);
+            return data.data.role;
+        })
+        .catch((error) => {
+            console.error("Error Verification respond:", error.message);
+            throw error; // Re-throw the error to be caught by the caller
+        });
+}
+
 window.onload = function () {
     registrationCookie();
-    getMates();
-    getCustomer();
-    getTransactionHistory();
-    getBooking();
-    getLog();
+
+    verify_role(my_token)
+    .then((role) => {
+        // Use the role value here
+        if (role == "customer" || role == "mate") {
+            alert("ฮันแน่~~~")
+            setTimeout(function () {
+                window.location.href = "index.html"; // Redirect to success page
+            }, 100);
+        } else if (role == 'admin'){
+            getMates();
+            getCustomer();
+            getTransactionHistory();
+            getBooking();
+            getLog();
+        }
+
+    })
+    .catch((error) => {
+        console.error("Error verifying role:", error.message);
+    });
+
+
 };
