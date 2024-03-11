@@ -386,10 +386,10 @@ verify_role(my_token)
 .then((role) => {
     console.log("role :", role);
     // Use the role value here
-    if (role == "customer") {
+    if (role == "mate") {
         const bookButton = document.getElementById("book-btn");
         bookButton.style.display = 'none'
-    } else if (role == "mate"){
+    } else if (role == "customer"){
         const searchElement = document.getElementById("search-content")
         searchElement.style.display = 'none'
     }
