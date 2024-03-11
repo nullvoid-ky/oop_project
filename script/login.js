@@ -202,10 +202,6 @@ function handleFormSubmissionLogin(event) {
                 .catch((error) => {
                     console.error("Error verifying role:", error.message);
                 });
-
-            setTimeout(function () {
-                window.location.href = "index.html"; // Redirect to success page
-            }, 100);
         })
         .catch((error) => {
             console.error("Error sending message:", error.message);
