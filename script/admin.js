@@ -53,54 +53,40 @@ function createCardCustomer(
     location,
     timestamp
 ) {
+    let list = [
+        ["Username", username],
+        ["Display Name", displayName],
+        ["Gender", gender],
+        ["Location", location],
+        ["Account Created", timestamp],
+    ];
     const cardList = document.getElementById("card-list-customer");
-
-    // Create card element
     const card = document.createElement("div");
     card.classList.add("card");
     card.dataset.accountId = accountId; // Set accountId as a custom data attribute
-
-    // Create image element
     const img = document.createElement("img");
     img.src = picUrl;
     img.alt = "Profile Image";
-
-    // Create card detail element
-    const cardDetail = document.createElement("div");
+    const cardDetail = document.createElement("li");
     cardDetail.classList.add("card-detail");
-
-    // Create card detail name element
-    const cardDetailName = document.createElement("div");
-    cardDetailName.classList.add("card-detail-name");
-    cardDetailName.textContent = username;
-
-    // Create card detail location element
-    const cardDetailLocation = document.createElement("div");
-    cardDetailLocation.classList.add("card-detail-location");
-    cardDetailLocation.textContent = "Bangkok";
-
-    // Append elements to card
-    cardDetail.appendChild(cardDetailLocation);
-    cardDetail.appendChild(cardDetailName);
+    for (let i = 0; i < list.length; i++) {
+        const cardDetailElement = document.createElement("ul");
+        cardDetailElement.classList.add("card-item-detail");
+        cardDetailElement.textContent = list[i][0] + " : " + list[i][1];
+        cardDetail.appendChild(cardDetailElement);
+    }
     card.appendChild(img);
     card.appendChild(cardDetail);
-
-    // Add event listener to card
-    card.addEventListener("click", () => {
-        const accountId = card.dataset.accountId;
-        console.log("Clicked card with accountId:", accountId);
-    });
-
-    // Append card to card list
+    // card.addEventListener("click", () => {
+    //     const accountId = card.dataset.accountId;
+    //     console.log("Clicked card with accountId:", accountId);
+    // });
     cardList.appendChild(card);
 }
 
 function getMates() {
-    // Clear previous values
     const cardList = document.getElementById("card-list-mate");
     cardList.innerHTML = "";
-
-    // Define request options
     const requestOptions = {
         method: "GET",
         headers: {
@@ -109,7 +95,6 @@ function getMates() {
         },
         // body: JSON.stringify(requestBody)
     };
-
     fetch(url + "/api/controller/get-mates", requestOptions)
         .then((response) => response.json())
         .then((data) => {
@@ -229,7 +214,7 @@ function getTransactionHistory() {
 
                 // Create the transaction item container
                 const transactionItem = document.createElement("div");
-                transactionItem.classList.add("transaction-item", "row");
+                transactionItem.classList.add("card", "row");
 
                 // Create the transaction image element
                 const imgElement = document.createElement("img");
@@ -291,8 +276,21 @@ async function getBooking() {
             // useEffect("card-list-transaction");
             const parent = document.getElementById("card-list-booking");
             data.data.forEach((item) => {
+
+                list = [
+                    ["Username", item.mate.username],
+                    ["Username", item.mate.username],
+                    ["Username", item.mate.username],
+                    ["Username", item.mate.username],
+                    ["Username", item.mate.username],
+                    ["Username", item.mate.username],
+                    ["Username", item.mate.username],
+                    ["Username", item.mate.username],
+                    ["Username", item.mate.username],
+                    ["Username", item.mate.username],
+                ]
                 const bookingElement = document.createElement("div");
-                bookingElement.classList.add("booking-column-element");
+                bookingElement.classList.add("card");
 
                 // Create booking profile
                 const bookingProfile = document.createElement("div");

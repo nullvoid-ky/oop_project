@@ -27,6 +27,7 @@ body{
     overflow-y: scroll;
     box-sizing: border-box;
     padding: 24px;
+    overflow-x: hidden;
     
 }
 
@@ -40,12 +41,19 @@ body{
     display: flex !important;
     flex-direction: row !important;
     flex-wrap: nowrap !important;
-    gap: 8px !important;
+    gap: 16px !important;
 }
 .card-list > * {
     aspect-ratio: 300/280 !important;
     max-height: 280px !important;
     font-size: 12px !important;
+}
+.card-list .card{
+    flex-direction: column;
+}
+
+.card-list img {
+    max-height: 160px;
 }
 
 .return-home{
@@ -86,6 +94,23 @@ a{
 .return-home > span *{
     color: white;
 }
+
+.booking-info{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.card .booking-info , .card .booking-profile{
+    font-size: 12px;
+}
+
+
+.booking-info h3{
+    text-align: start;
+    width: 100% !important;
+}
+
 /* 
 .body-container{
     
