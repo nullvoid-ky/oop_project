@@ -253,26 +253,22 @@ function searchMates() {
         '.input-availability input[type="checkbox"][name="availability"]'
     ).checked;
 
-    let search_condition = {
+    const urlSearchParams = new URLSearchParams({
         name: nameText,
         location: locationText,
-        gender_list: genderValues,
-        age: parseInt(ageText),
+        gender_list: JSON.stringify(genderValues),
+        age: ageText,
         availability: availabilityValue,
-    };
-    console.log(search_condition);
-
-    // Define request options
+    });
     const requestOptions = {
-        method: "POST",
+        method: "GET",
         headers: {
             "Content-Type": "application/json",
             "x-token": my_token,
-        },
-        body: JSON.stringify(search_condition),
+        }
     };
-
-    fetch(url + "/api/controller/search-mate-by-condition", requestOptions)
+    
+    fetch(url + "/api/controller/search-mate-by-condition?" + urlSearchParams, requestOptions)
         .then((response) => response.json())
         .then((data) => {
             console.log("Fetch mates: ", data);
