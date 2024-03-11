@@ -180,6 +180,14 @@ function getPosts() {
             postContainer.appendChild(postDetail);
 
             postList.appendChild(postContainer); // Append post container to the post list
+
+            postContainer.dataset.accountId = post.account_detail.id
+
+            postContainer.addEventListener('click', () => {
+                const accountId = postContainer.dataset.accountId;
+                console.log("Clicked card with accountId:", accountId);
+                window.location.href = 'book.html?id=' + accountId
+            })
         });
     })
     .catch(error => {
