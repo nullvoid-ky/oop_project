@@ -159,6 +159,7 @@ function createRankingBox(
     rankingBox.addEventListener("click", () => {
         const accountId = rankingBox.dataset.accountId;
         console.log("Clicked card with accountId:", accountId);
+        window.location.href = 'book.html?id=' + accountId;
         // Perform GET request with accountId
     });
 
