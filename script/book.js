@@ -182,6 +182,22 @@ async function getMateAvalability(token) {
             console.log(selectedTime);
         });
     });
+}2
+
+async function checkIsBooked() {
+    await fetch(url + "/api/controller/get-booking", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "x-token": my_token,
+        },
+    })
+    .then((response) => response.json())
+    .then((data) => {
+        if (data.data.status === "Success") {
+            // append review button
+        }
+    })
 }
 
 async function bookMate(token, mate_id) {
