@@ -430,6 +430,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
 registrationCookie();
 
+verify_role(my_token)
+.then((role) => {
+    console.log("role :", role);
+    // Use the role value here
+    if (role == "mate") {
+        const bookButton = document.getElementById("book-btn");
+        bookButton.style.display = "none";
+        const searchElement = document.getElementById("search-content");
+        searchElement.style.display = "none";
+    }
+})
+.catch((error) => {
+    console.error("Error verifying role:", error.message);
+});
+
 getMateData(my_token);
 getReview(my_token, user_id);
 getMateAvalability(my_token);
