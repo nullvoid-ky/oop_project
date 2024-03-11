@@ -133,7 +133,7 @@ async function searchMates() {
 
             // Create delete button
             // addButton.onclick = getMates; // Add onclick event
-            
+
             // Append elements to booking info
             bookingInfo.appendChild(priceElement);
             bookingInfo.appendChild(dateElement);
@@ -150,18 +150,28 @@ async function searchMates() {
                 deleteButton.textContent = "ลบ";
                 deleteButton.setAttribute("onclick", "delBookingByID(this)"); // Add onclick event
                 deleteButton.setAttribute("uuid", item.id);
+                bookingInfo.appendChild(deleteButton);
 
                 // Create add button
-                const addButton = document.createElement("button");
-                addButton.classList.add(
-                    "booking-button",
-                    "pink-btn",
-                    "input-search",
-                    "search-template"
-                );
-                addButton.textContent = "เพิ่ม";
-                bookingInfo.appendChild(deleteButton);
-                bookingInfo.appendChild(addButton);
+                verify_role(my_token)
+                    .then((role) => {
+                        console.log("role :", role);
+                        // Use the role value here
+                        if (role == "customer") {
+                            const addButton = document.createElement("button");
+                            addButton.classList.add(
+                                "booking-button",
+                                "pink-btn",
+                                "input-search",
+                                "search-template"
+                            );
+                            addButton.textContent = "เพิ่ม";
+                            bookingInfo.appendChild(addButton);
+                        }
+                    })
+                    .catch((error) => {
+                        console.error("Error verifying role:", error.message);
+                    });
             }
 
             // Append booking profile and booking info to booking element
@@ -171,6 +181,37 @@ async function searchMates() {
         }
     });
     // console.log(data)
+}
+
+function verify_role(token) {
+    const requestOptions = {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "x-token": token,
+        },
+    };
+
+    // Return the fetch call directly to chain promises
+    return fetch(url + "/api/controller/get-self-profile", requestOptions)
+        .then((response) => {
+            console.log("get-user-profile ", response);
+            if (response.status === 200) {
+                return response.json(); // If status is 200, parse response JSON
+            } else {
+                alert("Verification error");
+                throw new Error("Verification error"); // For other statuses, throw unexpected error
+            }
+        })
+        .then((data) => {
+            // Handle success response
+            console.log("Verification respond:", data);
+            return data.data.role;
+        })
+        .catch((error) => {
+            console.error("Error Verification respond:", error.message);
+            throw error; // Re-throw the error to be caught by the caller
+        });
 }
 
 async function getBooking() {
@@ -241,7 +282,7 @@ async function getBooking() {
 
                 // Create delete button
                 // addButton.onclick = getMates; // Add onclick event
-                
+
                 // Append elements to booking info
                 bookingInfo.appendChild(priceElement);
                 bookingInfo.appendChild(dateElement);
@@ -256,23 +297,40 @@ async function getBooking() {
                         "search-template"
                     );
                     deleteButton.textContent = "ลบ";
-                    deleteButton.setAttribute("onclick", "delBookingByID(this)"); // Add onclick event
+                    deleteButton.setAttribute(
+                        "onclick",
+                        "delBookingByID(this)"
+                    ); // Add onclick event
                     deleteButton.setAttribute("uuid", item.id);
-    
-                    // Create add button
-                    const addButton = document.createElement("button");
-                    addButton.classList.add(
-                        "booking-button",
-                        "pink-btn",
-                        "input-search",
-                        "search-template"
-                    );
-                    addButton.textContent = "เพิ่ม";
-                    addButton.addEventListener("click", () => {
-                        window.location.href = 'payment.html?id=' + item.id
-                    });
                     bookingInfo.appendChild(deleteButton);
-                    bookingInfo.appendChild(addButton);
+
+                    // Create add button
+                    verify_role(my_token)
+                        .then((role) => {
+                            console.log("role :", role);
+                            // Use the role value here
+                            if (role == "customer") {
+                                const addButton =
+                                    document.createElement("button");
+                                addButton.classList.add(
+                                    "booking-button",
+                                    "pink-btn",
+                                    "input-search",
+                                    "search-template"
+                                );
+                                addButton.textContent = "เพิ่ม";
+                                addButton.addEventListener("click", () => {
+                                    window.location.href = "payment.html?id=" + item.id;
+                                });
+                                bookingInfo.appendChild(addButton);
+                            }
+                        })
+                        .catch((error) => {
+                            console.error(
+                                "Error verifying role:",
+                                error.message
+                            );
+                        });
                 }
 
                 // Append booking profile and booking info to booking element

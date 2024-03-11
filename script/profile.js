@@ -191,6 +191,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const editMoneyBtn = document.getElementById('editMoneyBtn');
     const editAgeBtn = document.getElementById('editAgeBtn');
     const editLocationBtn = document.getElementById('editLocationBtn');
+    const editPriceBtn = document.getElementById('editPriceBtn');
 
     editDisplayNameBtn.addEventListener("click", function () {
         const newDisplayName = prompt("Enter new DisplayName:");
@@ -227,9 +228,41 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    editPriceBtn.addEventListener('click', function() {
+        const price = prompt('Enter new price:');
+        if (price !== null && price !== '') {
+            updatePrice({ price: parseInt(price) });
+        }
+    });
+
     // Fetch user profile
     fetchUserProfile();
 });
+
+function updatePrice(data) {
+    fetch(url+"/api/controller/edit-price", {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'x-token': my_token
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to update profile');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Profile updated successfully:', data);
+        // Update the UI with the new data if necessary
+        fetchUserProfile();
+    })
+    .catch(error => {
+        console.error('Error updating profile:', error);
+    });
+}
 
 function updateDisplayName(data) {
     fetch(url+"/api/controller/edit-display-name", {
@@ -400,6 +433,7 @@ function updateProfileUI(profileData) {
 
     document.getElementById('age').textContent = profileData.age;
     document.getElementById('location').textContent = profileData.location;
+    document.getElementById('price').textContent = profileData.price;
 }
 
 function logOut() {
@@ -451,47 +485,54 @@ document.getElementById('addAvailable').addEventListener('click', function() {
     const availableDate = document.getElementById('availableTime').value;
     const date = new Date(availableDate);
 
-    const detailInput = prompt("Enter Available detail: ");
-    const detail = detailInput ? detailInput : "";
-    
-    const data = {
-        "date": {
-            "day": parseInt(date.getDate()),
-            "month": parseInt(date.getMonth()) + 1, // Months are 0-indexed, so we add 1 to get the correct month
-            "year": parseInt(date.getFullYear()),
-        },
-        "detail": detail
-    };
+    if (isNaN(date)) {
+        console.log("Invalid date");
+        alert("Please select available date")
+    } else {
+        console.log("Valid date");
+        const detailInput = prompt("Enter Available detail: ");
+        const detail = detailInput ? detailInput : "";
+        
+        const data = {
+            "date": {
+                "day": parseInt(date.getDate()),
+                "month": parseInt(date.getMonth()) + 1, // Months are 0-indexed, so we add 1 to get the correct month
+                "year": parseInt(date.getFullYear()),
+            },
+            "detail": detail
+        };
 
-    console.log("available on : ", data)
+        console.log("available on : ", data)
 
-    fetch(url + "/api/mate/add-availability", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "x-token": my_token
-        },
-        body: JSON.stringify(data)
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error("Network response was not ok");
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log("Response from POST:", data);
-        if (data.hasOwnProperty("status_code")) {
-            if (data.status_code == 404 || data.status_code == 400) {
-                alert("Fail: เพิ่มช่วงเวลาไม่สำเร็จ, Due to limit or error");
+        fetch(url + "/api/mate/add-availability", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "x-token": my_token
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
             }
-        } else {
-            alert("Success: เพิ่มช่วงเวลาสำเร็จ");
-        }
+            return response.json();
+        })
+        .then(data => {
+            console.log("Response from POST:", data);
+            if (data.hasOwnProperty("status_code")) {
+                if (data.status_code == 404 || data.status_code == 400) {
+                    alert("Fail: เพิ่มช่วงเวลาไม่สำเร็จ, Due to limit or error");
+                }
+            } else {
+                alert("Success: เพิ่มช่วงเวลาสำเร็จ");
+            }
 
-        // Handle response data as needed
-    })
-    .catch(error => {
-        console.error("Error adding availability:", error);
-    });
+            // Handle response data as needed
+        })
+        .catch(error => {
+            console.error("Error adding availability:", error);
+        });
+    }
+    
 });

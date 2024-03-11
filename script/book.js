@@ -4,6 +4,7 @@ let my_token = "";
 let my_id = "";
 let selectedTime = null;
 let availabilitySelectedElement = null;
+let starCount = 1;
 let matePrice = 0;
 function getCookie(cookieName) {
     const name = cookieName + "=";
@@ -151,6 +152,11 @@ async function getMateAvalability(token) {
         },
     });
     const data = await res.json();
+    if (data.hasOwnProperty("status_code")) {
+        if (data.status_code == 404) {
+            return;
+        }
+    }
     const parent = document.getElementById("availability-content");
     console.log(data);
     data.data.forEach((item) => {
@@ -182,6 +188,53 @@ async function getMateAvalability(token) {
             console.log(selectedTime);
         });
     });
+}2
+
+async function checkIsBooked() {
+    await fetch(url + "/api/controller/get-booking", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "x-token": my_token,
+        },
+    })
+    .then((response) => response.json())
+    .then((data) => {
+        for (const item of data.data) {
+            console.log("item: ",item);
+            if (item.mate.id == user_id && item.status == "Success") {
+                const reviewInput = document.getElementById("review-input");
+                reviewInput.style.display = "block";
+                return;
+            }
+        }
+    })
+}
+
+async function addReview() {
+    const reviewText = document.getElementById("add-review-box").value;
+    const star = document.getElementById("new-review-star").value;
+    await fetch(url + "/api/mate/add-review", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "x-token": my_token,
+        },
+        body: JSON.stringify({
+            mate_id: user_id,
+            message: reviewText,
+            star: parseInt(starCount),
+        }),
+    })
+    useEffect("review-list")
+    await getReview(my_token, user_id)
+}
+
+function useEffect(elementId) {
+    const parent = document.getElementById(elementId);
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
 }
 
 async function bookMate(token, mate_id) {
@@ -235,7 +288,7 @@ async function getReview(token, mate_id) {
     });
     const data = await res.json();
     console.log(data);
-    const reviewContent = document.getElementById("review-content");
+    const reviewContent = document.getElementById("review-list");
     data.data.forEach((item) => {
         // Create the main review-box container
         const reviewBox = document.createElement("div");
@@ -310,7 +363,7 @@ async function getReview(token, mate_id) {
 
 function addReviewShowStar(value) {
     const newReviewStarBox = document.getElementById("review-star-container");
-    let starCount = value;
+    starCount = value;
     newReviewStarBox.innerHTML = starCount + " ";
     for (let i = 0; i < starCount; i++) {
         const newStar = document.createElement("img");
@@ -319,7 +372,7 @@ function addReviewShowStar(value) {
     }
     for (let i = 0; i < 5 - starCount; i++) {
         const newStar = document.createElement("img");
-        newStar.src = "../img/no-star.svg";
+        newStar.src = "../img/no-star.svg"; 
         newReviewStarBox.append(newStar);
     }
 }
@@ -354,10 +407,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 }\ny : รับทราบและชำระ\nn : ยกเลิกการจ่าย`
             );
             if (ans == "y") {
-                console.log(bookMate(my_token, user_id));
-                alert("Successfully paid");
-                console.log("Booking for time:", selectedTime);
-                window.location.href = "booking.html";
+                let bookResult = await bookMate(my_token, user_id)
+                console.log("bookResult: ", bookResult);
+                if (typeof bookResult === 'undefined') {
+                    alert("Booking Fail: May due to lack of money");
+                } else {
+                    alert("Successfully paid for Booking");
+                    console.log("Booking for time:", selectedTime);
+                    window.location.href = "booking.html";
+                }
             } else if (ans == "n") {
                 alert("ยกเลิกการจ่าย ยังไม่ได้จองเมท");
             } else {
@@ -371,6 +429,23 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 registrationCookie();
+
+verify_role(my_token)
+.then((role) => {
+    console.log("role :", role);
+    // Use the role value here
+    if (role == "mate") {
+        const bookButton = document.getElementById("book-btn");
+        bookButton.style.display = "none";
+        const searchElement = document.getElementById("search-content");
+        searchElement.style.display = "none";
+    }
+})
+.catch((error) => {
+    console.error("Error verifying role:", error.message);
+});
+
 getMateData(my_token);
 getReview(my_token, user_id);
 getMateAvalability(my_token);
+checkIsBooked();
