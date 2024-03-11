@@ -42,6 +42,23 @@ function registrationCookie() {
 
 window.onload = function () {
     registrationCookie();
+    verify_role(my_token)
+    .then((role) => {
+        console.log("role :", role);
+        // Use the role value here
+        if (role == "customer") {
+            addPostBtn = document.getElementById("add-post")
+            addPostBtn.style.display = 'none'
+        } else if (role == "admin") {
+            setTimeout(function () {
+                window.location.href = "admin.html"; // Redirect to success page
+            }, 100);
+        }
+    })
+    .catch((error) => {
+        console.error("Error verifying role:", error.message);
+    });
+
     getPosts()
     addPostBtn()
 };
@@ -168,4 +185,43 @@ function getPosts() {
     .catch(error => {
         console.error("Error fetching posts:", error);
     });
+}
+
+
+function verify_role(token) {
+    const requestOptions = {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "x-token": token,
+        },
+    };
+
+    // Return the fetch call directly to chain promises
+    return fetch(url + "/api/controller/get-self-profile", requestOptions)
+        .then((response) => {
+            console.log("get-user-profile ", response);
+            if (response.status === 200) {
+                return response.json(); // If status is 200, parse response JSON
+            } else {
+                alert("Verification error");
+                window.location.href = "login.html";
+                throw new Error("Verification error"); // For other statuses, throw unexpected error
+            }
+        })
+        .then((data) => {
+            if (data.hasOwnProperty("status_code")) {
+                if (data.status_code == 404) {
+                    alert("กรุณาเข้าสู่ระบบก่อนใช้งาน");
+                    window.location.href = "login.html";
+                }
+            }
+            // Handle success response
+            console.log("Verification respond:", data);
+            return data.data.role;
+        })
+        .catch((error) => {
+            console.error("Error Verification respond:", error.message);
+            throw error; // Re-throw the error to be caught by the caller
+        });
 }
