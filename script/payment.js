@@ -116,6 +116,7 @@ async function cancleBooking() {
 }
 
 async function confirmPayment() {
+    console.log("id:", bookingId)
     await fetch(url + "/api/controller/pay", {
         method: "POST",
         headers: {

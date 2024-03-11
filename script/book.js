@@ -4,6 +4,7 @@ let my_token = "";
 let my_id = "";
 let selectedTime = null;
 let availabilitySelectedElement = null;
+let starCount = 1;
 let matePrice = 0;
 function getCookie(cookieName) {
     const name = cookieName + "=";
@@ -200,6 +201,7 @@ async function checkIsBooked() {
     .then((response) => response.json())
     .then((data) => {
         for (const item of data.data) {
+            console.log("item: ",item);
             if (item.mate.id == user_id && item.status == "Success") {
                 const reviewInput = document.getElementById("review-input");
                 reviewInput.style.display = "block";
@@ -221,7 +223,7 @@ async function addReview() {
         body: JSON.stringify({
             mate_id: user_id,
             message: reviewText,
-            star: parseInt(star),
+            star: parseInt(starCount),
         }),
     })
     useEffect("review-list")
@@ -361,7 +363,7 @@ async function getReview(token, mate_id) {
 
 function addReviewShowStar(value) {
     const newReviewStarBox = document.getElementById("review-star-container");
-    let starCount = value;
+    starCount = value;
     newReviewStarBox.innerHTML = starCount + " ";
     for (let i = 0; i < starCount; i++) {
         const newStar = document.createElement("img");
@@ -370,7 +372,7 @@ function addReviewShowStar(value) {
     }
     for (let i = 0; i < 5 - starCount; i++) {
         const newStar = document.createElement("img");
-        newStar.src = "../img/no-star.svg";
+        newStar.src = "../img/no-star.svg"; 
         newReviewStarBox.append(newStar);
     }
 }
@@ -427,21 +429,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 registrationCookie();
-
-verify_role(my_token)
-.then((role) => {
-    console.log("role :", role);
-    // Use the role value here
-    if (role == "mate") {
-        const bookButton = document.getElementById("book-btn");
-        bookButton.style.display = 'none'
-        const searchElement = document.getElementById("search-content")
-        searchElement.style.display = 'none'
-    }
-})
-.catch((error) => {
-    console.error("Error verifying role:", error.message);
-});
 
 getMateData(my_token);
 getReview(my_token, user_id);
