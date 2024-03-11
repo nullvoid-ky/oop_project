@@ -319,6 +319,9 @@ async function getBooking() {
                                     "search-template"
                                 );
                                 addButton.textContent = "เพิ่ม";
+                                addButton.addEventListener("click", () => {
+                                    window.location.href = "payment.html?id=" + item.id;
+                                });
                                 bookingInfo.appendChild(addButton);
                             }
                         })
