@@ -1,5 +1,5 @@
 const url = "http://127.0.0.1:8000";
-const user_id = new URLSearchParams(window.location.search).get("id")
+const user_id = new URLSearchParams(window.location.search).get("id");
 let my_token = "";
 let my_id = "";
 let selectedTime = null;
@@ -99,8 +99,7 @@ async function getMateData(token) {
     const locationText = document.getElementById("location-text");
     locationText.textContent = data.data.location;
     const averageStarNum = document.getElementById("average-star-num");
-
-    let starNum = data.data.star;
+    let starNum = data.data.star.toString();
     if (data.data.star == "-1.0") {
         starNum = "None";
         averageStarNum.textContent = starNum;
@@ -129,6 +128,14 @@ async function getMateData(token) {
         averageStar.alt = "star";
         averageStarContainer.appendChild(averageStar);
     }
+    const reviewCount = document.getElementById("review-count");
+    let reviewCountText = data.data.review_count;
+    reviewCount.textContent = reviewCountText + " ครั้ง";
+
+    const rentCount = document.getElementById("rent-count");
+    let rentCountText = data.data.rent_count;
+    rentCount.textContent = rentCountText + " ครั้ง";
+
     const priceText = document.getElementById("price-text");
     matePrice = data.data.price;
     priceText.textContent = data.data.price + " บาท";
@@ -323,8 +330,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     bookButton.addEventListener("click", async function () {
         if (selectedTime !== null) {
-            // Perform actions for the selected time (e.g., submit data)
-            alert(availabilitySelectedElement);
+            alert(availabilitySelectedElement); // details
             let ans = prompt(
                 `คุณต้องการชำระค่ามัดจำเลยหรือไม่\n${
                     matePrice / 2

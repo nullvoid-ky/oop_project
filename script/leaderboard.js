@@ -1,4 +1,4 @@
-let my_token = ''
+let my_token = "";
 let my_id = "";
 let url = "http://127.0.0.1:8000";
 
@@ -20,13 +20,13 @@ function getTopMates() {
     fetch(url + "/api/controller/get-leaderboard", requestOptions)
         .then((response) => response.json())
         .then((data) => {
-            console.log("Get leaderboard: ", data)
+            console.log("Get leaderboard: ", data);
             data.data.forEach((item) => {
                 const picUrl = item.account_detail.pic_url;
                 const accountId = item.account_detail.id;
                 const displayName = item.account_detail.displayname;
                 const star = item.account_detail.star;
-                const amount = item.account_detail.rentcount;
+                const amount = item.account_detail.rent_count;
                 const rank = item.account_detail.rank;
                 const gender = item.account_detail.gender;
                 createRankingBox(
@@ -68,7 +68,7 @@ function registrationCookie() {
         const data = JSON.parse(registrationData);
         console.log(data);
         my_token = data.token;
-        my_id = data.id
+        my_id = data.id;
         // Do something with the registration data
         let loginNav = document.getElementById("login");
         loginNav.style.cssText = "display: none;";
@@ -148,7 +148,6 @@ function createRankingBox(
     genderElement.classList.add("mate-gender");
     genderElement.textContent = gender;
 
-
     rankingBox.appendChild(ranking);
     rankingBox.appendChild(ratingBox);
     rankingBox.appendChild(img);
@@ -169,5 +168,5 @@ function createRankingBox(
 
 window.onload = function () {
     registrationCookie();
-    getTopMates()
+    getTopMates();
 };
