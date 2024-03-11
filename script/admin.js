@@ -221,7 +221,9 @@ function getTransactionHistory() {
         .then((response) => response.json())
         .then((data) => {
             console.log("Transaction history:", data.data);
-            const transactionList = document.getElementById("card-list-transaction");
+            const transactionList = document.getElementById(
+                "card-list-transaction"
+            );
             data.data.forEach((transaction) => {
                 // Assuming you have a parent element with id "transaction-list" where you want to append the transaction item
 
@@ -285,11 +287,10 @@ async function getBooking() {
     })
         .then((response) => response.json())
         .then((data) => {
-            console.log("book: ", data)
+            console.log("book: ", data);
             // useEffect("card-list-transaction");
             const parent = document.getElementById("card-list-booking");
             data.data.forEach((item) => {
-
                 const bookingElement = document.createElement("div");
                 bookingElement.classList.add("booking-column-element");
 
@@ -341,12 +342,12 @@ async function getBooking() {
                 addressElement.textContent = "สถานที่: " + item.mate.location;
 
                 const customerElement = document.createElement("h3");
-                customerElement.textContent = "ผู้จอง: "+ item.customer.displayname;
+                customerElement.textContent =
+                    "ผู้จอง: " + item.customer.displayname;
 
                 const statusElement = document.createElement("h3");
-                statusElement.textContent = "สถานะ: "+ item.is_success;
+                statusElement.textContent = "สถานะ: " + item.is_success;
 
-            
                 // Append elements to booking info
                 bookingInfo.appendChild(priceElement);
                 bookingInfo.appendChild(dateElement);
@@ -373,11 +374,10 @@ async function getLog() {
     })
         .then((response) => response.json())
         .then((data) => {
-            console.log("log: ", data)
+            console.log("log: ", data);
             // useEffect("card-list-transaction");
             const parent = document.getElementById("card-list-log");
             data.data.forEach((item) => {
-
                 const logElement = document.createElement("div");
                 logElement.classList.add("log-column-element");
 
@@ -388,7 +388,10 @@ async function getLog() {
                 // Create image element
                 const imageElement = document.createElement("img");
                 imageElement.classList.add("log-pic");
-                imageElement.src = item.actor && item.actor.pic_url ? item.actor.pic_url : "../img/customer_male.svg"; // Set the image source
+                imageElement.src =
+                    item.actor && item.actor.pic_url
+                        ? item.actor.pic_url
+                        : "../img/customer_male.svg"; // Set the image source
 
                 // Create log mate detail
                 const logMateDetail = document.createElement("div");
@@ -397,12 +400,17 @@ async function getLog() {
                 // Create name element
                 const nameElement = document.createElement("span");
                 nameElement.classList.add("log-text", "log-name");
-                nameElement.textContent = "Actor: " + (item.actor && item.actor.username ? item.actor.username : "-");
+                nameElement.textContent =
+                    "Actor: " +
+                    (item.actor && item.actor.username
+                        ? item.actor.username
+                        : "-");
 
                 // Create age element
                 const ageElement = document.createElement("span");
                 ageElement.classList.add("log-text", "log-age");
-                ageElement.textContent = item.actor && item.actor.age ? item.actor.age : "-" + " ปี";
+                ageElement.textContent =
+                    item.actor && item.actor.age ? item.actor.age : "-" + " ปี";
 
                 // Append name and age to log mate detail
                 logMateDetail.appendChild(nameElement);
@@ -414,12 +422,17 @@ async function getLog() {
                 // Create name element
                 const nameElement2 = document.createElement("span");
                 nameElement2.classList.add("log-text", "log-name");
-                nameElement2.textContent = "Receiver: " + (item.actor && item.actor.username ? item.actor.username : "-");
+                nameElement2.textContent =
+                    "Receiver: " +
+                    (item.actor && item.actor.username
+                        ? item.actor.username
+                        : "-");
 
                 // Create age element
                 const ageElement2 = document.createElement("span");
                 ageElement2.classList.add("log-text", "log-age");
-                ageElement2.textContent = item.actor && item.actor.age ? item.actor.age : "-" + " ปี";
+                ageElement2.textContent =
+                    item.actor && item.actor.age ? item.actor.age : "-" + " ปี";
 
                 // Append name and age to log mate detail
                 logMateDetail2.appendChild(nameElement2);
@@ -439,15 +452,13 @@ async function getLog() {
                 actionElement.textContent = item.action;
 
                 const itemElement = document.createElement("h3");
-                itemElement.textContent = "item: "+ item.item;
+                itemElement.textContent = "item: " + item.item;
 
                 const msgElement = document.createElement("h3");
-                msgElement.textContent = "msg: "+ item.msg;
+                msgElement.textContent = "msg: " + item.msg;
 
-            
                 // Append elements to log info
                 logInfo.appendChild(actionElement);
-
 
                 // Append log profile and log info to log element
                 logElement.appendChild(logProfile);
@@ -511,7 +522,7 @@ window.onload = function () {
     registrationCookie();
     getMates();
     getCustomer();
-    getTransactionHistory()
-    getBooking()
-    getLog()
+    getTransactionHistory();
+    getBooking();
+    getLog();
 };
