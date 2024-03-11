@@ -194,10 +194,40 @@ async function checkIsBooked() {
     })
     .then((response) => response.json())
     .then((data) => {
-        if (data.data.status === "Success") {
-            // append review button
+        for (const item of data.data) {
+            if (item.mate.id == user_id && item.status == "Success") {
+                const reviewInput = document.getElementById("review-input");
+                reviewInput.style.display = "block";
+                return;
+            }
         }
     })
+}
+
+async function addReview() {
+    const reviewText = document.getElementById("add-review-box").value;
+    const star = document.getElementById("new-review-star").value;
+    await fetch(url + "/api/mate/add-review", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "x-token": my_token,
+        },
+        body: JSON.stringify({
+            mate_id: user_id,
+            message: reviewText,
+            star: parseInt(star),
+        }),
+    })
+    useEffect("review-list")
+    await getReview(my_token, user_id)
+}
+
+function useEffect(elementId) {
+    const parent = document.getElementById(elementId);
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
 }
 
 async function bookMate(token, mate_id) {
@@ -251,7 +281,7 @@ async function getReview(token, mate_id) {
     });
     const data = await res.json();
     console.log(data);
-    const reviewContent = document.getElementById("review-content");
+    const reviewContent = document.getElementById("review-list");
     data.data.forEach((item) => {
         // Create the main review-box container
         const reviewBox = document.createElement("div");
@@ -390,3 +420,4 @@ registrationCookie();
 getMateData(my_token);
 getReview(my_token, user_id);
 getMateAvalability(my_token);
+checkIsBooked();
