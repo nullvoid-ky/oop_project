@@ -307,6 +307,23 @@ async function getReview(token, mate_id) {
     });
     return data;
 }
+
+function addReviewShowStar(value) {
+    const newReviewStarBox = document.getElementById("review-star-container");
+    let starCount = value;
+    newReviewStarBox.innerHTML = starCount + " ";
+    for (let i = 0; i < starCount; i++) {
+        const newStar = document.createElement("img");
+        newStar.src = "../img/star.svg";
+        newReviewStarBox.append(newStar);
+    }
+    for (let i = 0; i < 5 - starCount; i++) {
+        const newStar = document.createElement("img");
+        newStar.src = "../img/no-star.svg";
+        newReviewStarBox.append(newStar);
+    }
+}
+
 document.addEventListener("DOMContentLoaded", function () {
     const availabilityTextElements =
         document.querySelectorAll(".availability-text");
