@@ -254,3 +254,8 @@ header{
   aspect-ratio: 1/1;
   margin-right: 24px;
 }
+
+.transaction-list{
+  display: flex;
+  flex-direction: column-reverse;
+}

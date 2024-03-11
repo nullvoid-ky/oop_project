@@ -22,14 +22,14 @@
 
 .card {
     flex-grow: 1;
-    min-width: 272px;
-    max-width: 272px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     background-color: white;
     /* width: 300px; */
     height: 300px;
+    min-width: 272px;
+    max-width: 272px;
     border: transparent;
     border-radius: 10px;
     box-shadow: 0 4px 4px 0 rgb(0,0,0,0.1);
@@ -63,6 +63,7 @@
     border-radius: 16px;
     background-color: #9888C6;
     color: white;
+    text-align: center;
 }
 .card-detail-name {
     margin-top: 12px;

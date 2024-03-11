@@ -21,6 +21,7 @@ body{
     display: flex;
     width: calc(100vw - 200px);
     flex-direction: column;
+    padding-bottom: 64px;
 }
 
 .search-box{
@@ -97,22 +98,24 @@ body{
     min-height: 60vh;
     box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-
     padding: 24px;
 }
 
 .booking-column-element{
-    background-color: aqua;
+    /* background-color: aqua; */
+    border-radius: 16px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
     padding: 8px 0 8px 16px ;
     display: flex;
     flex-direction: row;
     box-sizing: border-box;
     align-items: center;
+    margin-bottom: 24px;
 }
 .booking-profile{
     width: 50%;
     height: 128px;
-    background-color: red;
+    /* background-color: red; */
 }
 .booking-info{
     width: 50%;
@@ -141,6 +144,7 @@ body{
     display: flex;
     flex-direction: row;
     align-items: center;
+
 }
 
 .booking-profile > img{
@@ -154,4 +158,8 @@ body{
 .booking-mate-detail{
     display: flex;
     flex-direction: column;
+    height: 100%;
+
+    justify-content: space-evenly;
+    padding-left: 16px;
 }
