@@ -278,85 +278,36 @@ async function getBooking() {
             data.data.forEach((item) => {
 
                 list = [
-                    ["Username", item.mate.username],
-                    ["Username", item.mate.username],
-                    ["Username", item.mate.username],
-                    ["Username", item.mate.username],
-                    ["Username", item.mate.username],
-                    ["Username", item.mate.username],
-                    ["Username", item.mate.username],
-                    ["Username", item.mate.username],
-                    ["Username", item.mate.username],
-                    ["Username", item.mate.username],
+                    ["booking-mate-name", item.mate.displayname],
+                    ["booking-age", item.mate.age],
+                    ["payment", item.payment],
+                    ["book-date", item.book_date],
+                    ["Location", item.mate.location],
+                    ["customer", item.customer.displayname],
+                    ["status", item.status],
                 ]
-                const bookingElement = document.createElement("div");
-                bookingElement.classList.add("card");
-
-                // Create booking profile
-                const bookingProfile = document.createElement("div");
-                bookingProfile.classList.add("booking-profile");
-
-                // Create image element
-                const imageElement = document.createElement("img");
-                imageElement.classList.add("booking-pic");
-                imageElement.src = item.mate.pic_url; // Set the image source
-
-                // Create booking mate detail
-                const bookingMateDetail = document.createElement("div");
-                bookingMateDetail.classList.add("booking-mate-detail");
-
-                // Create name element
-                const nameElement = document.createElement("span");
-                nameElement.classList.add("booking-text", "booking-name");
-                nameElement.textContent = item.mate.username;
-
-                // Create age element
-                const ageElement = document.createElement("span");
-                ageElement.classList.add("booking-text", "booking-age");
-                ageElement.textContent = item.mate.age + " ปี";
-
-                // Append name and age to booking mate detail
-                bookingMateDetail.appendChild(nameElement);
-                bookingMateDetail.appendChild(ageElement);
-
-                // Append image and booking mate detail to booking profile
-                bookingProfile.appendChild(imageElement);
-                bookingProfile.appendChild(bookingMateDetail);
-
-                // Create booking info
-                const bookingInfo = document.createElement("div");
-                bookingInfo.classList.add("booking-info");
-
-                // Create price element
-                const priceElement = document.createElement("h3");
-                priceElement.textContent = "ราคา: " + item.payment + " บาท";
-
-                // Create date element
-                const dateElement = document.createElement("h3");
-                dateElement.textContent = "วันจอง: " + item.book_date;
-
-                // Create address element
-                const addressElement = document.createElement("h3");
-                addressElement.textContent = "สถานที่: " + item.mate.location;
-
-                const customerElement = document.createElement("h3");
-                customerElement.textContent =
-                    "ผู้จอง: " + item.customer.displayname;
-
-                const statusElement = document.createElement("h3");
-                statusElement.textContent = "สถานะ: " + item.is_success;
-
-                // Append elements to booking info
-                bookingInfo.appendChild(priceElement);
-                bookingInfo.appendChild(dateElement);
-                bookingInfo.appendChild(addressElement);
-                bookingInfo.appendChild(customerElement);
-                bookingInfo.appendChild(statusElement);
-
-                // Append booking profile and booking info to booking element
-                bookingElement.appendChild(bookingProfile);
-                bookingElement.appendChild(bookingInfo);
-                parent.appendChild(bookingElement);
+                const cardList = document.getElementById("card-list-customer");
+                const card = document.createElement("div");
+                card.classList.add("card");
+                // card.dataset.accountId = accountId; // Set accountId as a custom data attribute
+                const img = document.createElement("img");
+                img.src = item.customer.pic_url;
+                img.alt = "Profile Image";
+                const cardDetail = document.createElement("li");
+                cardDetail.classList.add("card-detail");
+                for (let i = 0; i < list.length; i++) {
+                    const cardDetailElement = document.createElement("ul");
+                    cardDetailElement.classList.add("card-item-detail");
+                    cardDetailElement.textContent = list[i][0] + " : " + list[i][1];
+                    cardDetail.appendChild(cardDetailElement);
+                }
+                card.appendChild(img);
+                card.appendChild(cardDetail);
+                // card.addEventListener("click", () => {
+                //     const accountId = card.dataset.accountId;
+                //     console.log("Clicked card with accountId:", accountId);
+                // });
+                parent.appendChild(card);
             });
         })
         .catch((error) => console.error("Error fetching data:", error));
@@ -376,94 +327,38 @@ async function getLog() {
             // useEffect("card-list-transaction");
             const parent = document.getElementById("card-list-log");
             data.data.forEach((item) => {
-                const logElement = document.createElement("div");
-                logElement.classList.add("log-column-element");
+                list = [
+                    ["Actor:", item.actor && item.actor.username ? item.actor.username: "-"],
+                    ["age", item.actor && item.actor.age ? item.actor.age : "-" + " ปี"],
+                    ["Receiver", item.mate && item.mate.username ? item.mate.username: "-"],
+                    ["age", item.mate && item.mate.age ? item.mate.age : "-" + " ปี"],
+                    ["action: ", item.action],
+                    ["item ", item.item],
+                    ["msg ", item.msg],
+                ]
 
-                // Create log profile
-                const logProfile = document.createElement("div");
-                logProfile.classList.add("log-profile");
-
-                // Create image element
-                const imageElement = document.createElement("img");
-                imageElement.classList.add("log-pic");
-                imageElement.src =
-                    item.actor && item.actor.pic_url
-                        ? item.actor.pic_url
-                        : "../img/customer_male.svg"; // Set the image source
-
-                // Create log mate detail
-                const logMateDetail = document.createElement("div");
-                logMateDetail.classList.add("log-mate-detail");
-
-                // Create name element
-                const nameElement = document.createElement("span");
-                nameElement.classList.add("log-text", "log-name");
-                nameElement.textContent =
-                    "Actor: " +
-                    (item.actor && item.actor.username
-                        ? item.actor.username
-                        : "-");
-
-                // Create age element
-                const ageElement = document.createElement("span");
-                ageElement.classList.add("log-text", "log-age");
-                ageElement.textContent =
-                    item.actor && item.actor.age ? item.actor.age : "-" + " ปี";
-
-                // Append name and age to log mate detail
-                logMateDetail.appendChild(nameElement);
-                logMateDetail.appendChild(ageElement);
-
-                const logMateDetail2 = document.createElement("div");
-                logMateDetail2.classList.add("log-mate-detail");
-
-                // Create name element
-                const nameElement2 = document.createElement("span");
-                nameElement2.classList.add("log-text", "log-name");
-                nameElement2.textContent =
-                    "Receiver: " +
-                    (item.actor && item.actor.username
-                        ? item.actor.username
-                        : "-");
-
-                // Create age element
-                const ageElement2 = document.createElement("span");
-                ageElement2.classList.add("log-text", "log-age");
-                ageElement2.textContent =
-                    item.actor && item.actor.age ? item.actor.age : "-" + " ปี";
-
-                // Append name and age to log mate detail
-                logMateDetail2.appendChild(nameElement2);
-                logMateDetail2.appendChild(ageElement2);
-
-                // Append image and log mate detail to log profile
-                logProfile.appendChild(imageElement);
-                logProfile.appendChild(logMateDetail);
-                logProfile.appendChild(logMateDetail2);
-
-                // Create log info
-                const logInfo = document.createElement("div");
-                logInfo.classList.add("log-info");
-
-                // Create price element
-                const actionElement = document.createElement("h3");
-                actionElement.textContent = item.action;
-
-                const itemElement = document.createElement("h3");
-                itemElement.textContent = "item: " + item.item;
-
-                const msgElement = document.createElement("h3");
-                msgElement.textContent = "msg: " + item.msg;
-
-                // Append elements to log info
-                logInfo.appendChild(actionElement);
-
-                // Append log profile and log info to log element
-                logElement.appendChild(logProfile);
-                logElement.appendChild(logInfo);
-                logElement.appendChild(itemElement);
-                logElement.appendChild(msgElement);
-                parent.appendChild(logElement);
+                const cardList = document.getElementById("card-list-customer");
+                const card = document.createElement("div");
+                card.classList.add("card");
+                // card.dataset.accountId = accountId; // Set accountId as a custom data attribute
+                const img = document.createElement("img");
+                img.src = item.actor.pic_url;
+                img.alt = "Profile Image";
+                const cardDetail = document.createElement("li");
+                cardDetail.classList.add("card-detail");
+                for (let i = 0; i < list.length; i++) {
+                    const cardDetailElement = document.createElement("ul");
+                    cardDetailElement.classList.add("card-item-detail");
+                    cardDetailElement.textContent = list[i][0] + " : " + list[i][1];
+                    cardDetail.appendChild(cardDetailElement);
+                }
+                card.appendChild(img);
+                card.appendChild(cardDetail);
+                // card.addEventListener("click", () => {
+                //     const accountId = card.dataset.accountId;
+                //     console.log("Clicked card with accountId:", accountId);
+                // });
+                parent.appendChild(card);
             });
         })
         .catch((error) => console.error("Error fetching data:", error));
