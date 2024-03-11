@@ -432,11 +432,13 @@ verify_role(my_token)
 .then((role) => {
     console.log("role :", role);
     // Use the role value here
-    if (role == "customer" || role == "mate") {
+    if (role == "customer") {
         const bookButton = document.getElementById("book-btn");
         bookButton.style.display = 'none'
-
-    } 
+    } else if (role == "mate"){
+        const searchElement = document.getElementById("search-content")
+        searchElement.style.display = 'none'
+    }
 })
 .catch((error) => {
     console.error("Error verifying role:", error.message);
