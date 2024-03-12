@@ -131,11 +131,11 @@ async function getMateData(token) {
     }
     const reviewCount = document.getElementById("review-count");
     let reviewCountText = data.data.review_count;
-    reviewCount.textContent = reviewCountText + " ครั้ง";
+    reviewCount.textContent = "จำนวนรีวิว" + reviewCountText + " ครั้ง";
 
     const rentCount = document.getElementById("rent-count");
     let rentCountText = data.data.rent_count;
-    rentCount.textContent = rentCountText + " ครั้ง";
+    rentCount.textContent = "จำนวนการเช่า" + rentCountText + " ครั้ง";
 
     const priceText = document.getElementById("price-text");
     matePrice = data.data.price;
@@ -225,17 +225,18 @@ async function addReview() {
             message: reviewText,
             star: parseInt(starCount),
         }),
-    }).then((respond) => respond.json())
-    .then((data) => {
-        if (data.hasOwnProperty("status_code")) {
-            if (data.status_code == 400 || data.status_code == 404) {
-                alert("Can Review only 1 time.");
-                return;
+    })
+        .then((respond) => respond.json())
+        .then((data) => {
+            if (data.hasOwnProperty("status_code")) {
+                if (data.status_code == 400 || data.status_code == 404) {
+                    alert("Can Review only 1 time.");
+                    return;
+                }
             }
-        }
-    } )
-    useEffect("review-list")
-    await getReview(my_token, user_id)
+        });
+    useEffect("review-list");
+    await getReview(my_token, user_id);
 }
 
 function useEffect(elementId) {
