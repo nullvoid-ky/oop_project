@@ -312,9 +312,13 @@ function createMessageList(username, message_id, text, timestamp, is_edit, chat_
                 console.log("No chat history available");
             } else {
                 console.log(data.data)
-                // data.data.forEach((item) => {
-
-                // });
+                if(data.hasOwnProperty("status_code")){
+                    if(data.status_code == 404 || data.status_code == 400){
+                        alert("Cannot Edit other message");
+                        return;
+                    }
+        
+                }
                 getChatHistory(chat_room_id)
                 
             }
