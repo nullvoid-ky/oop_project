@@ -142,11 +142,17 @@ function createRankingBox(
 
     const amount = document.createElement("div");
     amount.classList.add("mate-amount");
-    amount.textContent = amountBooked;
+    amount.textContent = "จำนวนการเช่า " + amountBooked + " ครั้ง";
 
     const genderElement = document.createElement("div");
     genderElement.classList.add("mate-gender");
-    genderElement.textContent = gender;
+    if (gender == "male"){
+        genderElement.textContent = "ชาย";
+        genderElement.style.cssText = "color : rgb(47, 47, 189);";
+    } else{
+        genderElement.textContent = "หญิง";
+        genderElement.style.cssText = "color : rgb(190, 57, 190);";
+    }
 
     rankingBox.appendChild(ranking);
     rankingBox.appendChild(ratingBox);
@@ -159,7 +165,7 @@ function createRankingBox(
     rankingBox.addEventListener("click", () => {
         const accountId = rankingBox.dataset.accountId;
         console.log("Clicked card with accountId:", accountId);
-        window.location.href = 'book.html?id=' + accountId;
+        window.location.href = "book.html?id=" + accountId;
         // Perform GET request with accountId
     });
 

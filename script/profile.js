@@ -148,6 +148,12 @@ function addMoney(data) {
         return response.json();
     })
     .then(data => {
+        if (data.hasOwnProperty("status_code")) {
+            if (data.status_code == 400) {
+                alert("Must be positive number");
+                return;
+            }
+        }
         console.log('Profile updated successfully:', data);
         // Update the UI with the new data if necessary
         fetchUserProfile();
@@ -173,6 +179,12 @@ function delMoney(data) {
         return response.json();
     })
     .then(data => {
+        if (data.hasOwnProperty("status_code")) {
+            if (data.status_code == 400) {
+                alert("Must be positive number and not more than current money");
+                return;
+            }
+        }
         console.log('Profile updated successfully:', data);
         // Update the UI with the new data if necessary
         fetchUserProfile();
@@ -191,6 +203,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const editMoneyBtn = document.getElementById('editMoneyBtn');
     const editAgeBtn = document.getElementById('editAgeBtn');
     const editLocationBtn = document.getElementById('editLocationBtn');
+    const editPriceBtn = document.getElementById('editPriceBtn');
 
     editDisplayNameBtn.addEventListener("click", function () {
         const newDisplayName = prompt("Enter new DisplayName:");
@@ -227,9 +240,47 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    editPriceBtn.addEventListener('click', function() {
+        const price = prompt('Enter new price:');
+        if (price !== null && price !== '') {
+            updatePrice({ price: parseInt(price) });
+        }
+    });
+
     // Fetch user profile
     fetchUserProfile();
 });
+
+function updatePrice(data) {
+    fetch(url+"/api/controller/edit-price", {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'x-token': my_token
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to update profile');
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (data.hasOwnProperty("status_code")) {
+            if (data.status_code == 400) {
+                alert("Must be positive number");
+                return;
+            }
+        }
+        console.log('Profile updated successfully:', data);
+        // Update the UI with the new data if necessary
+        fetchUserProfile();
+    })
+    .catch(error => {
+        console.error('Error updating profile:', error);
+    });
+}
 
 function updateDisplayName(data) {
     fetch(url+"/api/controller/edit-display-name", {
@@ -322,6 +373,13 @@ function updateAge(data) {
         return response.json();
     })
     .then(data => {
+        if (data.hasOwnProperty("status_code")) {
+            if (data.status_code == 400) {
+                alert("Must be in range of 18 - 100");
+                return;
+            }
+        }
+
         console.log('Profile updated successfully:', data);
         // Update the UI with the new data if necessary
         fetchUserProfile();
@@ -400,6 +458,7 @@ function updateProfileUI(profileData) {
 
     document.getElementById('age').textContent = profileData.age;
     document.getElementById('location').textContent = profileData.location;
+    document.getElementById('price').textContent = profileData.price;
 }
 
 function logOut() {

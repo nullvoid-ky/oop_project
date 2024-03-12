@@ -14,7 +14,6 @@
 
 .banner-content *{
     margin-top: 24px;
-
 }
 
 .banner-content :nth-child(n+3){
@@ -35,6 +34,7 @@
     font-size: 18px;
     display: flex;
     align-self: center;
+    transition: background-color 0.1s ease;
     width: 240px;
     height: 52px;
 }

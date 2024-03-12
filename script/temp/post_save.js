@@ -67,10 +67,10 @@ function addPostBtn() {
     const addPostElement = document.getElementById("add-post");
     addPostElement.addEventListener("click", () => {
         let pic_url = prompt(
-            "(Leave EMPTY if canccle)\nEnter Picture Content: "
+            "(Leave EMPTY if cancel)\nEnter Picture Content: "
         );
         let post_detail = prompt(
-            "(Leave EMPTY if canccle)\nEnter Post Detail: "
+            "(Leave EMPTY if cancel)\nEnter Post Detail: "
         );
 
         if (pic_url != "" && post_detail != "") {
@@ -78,7 +78,7 @@ function addPostBtn() {
             addPost(post_detail, pic_url);
             getPosts();
         } else {
-            alert("Cancle add post");
+            alert("Cancel add post");
         }
         getPosts();
     });
@@ -138,109 +138,65 @@ function getPosts() {
             // }
 
             // Loop through each post and create post containers
-            let list = [];
-            const isValidUrl = (urlString) => {
-                var urlPattern = new RegExp(
-                    "^(https?:\\/\\/)?" + // validate protocol
-                        "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // validate domain name
-                        "((\\d{1,3}\\.){3}\\d{1,3}))" + // validate OR ip (v4) address
-                        "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // validate port and path
-                        "(\\?[;&a-z\\d%_.~+=-]*)?" + // validate query string
-                        "(\\#[-a-z\\d_]*)?$",
-                    "i"
-                ); // validate fragment locator
-                return !!urlPattern.test(urlString);
-            };
+            posts.data.forEach((post) => {
+                const postContainer = document.createElement("div");
+                postContainer.classList.add("post-container");
 
-            posts.data
-                .slice()
-                .reverse()
-                .forEach((post) => {
-                    function isImage(src, callback) {
-                        var img = new Image();
+                const postHeader = document.createElement("div");
+                postHeader.classList.add("post-header");
+                postHeader.id = "post-header";
 
-                        img.onload = function () {
-                            callback(true);
-                        };
+                const profilePic = document.createElement("img");
+                profilePic.src = post.account_detail.pic_url; // Set profile picture URL
+                profilePic.alt = "profile-pic";
 
-                        img.onerror = function () {
-                            callback(false);
-                        };
-                        img.src = src;
-                    }
+                const postProfileName = document.createElement("div");
+                postProfileName.classList.add("post-profile-name");
+                postProfileName.id = "post-profile-name";
+                postProfileName.textContent = post.account_detail.displayname; // Set profile name
 
-                    const postContainer = document.createElement("div");
-                    postContainer.classList.add("post-container");
+                const postTimestamp = document.createElement("div");
+                postTimestamp.classList.add("post-timestamp");
+                postTimestamp.id = "post-timestamp";
+                postTimestamp.textContent = post.timestamp; // Set post timestamp
 
-                    const postHeader = document.createElement("div");
-                    postHeader.id = "post-header";
+                postHeader.appendChild(profilePic);
+                postHeader.appendChild(postProfileName);
+                postHeader.appendChild(postTimestamp);
 
-                    const profilePic = document.createElement("img");
-                    profilePic.src = post.account_detail.pic_url; // Set profile picture URL
-                    profilePic.alt = "profile-pic";
+                const postContent = document.createElement("div");
+                postContent.classList.add("post-content");
+                postContent.id = "post-content";
 
-                    let postProfileName = document.createElement("div");
-                    postProfileName.id = "post-profile-name";
-                    postProfileName.textContent =
-                        post.account_detail.displayname;
+                const contentImg = document.createElement("img");
+                contentImg.src = post.picture; // Set content image URL
+                contentImg.alt = "content-img";
 
-                    let postProfileName2 = document.createElement("div");
-                    postProfileName2.id = "post-profile-name";
-                    postProfileName2.textContent =
-                        post.account_detail.displayname; // Set profile name
+                postContent.appendChild(contentImg);
 
-                    const postTimestamp = document.createElement("div");
-                    postTimestamp.id = "post-timestamp";
-                    postTimestamp.textContent = post.timestamp; // Set post timestamp
+                const postDetail = document.createElement("div");
+                postDetail.id = "post-detail";
 
-                    postHeader.appendChild(profilePic);
-                    postHeader.appendChild(postProfileName2);
-                    postHeader.appendChild(postTimestamp);
+                const postDetailText = document.createElement("div");
+                postDetailText.id = "post-detail-text";
+                postDeailText.textContent = post.description; // Set post detail text
 
-                    const postContent = document.createElement("div");
-                    postContent.id = "post-content";
+                postDetail.appendChild(postDetailText);
 
-                    const contentImg = document.createElement("img");
+                postContainer.appendChild(postHeader);
+                postContainer.appendChild(postContent);
+                postContainer.appendChild(postDetail);
 
-                    let pic = post.picture;
-                    if (isImage(post.picture)) {
-                        // alert("test")
-                        pic = "";
-                        contentImg.style.cssText = "display: none";
-                    }
+                postList.appendChild(postContainer); // Append post container to the post list
 
-                    contentImg.style.cssText = " display: flex; justify-content: center; align-items: center;";
-                       
-                    postContainer.style.cssText =
-                        "background: linear-gradient(151deg, rgba(255,255,238,1) 0%, rgba(238,170,119,1) 50%, rgba(238,119,204,1) 100%); ";
-                    // alert(pic);
-                    contentImg.src = pic; // Set content image URL
-                    // contentImg.alt = "img";
-                    postContent.appendChild(contentImg);
+                postContainer.dataset.accountId = post.account_detail.id;
 
-                    const postDetail = document.createElement("div");
-                    postDetail.id = "post-detail";
-
-                    const postDetailText = document.createElement("div");
-                    postDetailText.id = "post-detail-text";
-                    postDetailText.textContent = post.description; // Set post detail text
-
-                    postDetail.appendChild(postProfileName);
-                    postDetail.appendChild(postDetailText);
-
-                    postContainer.appendChild(postHeader);
-                    postContainer.appendChild(postContent);
-                    postContainer.appendChild(postDetail);
-
-                    postList.appendChild(postContainer); // Append post container to the post list
-                    postContainer.dataset.accountId = post.account_detail.id;
-
-                    postContainer.addEventListener("click", () => {
-                        const accountId = postContainer.dataset.accountId;
-                        console.log("Clicked card with accountId:", accountId);
-                        window.location.href = "book.html?id=" + accountId;
-                    });
+                postContainer.addEventListener("click", () => {
+                    const accountId = postContainer.dataset.accountId;
+                    console.log("Clicked card with accountId:", accountId);
+                    window.location.href = "book.html?id=" + accountId;
                 });
+            });
         })
         .catch((error) => {
             console.error("Error fetching posts:", error);

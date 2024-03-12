@@ -109,7 +109,7 @@ function connectChatRoomWS(chatRoomId){
         const messageDetail = JSON.parse(respondJsonString);
         console.log(messageDetail);
 
-        createMessageList(messageDetail.sender.displayname, messageDetail.id, messageDetail.text, messageDetail.timestamp, false)
+        createMessageList(messageDetail.sender.displayname, messageDetail.id, messageDetail.text, messageDetail.timestamp, false, chatRoomId)
         getChatRooms(my_token);
     };
     // function sendMessage(event) {
@@ -262,7 +262,7 @@ function getChatRooms(token) {
         .catch((error) => console.error("Error fetching data:", error));
 }
 
-function createMessageList(username, message_id, text, timestamp, is_edit) {
+function createMessageList(username, message_id, text, timestamp, is_edit, chat_room_id) {
     const cardList = document.getElementById("message-list");
 
     // Create card element
@@ -286,6 +286,41 @@ function createMessageList(username, message_id, text, timestamp, is_edit) {
     card.appendChild(cardDetailTimestamp);
     card.appendChild(cardDetailSender);
     card.appendChild(cardDetailText);
+
+    card.addEventListener('click', () => {
+        card.dataset.chatRoomId = chat_room_id
+        card.dataset.messageId = message_id
+        const requestOptions = {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "x-token": my_token,
+            },
+            body: JSON.stringify({
+                chat_room_id: chat_room_id,
+                message_id: message_id,
+                new_text: prompt("New Message: ")
+            }),
+        }
+
+        fetch(url + "/api/chat/edit-message/" + card.dataset.chatRoomId, requestOptions)
+        .then((response) => response.json())
+        .then((data) => {
+            console.log("Respond of get-chat-history")
+            console.log(data)
+            if (data == "No History") {
+                console.log("No chat history available");
+            } else {
+                console.log(data.data)
+                // data.data.forEach((item) => {
+
+                // });
+                getChatHistory(chat_room_id)
+                
+            }
+        })
+        .catch((error) => console.error("Error fetching data:", error));
+    })
 
     // Append card to card list
     cardList.appendChild(card);
@@ -327,7 +362,8 @@ function getChatHistory(chatRoomId) {
                         message_id,
                         text,
                         timestamp,
-                        is_edit
+                        is_edit,
+                        chatRoomId
                     );
                 });
             }
