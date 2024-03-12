@@ -207,12 +207,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // editMoneyBtn.addEventListener('click', function() {
-    //     const new_money = prompt('Enter new profile Money:');
-    //     if (new_money !== null && new_money !== '') {
-    //         updateMoney({ amount: new_money });
-    //     }
-    // });
 
     editAgeBtn.addEventListener('click', function() {
         const age = prompt('Enter new profile Money:');
@@ -291,31 +285,6 @@ function updateDisplayName(data) {
 
 function updatePicUrl(data) {
     fetch(url+"/api/controller/edit-pic-url", {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json',
-            'x-token': my_token
-        },
-        body: JSON.stringify(data)
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Failed to update profile');
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log('Profile updated successfully:', data);
-        // Update the UI with the new data if necessary
-        fetchUserProfile();
-    })
-    .catch(error => {
-        console.error('Error updating profile:', error);
-    });
-}
-
-function updateMoney(data) {
-    fetch(url+"/api/controller/edit-money", {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
