@@ -148,6 +148,12 @@ function addMoney(data) {
         return response.json();
     })
     .then(data => {
+        if (data.hasOwnProperty("status_code")) {
+            if (data.status_code == 400) {
+                alert("Must be positive number");
+                return;
+            }
+        }
         console.log('Profile updated successfully:', data);
         // Update the UI with the new data if necessary
         fetchUserProfile();
@@ -173,6 +179,12 @@ function delMoney(data) {
         return response.json();
     })
     .then(data => {
+        if (data.hasOwnProperty("status_code")) {
+            if (data.status_code == 400) {
+                alert("Must be positive number and not more than current money");
+                return;
+            }
+        }
         console.log('Profile updated successfully:', data);
         // Update the UI with the new data if necessary
         fetchUserProfile();
@@ -255,6 +267,12 @@ function updatePrice(data) {
         return response.json();
     })
     .then(data => {
+        if (data.hasOwnProperty("status_code")) {
+            if (data.status_code == 400) {
+                alert("Must be positive number");
+                return;
+            }
+        }
         console.log('Profile updated successfully:', data);
         // Update the UI with the new data if necessary
         fetchUserProfile();
@@ -355,6 +373,13 @@ function updateAge(data) {
         return response.json();
     })
     .then(data => {
+        if (data.hasOwnProperty("status_code")) {
+            if (data.status_code == 400) {
+                alert("Must be in range of 18 - 100");
+                return;
+            }
+        }
+
         console.log('Profile updated successfully:', data);
         // Update the UI with the new data if necessary
         fetchUserProfile();

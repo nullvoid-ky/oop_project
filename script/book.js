@@ -225,7 +225,15 @@ async function addReview() {
             message: reviewText,
             star: parseInt(starCount),
         }),
-    })
+    }).then((respond) => respond.json())
+    .then((data) => {
+        if (data.hasOwnProperty("status_code")) {
+            if (data.status_code == 400 || data.status_code == 404) {
+                alert("Can Review only 1 time.");
+                return;
+            }
+        }
+    } )
     useEffect("review-list")
     await getReview(my_token, user_id)
 }
