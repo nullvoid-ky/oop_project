@@ -188,7 +188,7 @@ async function getMateAvalability(token) {
             console.log(selectedTime);
         });
     });
-}2
+}
 
 async function checkIsBooked() {
     await fetch(url + "/api/controller/get-booking", {
@@ -198,17 +198,17 @@ async function checkIsBooked() {
             "x-token": my_token,
         },
     })
-    .then((response) => response.json())
-    .then((data) => {
-        for (const item of data.data) {
-            console.log("item: ",item);
-            if (item.mate.id == user_id && item.status == "Success") {
-                const reviewInput = document.getElementById("review-input");
-                reviewInput.style.display = "block";
-                return;
+        .then((response) => response.json())
+        .then((data) => {
+            for (const item of data.data) {
+                console.log("item: ", item);
+                if (item.mate.id == user_id && item.status == "Success") {
+                    const reviewInput = document.getElementById("review-input");
+                    reviewInput.style.display = "block";
+                    return;
+                }
             }
-        }
-    })
+        });
 }
 
 async function addReview() {
@@ -225,9 +225,9 @@ async function addReview() {
             message: reviewText,
             star: parseInt(starCount),
         }),
-    })
-    useEffect("review-list")
-    await getReview(my_token, user_id)
+    });
+    useEffect("review-list");
+    await getReview(my_token, user_id);
 }
 
 function useEffect(elementId) {
@@ -372,7 +372,7 @@ function addReviewShowStar(value) {
     }
     for (let i = 0; i < 5 - starCount; i++) {
         const newStar = document.createElement("img");
-        newStar.src = "../img/no-star.svg"; 
+        newStar.src = "../img/no-star.svg";
         newReviewStarBox.append(newStar);
     }
 }
@@ -407,9 +407,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 }\ny : รับทราบและชำระ\nn : ยกเลิกการจ่าย`
             );
             if (ans == "y") {
-                let bookResult = await bookMate(my_token, user_id)
+                let bookResult = await bookMate(my_token, user_id);
                 console.log("bookResult: ", bookResult);
-                if (typeof bookResult === 'undefined') {
+                if (typeof bookResult === "undefined") {
                     alert("Booking Fail: May due to lack of money");
                 } else {
                     alert("Successfully paid for Booking");
@@ -431,19 +431,19 @@ document.addEventListener("DOMContentLoaded", function () {
 registrationCookie();
 
 verify_role(my_token)
-.then((role) => {
-    console.log("role :", role);
-    // Use the role value here
-    if (role == "mate") {
-        const bookButton = document.getElementById("book-btn");
-        bookButton.style.display = "none";
-        const searchElement = document.getElementById("search-content");
-        searchElement.style.display = "none";
-    }
-})
-.catch((error) => {
-    console.error("Error verifying role:", error.message);
-});
+    .then((role) => {
+        console.log("role :", role);
+        // Use the role value here
+        if (role == "mate") {
+            const bookButton = document.getElementById("book-btn");
+            bookButton.style.display = "none";
+            const searchElement = document.getElementById("search-content");
+            searchElement.style.display = "none";
+        }
+    })
+    .catch((error) => {
+        console.error("Error verifying role:", error.message);
+    });
 
 getMateData(my_token);
 getReview(my_token, user_id);
