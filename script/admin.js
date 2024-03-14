@@ -21,7 +21,7 @@ function getCustomer() {
     fetch(url + "/api/controller/get-customers", requestOptions)
         .then((response) => response.json())
         .then((data) => {
-            console.log("Fetch mates: ", data);
+            console.log("Fetch customers: ", data);
             data.data.forEach((item) => {
                 const username = item.account_detail.username;
                 const displayName = item.account_detail.displayname;
@@ -103,84 +103,67 @@ function getMates() {
                 const username = item.account_detail.username;
                 const displayName = item.account_detail.displayname;
                 const picUrl = item.account_detail.pic_url;
+                const starCounting = item.account_detail.star;
+                const gender = item.account_detail.gender;
+                const location = item.account_detail.location;
+                const price = item.account_detail.price;
                 const accountId = item.account_detail.id;
-                const rating = item.account_detail.star;
-                createCardRating(displayName, picUrl, accountId, rating);
+                const age = item.account_detail.age;
+                const timestamp = item.account_detail.timestamp;
+                createCardRating(
+                    displayName,
+                    picUrl,
+                    starCounting,
+                    gender,
+                    location,
+                    price,
+                    accountId,
+                    age,
+                    timestamp
+                );
             });
         })
         .catch((error) => console.error("Error fetching data:", error));
 }
 
-function createCardRating(display_name, picUrl, accountId, rating) {
+function createCardRating(
+    displayName,
+    picUrl,
+    starCounting,
+    gender,
+    location,
+    price,
+    accountId,
+    age,
+    timestamp
+) {
+    let list = [
+        ["DisplayName", displayName],
+        ["Rating", starCounting],
+        ["Gender", gender],
+        ["Location", location],
+        ["Price", price],
+        ["Age", age],
+        ["Account Created", timestamp],
+    ];
+    if ((list[1][1] = "-1.0")) list[1][1] = "None";
     const cardList = document.getElementById("card-list-mate");
-
-    // Create card element
     const card = document.createElement("div");
     card.classList.add("card");
     card.dataset.accountId = accountId; // Set accountId as a custom data attribute
-
-    // Create image element
     const img = document.createElement("img");
     img.src = picUrl;
     img.alt = "Profile Image";
-
-    // Create card detail element
-    const cardDetail = document.createElement("div");
+    const cardDetail = document.createElement("li");
     cardDetail.classList.add("card-detail");
-
-    // Create card detail name element
-    const cardDetailName = document.createElement("div");
-    cardDetailName.classList.add("card-detail-name");
-    cardDetailName.textContent = display_name;
-
-    // Create card detail location element
-    const cardDetailLocation = document.createElement("div");
-    cardDetailLocation.classList.add("card-detail-location");
-    cardDetailLocation.textContent = "Bangkok";
-
-    const ratingBox = document.createElement("div");
-    ratingBox.classList.add("average-star-box");
-
-    const cardDetailRating = document.createElement("div");
-    cardDetailRating.classList.add("average-star-num");
-    let ratingSrting = rating.toString();
-    if (ratingSrting == "-1.0") {
-        ratingSrting = "None";
-        rating = 0;
+    for (let i = 0; i < list.length; i++) {
+        const cardDetailElement = document.createElement("ul");
+        cardDetailElement.classList.add("card-item-detail");
+        cardDetailElement.textContent = list[i][0] + " : " + list[i][1];
+        cardDetail.appendChild(cardDetailElement);
     }
-    cardDetailRating.textContent = ratingSrting;
-
-    // Create star rating element
-    const starRatingContainer = document.createElement("div");
-    starRatingContainer.classList.add("star-rating-container");
-
-    const numStars = Math.floor(rating); // Get the integer part of the rating
-    for (let i = 0; i < numStars; i++) {
-        const starImg = document.createElement("img");
-        starImg.className = "average-star";
-        starImg.src = "../img/star.svg";
-        starImg.alt = "star";
-        starRatingContainer.appendChild(starImg);
-    }
-
-    const numEmptyStars = 5 - Math.floor(rating); // Get the integer part of the rating
-    for (let i = 0; i < numEmptyStars; i++) {
-        const starImg = document.createElement("img");
-        starImg.className = "average-star";
-        starImg.src = "../img/no-star.svg";
-        starImg.alt = "star";
-        starRatingContainer.appendChild(starImg);
-    }
-
-    ratingBox.appendChild(starRatingContainer);
-    ratingBox.appendChild(cardDetailRating);
-
-    // Append elements to card
-    cardDetail.appendChild(cardDetailLocation);
-    cardDetail.appendChild(cardDetailName);
     card.appendChild(img);
     card.appendChild(cardDetail);
-    card.appendChild(ratingBox); // Append star rating container
 
     // Add event listener to card
     card.addEventListener("click", () => {
@@ -214,7 +197,7 @@ function getTransactionHistory() {
 
                 // Create the transaction item container
                 const transactionItem = document.createElement("div");
-                transactionItem.classList.add("card", "row");
+                transactionItem.classList.add("card");
 
                 // Create the transaction image element
                 const imgElement = document.createElement("img");
@@ -223,7 +206,7 @@ function getTransactionHistory() {
 
                 // Create the transaction detail container
                 const transactionDetail = document.createElement("div");
-                transactionDetail.classList.add("transaction-detail");
+                transactionDetail.classList.add("card-detail");
 
                 // Create the transaction topic element
                 const topicElement = document.createElement("h2");
