@@ -60,7 +60,16 @@ footer{
     text-align: center;
     height: 240px;
     border-radius: 16px 16px 0 0 ;
-    padding: 48px
+    padding: 48px;
+    flex-direction: column;
+
+    justify-content: space-around;
+}
+footer > img{
+    height: 64px;
+}
+footer *{
+    font-size: 16px;
 }
 .vw-100{
     width: 100vw;
@@ -78,4 +87,12 @@ footer{
 
 header{
     width: 100%;
+}
+
+.bold{
+    font-weight: 900;
+}
+
+.thin{
+    font-weight: 100;
 }
