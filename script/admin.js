@@ -276,7 +276,6 @@ async function getBooking() {
             // useEffect("card-list-transaction");
             const parent = document.getElementById("card-list-booking");
             data.data.forEach((item) => {
-
                 list = [
                     ["booking-mate-name", item.mate.displayname],
                     ["booking-age", item.mate.age],
@@ -285,7 +284,7 @@ async function getBooking() {
                     ["Location", item.mate.location],
                     ["customer", item.customer.displayname],
                     ["status", item.status],
-                ]
+                ];
                 const cardList = document.getElementById("card-list-customer");
                 const card = document.createElement("div");
                 card.classList.add("card");
@@ -298,7 +297,8 @@ async function getBooking() {
                 for (let i = 0; i < list.length; i++) {
                     const cardDetailElement = document.createElement("ul");
                     cardDetailElement.classList.add("card-item-detail");
-                    cardDetailElement.textContent = list[i][0] + " : " + list[i][1];
+                    cardDetailElement.textContent =
+                        list[i][0] + " : " + list[i][1];
                     cardDetail.appendChild(cardDetailElement);
                 }
                 card.appendChild(img);
@@ -321,21 +321,41 @@ async function getLog() {
             "x-token": my_token,
         },
     })
-        .then((response) => response.json())
+        .then((response) => response.json(), console.log("Get log"))
         .then((data) => {
             console.log("log: ", data);
             // useEffect("card-list-transaction");
             const parent = document.getElementById("card-list-log");
             data.data.forEach((item) => {
                 list = [
-                    ["Actor:", item.actor && item.actor.username ? item.actor.username: "-"],
-                    ["age", item.actor && item.actor.age ? item.actor.age : "-" + " ปี"],
-                    ["Receiver", item.mate && item.mate.username ? item.mate.username: "-"],
-                    ["age", item.mate && item.mate.age ? item.mate.age : "-" + " ปี"],
+                    [
+                        "Actor:",
+                        item.actor && item.actor.username
+                            ? item.actor.username
+                            : "-",
+                    ],
+                    [
+                        "age",
+                        item.actor && item.actor.age
+                            ? item.actor.age
+                            : "-" + " ปี",
+                    ],
+                    [
+                        "Receiver",
+                        item.mate && item.mate.username
+                            ? item.mate.username
+                            : "-",
+                    ],
+                    [
+                        "age",
+                        item.mate && item.mate.age
+                            ? item.mate.age
+                            : "-" + " ปี",
+                    ],
                     ["action: ", item.action],
                     ["item ", item.item],
                     ["msg ", item.msg],
-                ]
+                ];
 
                 const cardList = document.getElementById("card-list-customer");
                 const card = document.createElement("div");
@@ -349,7 +369,8 @@ async function getLog() {
                 for (let i = 0; i < list.length; i++) {
                     const cardDetailElement = document.createElement("ul");
                     cardDetailElement.classList.add("card-item-detail");
-                    cardDetailElement.textContent = list[i][0] + " : " + list[i][1];
+                    cardDetailElement.textContent =
+                        list[i][0] + " : " + list[i][1];
                     cardDetail.appendChild(cardDetailElement);
                 }
                 card.appendChild(img);
@@ -447,25 +468,22 @@ window.onload = function () {
     registrationCookie();
 
     verify_role(my_token)
-    .then((role) => {
-        // Use the role value here
-        if (role == "customer" || role == "mate") {
-            alert("ฮันแน่~~~")
-            setTimeout(function () {
-                window.location.href = "index.html"; // Redirect to success page
-            }, 100);
-        } else if (role == 'admin'){
-            getMates();
-            getCustomer();
-            getTransactionHistory();
-            getBooking();
-            getLog();
-        }
-
-    })
-    .catch((error) => {
-        console.error("Error verifying role:", error.message);
-    });
-
-
+        .then((role) => {
+            // Use the role value here
+            if (role == "customer" || role == "mate") {
+                alert("ฮันแน่~~~");
+                setTimeout(function () {
+                    window.location.href = "index.html"; // Redirect to success page
+                }, 100);
+            } else if (role == "admin") {
+                getMates();
+                getCustomer();
+                getTransactionHistory();
+                getBooking();
+                getLog();
+            }
+        })
+        .catch((error) => {
+            console.error("Error verifying role:", error.message);
+        });
 };

@@ -65,8 +65,16 @@ footer{
 
     justify-content: space-around;
 }
-footer > img{
-    height: 64px;
+footer img{
+    height: 74px;
+}
+.assiztech{
+    height: 62px;
+}
+.img{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 footer *{
     font-size: 16px;
