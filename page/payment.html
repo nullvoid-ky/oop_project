@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="../style/payment.css" />
+        <link rel="shortcut icon" href="/img/favicon_io/favicon.ico" type="image/x-icon">
+        <title>Rent a Mate | Payment</title>
+    </head>
+    <body>
+        <nav>
+            <img class="logo" src="../img/logo.svg" alt="../img/logo.svg" />
+            <div class="nav-items">
+                <a href="index.html">Home</a>
+                <a style="color: #de89a1" href="mate.html">Mates</a>
+                <a href="chat.html">Chat</a>
+                <a href="post.html">Post</a>
+                <a href="leaderboard.html">Leaderboard</a>
+                <a href="booking.html">Booking</a>
+                <div class="nav-items center" id="user-account">
+                    <a id="login" class="login" onclick="registerPage('login')"
+                        >Login</a
+                    >
+                    <a
+                        id="register"
+                        class="login register"
+                        onclick="registerPage('register')"
+                        >Register</a
+                    >
+                    <a id="profile" href="profile.html">Profile</a>
+                </div>
+            </div>
+        </nav>
+        <header>Payment</header>
+        <div class="body-content">
+            <div class="main-content">
+                <div class="payment-content">
+                    <div class="booked-detail">
+                        <img
+                            style="max-height: 300px;"
+                            src="https://cdn.discordapp.com/attachments/1202286470497570937/1216963549193048225/1rR2LDC.png?ex=66024ca0&is=65efd7a0&hm=632aa3a6e187d6dbaab7d8d022c4039f2ff187aeb7041e1d15f9e497260fbe61&"
+                            alt=""
+                        />
+                    </div>
+                </div>
+                <div class="payment-content">
+                    <p class="booked-mate" id="booked-mate"></p>
+                    <div class="booked-time" id="booked-time"></div>
+                    <div class="booked-location" id="booked-location"></div>
+                    <div class="booked-price" id="booked-price"></div>
+                    <button class="pink-btn" onclick="cancleBooking()">
+                        ยกเลิกการจอง
+                    </button>
+                    <button class="pink-btn" onclick="confirmPayment()">
+                        ชำระเงิน
+                    </button>
+                </div>
+            </div>
+        </div>
+        <script src="../script/payment.js"></script>
+    </body>
+</html>

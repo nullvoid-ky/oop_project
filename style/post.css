@@ -1,0 +1,107 @@
+/* CSS for post container */
+.post-container {
+    width: 300px; /* Adjust width as needed */
+    height: 400px; /* Adjust height as needed */
+    overflow-y: auto; /* Enable vertical scrolling */
+    border: 1px solid #ccc; /* Add border */
+    border-radius: 10px; /* Add border radius for card shape */
+    margin: 10px; /* Add margin between post containers */
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.content-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.post-list{
+    margin-top: 32px;
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
+/* CSS for post header */
+#post-header {
+    padding: 10px;
+    background-color: #f0f0f0; /* Add background color */
+    border-bottom: 1px solid #ddd; /* Add border at the bottom */
+    display: flex;
+    flex-direction: column;
+}
+/* CSS for profile pic */
+#post-header img {
+    margin: 8px 16px 16px 16px;
+    width: 50px; /* Adjust profile pic width */
+    height: 50px; /* Adjust profile pic height */
+    border-radius: 50%; /* Make profile pic round */
+    object-fit: cover;
+}
+/* CSS for post profile name */
+#post-profile-name {
+    margin-left: 16px;
+    font-weight: bold; /* Make profile name bold */
+}
+/* CSS for post timestamp */
+#post-timestamp {
+    margin-left: 16px;
+    font-size: 0.8em; /* Adjust font size */
+    color: #666; /* Adjust color */
+}
+/* CSS for post content */
+#post-content {
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+}
+/* CSS for content image */
+#post-content img {
+    max-width: 80%; /* Make content image responsive */ /* Maintain aspect ratio */
+    object-fit: scale-down;
+}
+/* CSS for post detail */
+#post-detail {
+    display: flex;
+    background-color: #f0f0f0; /* Add background color */
+    border-top: 1px solid #ddd; /* Add border at the bottom */
+    height: 80px;
+    word-break: break-all;
+}
+
+#post-detail #post-profile-name {
+    word-break: keep-all;
+    padding: 4px;
+}
+
+#post-detail #post-detail-text {
+    padding: 4px 8px 6px 6px;
+}
+
+
+#add-post{
+    position: fixed;
+    right: 48px;
+    bottom: 48px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    font-size: 30px;
+    border-radius: 100%;
+    width: 64px;
+    height: 64px;
+    border: 0px transparent;
+    padding: 0;
+    background-color: #DE89A1;
+    color: white;
+}
+
+
+#add-post:hover{
+    background-color: #d76686;
+    cursor: pointer;
+}

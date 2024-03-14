@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- <link rel="stylesheet" href="../style/style.css" /> -->
+        <link rel="stylesheet" href="../style/style.css" />
+        <link rel="shortcut icon" href="/img/favicon_io/favicon.ico" type="image/x-icon">
+        <script src="../script/script.js"></script>
+        <title>Rent a Mate</title>
+    </head>
+    <body>
+        <nav>
+            <img class="logo" src="../img/logo.svg" alt="../img/logo.svg" />
+            <div class="nav-items">
+                <a style="color: #DE89A1;" href="index.html">Home</a>
+                <a href="mate.html">Mates</a>
+                <a href="chat.html">Chat</a>
+                <a href="post.html">Post</a>
+                <a href="leaderboard.html">Leaderboard</a>
+                <a href="booking.html">Booking</a>
+                <div class="nav-items center" id="user-account">
+                    <!-- <h1>kanyok</h1> -->
+                    <a id="login" class="login"  onclick="registerPage('login')"">Login</a>
+                    <a id="register" class="login register"  onclick="registerPage('register')">Register</a>
+                    <a id="profile" href="profile.html">Profile</a>
+                </div>
+            </div>
+        </nav>
+        <div class="column-container">
+            <div class="content-container">
+                <div class="banner">
+                    <div class="banner-content">
+                        <header>
+                            <span>
+                                พบปะเพื่อนใหม่ได้ที่
+                                <span class="colored-text">Rent A Mate</span>
+                            </span>
+                        </header>
+                        <h2>
+                            หาเพื่อนใหม่ได้ง่ายกว่าเดิม จะใกล้หรือไกล
+                            ก็เชื่อมต่อกับทุกคนได้ทุกที่
+                            แล้วมาเปิดประสบการณ์พบเจอเพื่อนใหม่ ๆ ในสถานที่ใหม่
+                            ๆ
+                        </h2>
+                        <button onclick="window.location.href = 'mate.html', syncValue()" class="pink-btn search-template">
+                            Rent Mate
+                        </button>
+                    </div>
+
+                    <div class="banner-img">
+                        <img src="../img/pic1.svg" alt="" />
+                    </div>
+                </div>
+
+                <div class="content search">
+                    <h3 class="topic">ค้นหาเพื่อนใหม่</h3>
+                    <div class="row-container search-container">
+                        <input
+                            class="input-text search-template"
+                            type="text"
+                            id="mate-name"
+                            name="textbox"
+                            placeholder="ค้นหาโดยชื่อ"
+                            oninput="syncValue()"
+                        />
+                        <input
+                            class="input-text search-template"
+                            type="text"
+                            id="mate-location"
+                            name="textbox"
+                            placeholder="ค้นหาโดยสถานที่"
+                            oninput="syncValue()"
+                        />
+                        <div class="input-gender search-template">
+                            <label>
+                                <input
+                                class="genderbox"
+                                    type="checkbox"
+                                    name="gender"
+                                    value="male"
+                                    onclick="syncValue()"
+                                    checked
+                                />
+                                <h5>Male</h5>
+                            </label>
+                            <label>
+                                <input
+                                class="genderbox"
+                                type="checkbox"
+                                    name="gender"
+                                    value="female"
+                                    onclick="syncValue()"
+                                    checked
+                                />
+                                <h5>Female</h5>
+                            </label>
+                        </div>
+                        <div class="input-availability search-template">
+                            <label>
+                                <input
+                                    type="checkbox"
+                                    name="availability"
+                                    value="availability"
+                                    onclick="syncValue()"
+                                    checked
+                                />
+                                <h5>Avalable</h5>
+                            </label>
+                        </div>
+                        <div class="input-age search-template">
+                            <p><p>อายุ</p>
+                            <input
+                                class="input-num"
+                                type="number"
+                                id="quantity"
+                                name="quantity"
+                                min="18"
+                                max="150"
+                                value="18"
+                                oninput="syncValue()"
+                            />
+                            ปี
+                            </p>
+                        </div>
+                        <button
+                            class="pink-btn input-search search-template"
+                            id="search-btn"
+                            onclick="goToMate()"
+                        >
+                            Search
+                        </button>
+                    </div>
+                </div>
+                <div class="content top-mate">
+                    <h3 class="topic">Top Mates</h3>
+                    <ul class="card-list" id="card-list"></ul>
+                </div>
+            </div>
+            <footer>
+                <div class="img">
+
+                <img src="/img/logo.svg" alt="">
+                <img class="assiztech" src="/img/assiztech.svg" alt="">
+                </div>
+                <div>
+                <div>จัดทำขึ้นเพื่อศึกษาในรายวิชา Object Oriented Programming</div>
+                    <div>นักศึกษาชั้นปีที่ 1 ภาคการเรียนที่ 2 วิศวกรรมคอมพิวเตอร์</div>
+                    <div>สถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง</div></div>
+                <hr></hr>
+                <a class="bold" href="https://www.github.com/assiztech/">Made by Assiztech</a>
+                <div class="member">
+                    <span class="thin" >
+                        <span class="bold">66010056</span> นายกันต์ พัฒนาประทีปกุล |
+                    </span>
+                    <span class="thin" >
+                        <span class="bold">66010239</span> นางสาวณัฐธิยา นิ่มอนุสสรกุล |
+                    </span>
+                    <span class="thin" >
+                        <span class="bold">66010357</span> นายธรรมทิกร เกียรติภูมิชัย |
+                    </span>
+                    <span class="thin" >
+                        <span class="bold">66010473</span> นายปวิช รุ่งฐานอุดม 
+                    </span>
+                </div>
+            </footer>
+        </div>
+    </body>
+</html>

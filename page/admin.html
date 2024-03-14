@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="../style/admin.css" />
+        <link rel="stylesheet" href="../style/card.css">
+        <link rel="stylesheet" href="../style/booking.css">
+        <link rel="shortcut icon" href="/img/favicon_io/favicon.ico" type="image/x-icon">
+        <title>Rent a Mate | Admin</title>
+    </head>
+
+    <body>
+        <a class="return-home" onclick="logOut()"">
+            <span
+                ><img src="../img/return.svg" alt="<" /><span>
+                    Log Out</span
+                ></span
+            >
+        </a>
+        <header>Admin</header>
+        <div class="body-container">
+            <div class="main-container">
+                <div class="content">
+                    <h3 class="topic">Customer</h3>
+                    <ul class="card-list-customer card-list" id="card-list-customer"></ul>
+                </div>
+                <div class="content">
+                    <h3 class="topic">Mate</h3>
+                    <ul class="card-list-mate card-list" id="card-list-mate"></ul>
+                </div>
+                <div class="content">
+                    <h3 class="topic">Transactions</h3>
+                    <ul
+                        class="card-list-transaction card-list"
+                        id="card-list-transaction"
+                    ></ul>
+                </div>
+                <div class="content">
+                    <h3 class="topic">Booking</h3>
+                    <ul
+                        class="card-list-booking card-list"
+                        id="card-list-booking"
+                    ></ul>
+                </div>
+                <div class="content">
+                    <h3 class="topic">Logs</h3>
+                    <ul class="card-list-log card-list" id="card-list-log"></ul>
+                </div>
+            </div>
+        </div>
+        <script src="../script/admin.js"></script>
+    </body>
+</html>

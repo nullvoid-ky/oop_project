@@ -1,0 +1,94 @@
+@import url(header.css);
+@import url(nav.css);
+
+body{
+    background: linear-gradient(0deg, rgba(255,255,255,1) 20%, rgba(255,250,229,1) 95%);
+    background-repeat: no-repeat;
+    box-sizing: border-box;
+}
+/* 
+.body-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.main-content {
+    display: flex;
+    width: calc(100vw - 200px);
+    max-width: 600px; 
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+} */
+
+.payment-content {
+    /* flex: 1; */
+    padding: 20px;
+}
+
+/* Your existing button styles with some modifications */
+.pink-btn {
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+    border: 0px transparent;
+    padding: 10px; /* Add padding to make the button look better */
+    background-color: #DE89A1;
+    color: white;
+    justify-content: center;
+    text-align: center; /* Center text within the button */
+    transition: background-color 0.1s ease;
+}
+
+.pink-btn:hover {
+    background-color: #d76686;
+    cursor: pointer;
+}
+
+.pink-btn:nth-child(5){
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+    border: 0px transparent;
+    padding: 10px; /* Add padding to make the button look better */
+    background-color: rgb(255, 59, 59);
+    color: white;
+    justify-content: center;
+    text-align: center; /* Center text within the button */
+    transition: background-color 0.1s ease;
+}
+
+.pink-btn:nth-child(5):hover{
+    background-color:rgb(176, 37, 37);
+    cursor: pointer;
+}
+
+
+.body-content{
+    display: flex;
+    justify-content: center; 
+    padding-top: calc(54px + 64px + 24px + 64px);
+
+}
+.main-content{
+    display: flex;
+    background-color: white;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    width: calc(100vw - 200px);
+}
+
+.booked-price{
+    font-size: 32px;
+    color: #9888C6;
+    margin: 12px 0 12px 0;
+}
+
+.booked-mate{
+    font-size: 24px;
+    font-weight: bold;
+}

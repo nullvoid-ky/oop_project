@@ -1,0 +1,48 @@
+@import url(font.css);
+.review-content{
+    width: calc(100vw - 200px);
+    background-color: white;
+    margin-top: 96px;
+    border-radius: 4px;
+    padding: 0 50px 0 50px;
+    box-sizing: border-box;
+}
+.review-detail{
+    display: flex;
+    flex-direction: column;
+    padding-left: 16px;
+    width: 95%;
+}
+
+.review-detail *{
+    padding: 0;
+    margin: 0;
+}
+
+.review-box{
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid #8f8f8f;
+    padding: 24px 0px 24px 0px;
+}
+
+.review-list .review-box:last-child{
+    border: none;
+    padding-bottom: 50px;
+    margin-bottom: 0;
+}
+.review-pic{
+    width: 40px;
+    height: 40px;
+    background-color: red;
+    border-radius: 100%;
+}
+.review-message{
+    word-wrap:break-word;
+    text-overflow: ellipsis;
+}
+
+.sub-head{
+    font-size: 18px;
+    font-weight: bold;
+}

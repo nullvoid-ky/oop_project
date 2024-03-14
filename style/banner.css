@@ -1,5 +1,6 @@
-
+@import url(font.css);
 .banner{
+    width: calc(100vw - 200px);
     display: flex;
     flex-direction: row;
 }
@@ -13,7 +14,6 @@
 
 .banner-content *{
     margin-top: 24px;
-
 }
 
 .banner-content :nth-child(n+3){
@@ -31,17 +31,10 @@
     height: 320px;
 }
 .banner button{
-
+    font-size: 18px;
     display: flex;
-    align-items: center;
-    border: 0px transparent;
-    border-radius: 8px;
+    align-self: center;
+    transition: background-color 0.1s ease;
     width: 240px;
     height: 52px;
-    padding: 0;
-
-    background-color: #DE89A1;
-    color: white;
-    justify-content: center;
-    align-self: center;
 }

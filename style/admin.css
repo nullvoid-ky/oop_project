@@ -1,0 +1,130 @@
+@import url(header.css);
+header{
+    left: 124px !important;
+    top: 144px !important;
+}
+
+body{
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(0deg, rgb(255, 255, 255) 0%, rgba(255,250,229,1) 95%);
+    background-repeat: no-repeat;
+    background-blend-mode: darken;
+
+    overflow-y:visible;
+}
+.body-container{
+    display: flex;
+    justify-content: center;
+    background: linear-gradient(0deg, rgb(255, 255, 255) 0%, rgba(255,250,229,1) 55%);
+    margin-top: 108px;
+}
+
+.main-container{
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.1);
+    border-radius: 16px;
+    width: calc(100vw - 200px);
+    overflow-y: scroll;
+    box-sizing: border-box;
+    padding: 24px;
+    overflow-x: hidden;
+    margin-bottom: 100px;
+}
+
+.content{
+    background-color: #f1c2cf;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    box-sizing: border-box;
+    padding:28px;
+    height: 400px;
+    overflow: scroll;
+}
+.card-list{
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    gap: 16px !important;
+}
+.card-list > * {
+    margin-top: 40px;
+    aspect-ratio: 300/280 !important;
+    max-height: 340px !important;
+    font-size: 12px !important;
+    overflow-y: hidden;
+}
+.card-list .card{
+    flex-direction: column;
+}
+
+.card-list img {
+    max-height: 160px;
+}
+
+.topic{
+    position: absolute;
+}
+
+.return-home{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    position: fixed;
+    top: 36px;
+    left: 36px;
+  
+    background-color: #DE89A1;
+    width: 128px;
+    height: 48px;
+  
+    border-radius: 12px;
+    box-shadow:  0 4px 4px 0 rgba(0, 0, 0, 0.1);
+
+    z-index: 10;
+  }
+  
+  .return-home:hover{
+    background-color: #d76686;
+    cursor: pointer;
+  }
+
+  .return-home > span{
+    display: flex;
+    align-items: center;
+    text-decoration: none !important;
+}
+
+a{
+    text-decoration:none;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.return-home > span *{
+    color: white;
+}
+
+.booking-info{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.card .booking-info , .card .booking-profile{
+    font-size: 12px;
+}
+
+
+.booking-info h3{
+    text-align: start;
+    width: 100% !important;
+}
+
+/* 
+.body-container{
+    
+} */

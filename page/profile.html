@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="../style/profile.css" />
+        <link
+            rel="shortcut icon"
+            href="/img/favicon_io/favicon.ico"
+            type="image/x-icon"
+        />
+        <title>Rent a Mate | Profiles</title>
+    </head>
+
+    <body>
+        <div class="fake-body">
+            <a class="return-home" href="index.html">
+                <img src="../img/return.svg" alt="<" />
+            </a>
+            <div class="content-container">
+                <div class="container" id="container">
+                    <header>Profile</header>
+                    <div class="profile-detail">
+                        <div class="picture-row row">
+                            <h2>Profile Picture</h2>
+                            <div class="images">
+                                <img id="profile-pic" src="" alt="pic" />
+                                <img id="profile-pic" src="" alt="pic" />
+                                <img id="profile-pic" src="" alt="pic" />
+                            </div>
+                            <span class="value-text">
+                                <span class="bolded"> Pic URL:</span>
+                                <span id="picUrl"
+                                    >http://example.com/pic.jpg</span
+                                >
+                            </span>
+                            <button class="btn" id="editPicUrlBtn">Edit</button>
+                        </div>
+
+                        <div class="name-row row">
+                            <h2>Displayname</h2>
+                            <span class="value-text bolded" id="displayName"
+                                >JohnDoe</span
+                            >
+                            <button class="btn" id="editDisplayNameBtn">
+                                Edit
+                            </button>
+                        </div>
+
+                        <div class="money-row row">
+                            <h2>Balance</h2>
+                            <span class="value-text">
+                                <span class="bolded" id="money-left">100</span
+                                ><span> บาท</span>
+                            </span>
+                            <button class="btn" id="editMoneyBtn">Edit</button>
+                        </div>
+
+                        <div class="age-row row">
+                            <h2>Age</h2>
+                            <span class="value-text">
+                                <span class="bolded" id="age">100</span
+                                ><span> ปี</span>
+                            </span>
+                            <button class="btn" id="editAgeBtn">Edit</button>
+                        </div>
+
+                        <div class="location-row row">
+                            <h2>Location</h2>
+                            <span class="value-text">
+                                <span class="bolded" id="location"
+                                    >Bangkok</span
+                                >
+                            </span>
+                            <button class="btn" id="editLocationBtn">
+                                Edit
+                            </button>
+                        </div>
+
+                        <div class="mate-content" id="mate-content">
+                            <h1>Mate Zone</h1>
+                            <h2>Add Availability</h2>
+                            <input
+                                type="date"
+                                id="availableTime"
+                                name="availableTime"
+                            />
+                            <button class="btn" id="addAvailable">Edit</button>
+
+                            <div class="location-row row">
+                                <h2>Price Setting</h2>
+                                <span class="value-text">
+                                    <span class="bolded" id="price">0</span>
+                                </span>
+                                <button class="btn" id="editPriceBtn">
+                                    Edit
+                                </button>
+                            </div>
+                        </div>
+                        <!-- 
+                    <div class="money-left">
+                        <span>Money Left in Account: </span>
+                        <span id="moneyLeft">$100</span>
+                    </div> -->
+
+                        <div class="row">
+                            <h2>ออกสู่ระบบ</h2>
+                            <button class="btn red" onclick="logOut()">
+                                Log Out
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <header>Transactions</header>
+                    <div class="transaction-list" id="transaction-list"></div>
+                </div>
+            </div>
+        </div>
+        <script src="../script/profile.js"></script>
+    </body>
+</html>
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Profile Page</title>
+        <link rel="stylesheet" href="../style/profile.css" />
+        <link rel="stylesheet" href="../style/nav_profile.css" />
+    </head>
+    <body>
+        <nav>
+            <a href="index.html">Home</a>
+        </nav>
+        <div class="profile-container">
+            <div class="profile-pic">
+                <img src="" alt="Profile Picture" />
+            </div>
+            <div class="profile-info">
+                <div class="displayName">
+                    <span>Displayname: </span>
+                    <span id="displayName">JohnDoe</span>
+                    <button id="editDisplayNameBtn">Edit</button>
+                </div>
+                <div class="pic-url">
+                    <span>Pic URL: </span>
+                    <span id="picUrl">http://example.com/pic.jpg</span>
+                    <button id="editPicUrlBtn">Edit</button>
+                </div>
+                <div class="money-left">
+                    <span>Money Left in Account: </span>
+                    <span id="moneyLeft">$100</span>
+                </div>
+            </div>
+            <a href="index.html"  onclick="logOut()">Log Out</a>
+        </div>
+        <script src="../script/profile.js"></script>
+    </body>
+</html> -->

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../style/booking.css">
+    
+        <link rel="shortcut icon" href="/img/favicon_io/favicon.ico" type="image/x-icon">
+        <title>Rent a Mate | Booking</title>
+</head>
+
+<body>
+    <nav>
+        <img class="logo" src="../img/logo.svg" alt="../img/logo.svg" />
+        <div class="nav-items">
+            <a href="index.html">Home</a>
+            <a href="mate.html">Mates</a>
+            <a href="chat.html">Chat</a>
+            <a href="post.html">Post</a>
+            <a href="leaderboard.html">Leaderboard</a>
+            <a style="color: #DE89A1;" href="booking.html">Booking</a>
+            <div class="nav-items center" id="user-account">
+                <!-- <h1>kanyok</h1> -->
+                <a id="login" class="login"  onclick="registerPage('login')"">Login</a>
+                <a id="register" class="login register"  onclick="registerPage('register')">Register</a>
+                <a id="profile" href="profile.html">Profile</a>
+            </div>
+        </div>
+    </nav>
+    <header>รายการที่จองไว้</header>
+    <div class="search-box">
+        <button class="search-btn pink-btn input-search search-template" onclick="searchMates()">
+            ค้นหา
+        </button>
+        <input class=" input-search input-text search-template" type="text" id="mate-name" name="textbox"
+            placeholder="ค้นหารายการ"/>
+    </div>
+    <div class="body-content">
+        <div class="booking-header-content">
+        </div>
+        <div class="select-content">
+            <h3>รายการ</h3>
+            <div class="column-name" >
+                <h3>จำนวนเงิน</h3>
+                <h3>วัน</h3>
+                <h3>สถานที่</h3>
+                <h3>ลบรายการ</h3>
+                <h3>ชำระเงิน</h3>
+            </div>
+        </div>
+        <div class="booking-content" id="booking-element">
+        </div>
+        <!-- <div class="content-container">
+        </div> -->
+        <!-- 
+                <div class="content search">
+                    <h3 class="topic">ค้นหาเพื่อนใหม่</h3>
+                    <div class="row-container search-container">
+                        <input
+                            class="input-text search-template"
+                            type="text"
+                            id="mate-name"
+                            name="textbox"
+                            placeholder="ค้นหาโดยชื่อ"
+                        />
+                        <input
+                            class="input-text search-template"
+                            type="text"
+                            id="mate-location"
+                            name="textbox"
+                            placeholder="ค้นหาโดยสถานที่"
+                        />
+                        <div class="input-gender search-template">
+                            <label>
+                                <input
+                                    type="checkbox"
+                                    name="gender"
+                                    value="male"
+                                />
+                                <h5>Male</h5>
+                            </label>
+                            <label>
+                                <input
+                                    type="checkbox"
+                                    name="gender"
+                                    value="female"
+                                />
+                                <p>Female</p>
+                            </label>
+                        </div>
+                        <div class="input-age search-template">
+                            <p>อายุ</p>
+                            <input
+                                class="input-num"
+                                type="number"
+                                id="quantity"
+                                name="quantity"
+                                min="18"
+                                max="150"
+                                value="18"
+                            />
+                        </div>
+                        <button
+                            class="pink-btn input-search search-template"
+                            onclick="searchMates()"
+                        >
+                            Search
+                        </button>
+                    </div>
+                </div>
+                <div class="content top-mate">
+                    <h3 class="topic">Top Mates</h3>
+                    <ul id="card-list"></ul>
+                </div>
+            </div>
+            <footer>
+                <span>Assiztech</span>
+                <div class="member">
+                    <ul>
+                        66010056 นายกันต์ พัฒนาประทีปกุล
+                    </ul>
+                    <ul>
+                        66010239 นางสาวณัฐธิยา นิ่มอนุสสรกุล
+                    </ul>
+                    <ul>
+                        66010357 นายธรรมทิกร เกียรติภูมิชัย
+                    </ul>
+                    <ul>
+                        66010473 นายปวิช รุ่งฐานอุดม
+                    </ul>
+                </div>
+            </footer> -->
+        <!-- </div>  -->
+
+        <script src="../script/booking.js"></script>
+        <!-- <script src="../script/script.js"></script> -->
+</body>
+
+</html>
