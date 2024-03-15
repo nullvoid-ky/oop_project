@@ -111,6 +111,7 @@ function getMates() {
                 const age = item.account_detail.age;
                 const timestamp = item.account_detail.timestamp;
                 createCardRating(
+                    username,
                     displayName,
                     picUrl,
                     starCounting,
@@ -127,6 +128,7 @@ function getMates() {
 }
 
 function createCardRating(
+    username,
     displayName,
     picUrl,
     starCounting,
@@ -138,6 +140,7 @@ function createCardRating(
     timestamp
 ) {
     let list = [
+        ["Username", username],
         ["DisplayName", displayName],
         ["Rating", starCounting],
         ["Gender", gender],
@@ -146,7 +149,7 @@ function createCardRating(
         ["Age", age],
         ["Account Created", timestamp],
     ];
-    if ((list[1][1] = "-1.0")) list[1][1] = "None";
+    if ((list[2][1] = "-1.0")) list[2][1] = "None";
     const cardList = document.getElementById("card-list-mate");
     const card = document.createElement("div");
     card.classList.add("card");
@@ -268,6 +271,9 @@ async function getBooking() {
                     ["customer", item.customer.displayname],
                     ["status", item.status],
                 ];
+                if (list[6][1] == "Success") {
+                    list[2][1] = list[2][1] * 2;
+                }
                 const cardList = document.getElementById("card-list-customer");
                 const card = document.createElement("div");
                 card.classList.add("card");
